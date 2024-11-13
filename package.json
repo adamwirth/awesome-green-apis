@@ -13,7 +13,8 @@
     "aws-amplify": "^6.6.6",
     "next": "14.2.10",
     "react": "^18",
-    "react-dom": "^18"
+    "react-dom": "^18",
+    "recharts": "^2.13.3"
   },
   "devDependencies": {
     "@aws-amplify/backend": "^1.5.1",
