@@ -26,7 +26,7 @@ const Charts = () => {
           height="300px"
           borderRadius={tokens.radii.medium}
         >
-          <StackedBarChartPlot chartData={projects}/>
+          <StackedBarChartPlot chartData={projects} />
         </View>
         <View
           backgroundColor={tokens.colors.neutral[100]}
@@ -47,14 +47,15 @@ const Charts = () => {
           height="250px"
           borderRadius={tokens.radii.medium}
         >
-          <PieChartPlot />
+          <PieChartPlot chartData={projects} sumKey={'primary_structural_system'} options={({legend: true})} />
         </View>
         <View
           backgroundColor={tokens.colors.neutral[90]}
           height="250px"
           borderRadius={tokens.radii.medium}
         >
-          <LineChartPlot />
+          {/* <LineChartPlot /> */}
+          <PieChartPlot chartData={projects} sumKey={'primary_use'} />
         </View>
         <View
           backgroundColor={tokens.colors.neutral[90]}
@@ -64,7 +65,7 @@ const Charts = () => {
           <RadarChartPlot />
         </View>
       </Grid>
-      
+
       {/* Third section - Stats cards */}
       <Grid
         templateColumns="1fr 1fr 1fr 1fr"
