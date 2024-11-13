@@ -1,20 +1,27 @@
-## AWS Amplify Next.js (App Router) Starter Template
+# WIP --- Awesome Green APIs dashboard code
 
-This repository provides a starter template for creating applications using Next.js (App Router) and AWS Amplify, emphasizing easy setup for authentication, API, and database capabilities.
+## TODO List
 
-## Overview
+* Make charts generic
+  * Add metadata like "xaxis", "yaxis" to datasets to have them be able to slot in without editing chart code
+  * Make opinions about who and where
+* More datasets
+  * Define data models for other use-cases/verticals
+  * Add other example companies', spool up example data using data models
+  * Don't fret about folder structure for now, do that and a real DB later
+* Make a tabulated landing page per use case, once more datasets/charts created
+* Make for a "real" database/redis cache setup, even if its done locally
+* New favicon.ico
+* Test for data binding and caching with the recharts as I try to reuse chart elements and ingest other data
+* Keep adding ideas/thoughts to this list, instead of running down rabbit holes
 
-This template equips you with a foundational Next.js application integrated with AWS Amplify, streamlined for scalability and performance. It is ideal for developers looking to jumpstart their project with pre-configured AWS services like Cognito, AppSync, and DynamoDB.
+---
 
-## Features
+## Features from AWS
 
-- **Authentication**: Setup with Amazon Cognito for secure user authentication.
-- **API**: Ready-to-use GraphQL endpoint with AWS AppSync.
-- **Database**: Real-time database powered by Amazon DynamoDB.
-
-## Deploying to AWS
-
-For detailed instructions on deploying your application, refer to the [deployment section](https://docs.amplify.aws/nextjs/start/quickstart/nextjs-app-router-client-components/#deploy-a-fullstack-app-to-aws) of our documentation.
+* **Authentication**: Setup with Amazon Cognito for secure user authentication.
+* **API**: Ready-to-use GraphQL endpoint with AWS AppSync.
+* **Database**: Real-time database powered by Amazon DynamoDB.
 
 ## Security
 
