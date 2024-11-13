@@ -4,7 +4,7 @@ import { Grid, View, Text, useTheme } from '@aws-amplify/ui-react';
 
 import { projects } from "../utils/data/cscale/data";
 
-import AreaChartPlot from "./charts/areaChartPlot";
+import StackedBarChartPlot from "./charts/stackedBarChartPlot";
 import BarChartPlot from "./charts/barChartPlot";
 import PieChartPlot from "./charts/pieChartPlot";
 import LineChartPlot from "./charts/lineChartPlot";
@@ -26,7 +26,7 @@ const Charts = () => {
           height="300px"
           borderRadius={tokens.radii.medium}
         >
-          <AreaChartPlot chartData={projects}/>
+          <StackedBarChartPlot chartData={projects}/>
         </View>
         <View
           backgroundColor={tokens.colors.neutral[100]}

@@ -23,7 +23,7 @@ export interface Project {
 
 export interface ChartData {
     xAxis: string;
-    yAxis: string;
+    yAxis: [string, string];
     data: Project[];
   }
   
