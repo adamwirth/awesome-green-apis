@@ -11,7 +11,6 @@
   * Don't fret about folder structure for now, do that and a real DB later
 * Make a tabulated landing page per use case, once more datasets/charts created
 * Make for a "real" database/redis cache setup, even if its done locally
-* New favicon.ico
 * Test for data binding and caching with the recharts as I try to reuse chart elements and ingest other data
 * Keep adding ideas/thoughts to this list, instead of running down rabbit holes
 
