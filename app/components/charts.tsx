@@ -1,14 +1,15 @@
 'use client'
 
-import { Grid, View, Text, useTheme } from '@aws-amplify/ui-react';
+import { Grid, View, Text, useTheme, Card } from '@aws-amplify/ui-react';
 
-import { projects } from "../utils/data/cscale/data";
+import { explanation, projects } from "../utils/data/cscale/data";
 
 import StackedBarChartPlot from "./charts/stackedBarChartPlot";
 import BarChartPlot from "./charts/barChartPlot";
 import PieChartPlot from "./charts/pieChartPlot";
 import LineChartPlot from "./charts/lineChartPlot";
 import RadarChartPlot from './charts/radarChartPlot';
+import TextPlot from './text';
 
 const Charts = () => {
   const { tokens } = useTheme();
@@ -21,52 +22,49 @@ const Charts = () => {
         gap={tokens.space.small}
         marginBottom={tokens.space.medium}
       >
-        <View
-          backgroundColor={tokens.colors.neutral[100]}
+        <Card
           height="300px"
           borderRadius={tokens.radii.medium}
         >
-          <StackedBarChartPlot chartData={projects} />
-        </View>
-        <View
-          backgroundColor={tokens.colors.neutral[100]}
-          height="300px"
-          borderRadius={tokens.radii.medium}>
           <BarChartPlot />
-        </View>
+          
+        </Card>
+        <Card
+          height="300px"
+          borderRadius={tokens.radii.medium} >
+          <TextPlot data={explanation} />
+        </Card>
       </Grid>
 
-      {/* Second section - Three equal columns */}
+      {/* Second section - Three unequal columns */}
       <Grid
-        templateColumns="1fr 1fr 1fr"
+        templateColumns="1fr 1fr 2fr"
         gap={tokens.space.small}
         marginBottom={tokens.space.medium}
       >
-        <View
-          backgroundColor={tokens.colors.neutral[90]}
+        <Card
           height="250px"
           borderRadius={tokens.radii.medium}
         >
           <PieChartPlot chartData={projects} sumKey={'primary_structural_system'} options={({legend: true})} />
-        </View>
-        <View
-          backgroundColor={tokens.colors.neutral[90]}
+        </Card>
+        <Card
           height="250px"
           borderRadius={tokens.radii.medium}
         >
           {/* <LineChartPlot /> */}
           <PieChartPlot chartData={projects} sumKey={'primary_use'} />
-        </View>
-        <View
-          backgroundColor={tokens.colors.neutral[90]}
+        </Card>
+        <Card
           height="250px"
           borderRadius={tokens.radii.medium}
         >
-          <RadarChartPlot />
-        </View>
+          {/* <RadarChartPlot />*/ }
+          <StackedBarChartPlot chartData={projects} />
+        </Card>
       </Grid>
 
-      {/* Third section - Stats cards */}
+      {/* Last section - Stats cards */}
       <Grid
         templateColumns="1fr 1fr 1fr 1fr"
         gap={tokens.space.small}
@@ -78,9 +76,8 @@ const Charts = () => {
           { title: 'Total subscriptions', value: '$30,000', change: '+34.5%' },
           { title: 'Total returns', value: '$30,000', change: '+34.5%' }
         ].map((stat, index) => (
-          <View
+          <Card
             key={index}
-            backgroundColor={tokens.colors.neutral[80]}
             padding={tokens.space.medium}
             borderRadius={tokens.radii.medium}
           >
@@ -96,10 +93,10 @@ const Charts = () => {
             >
               {stat.value}
             </Text>
-            <Text color={tokens.colors.green[40]}>
+            <Text color={tokens.colors.font.success}>
               {stat.change}
             </Text>
-          </View>
+          </Card>
         ))}
       </Grid>
     </View>

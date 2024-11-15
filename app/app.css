@@ -1,14 +1,11 @@
 body {
-    margin: 0;
-    background: linear-gradient(170deg, rgb(8, 34, 10), rgb(214, 214, 214));
-    /* display: flex; */
-    font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  main {
-    display: flex;
-    flex-direction: column;
-    align-items: stretch;
-  }
+  margin: 0;
+  background: linear-gradient(170deg, rgb(8, 34, 10), rgb(214, 214, 214));
+}
+
+pre.amplify-text {
+  font-family: 'Courier New', Courier, monospace;
+  white-space: pre-wrap;
+  overflow-y: scroll;
+  text-overflow: ellipsis;
+}

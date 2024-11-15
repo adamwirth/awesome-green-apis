@@ -6,17 +6,18 @@ import outputs from "@/amplify_outputs.json";
 import "@aws-amplify/ui-react/styles.css";
 
 import Charts from './components/charts'
+import { DefaultDarkMode } from "./dark_mode";
 
 Amplify.configure(outputs);
 
 export default function App() {
   return (
     <>
-      <div className="flex">
-        <main className="flex-grow ml-64 relative">
+      <DefaultDarkMode>
+        <main>
           <Charts />
         </main>
-      </div>
+      </DefaultDarkMode>
     </>
   )
 }
