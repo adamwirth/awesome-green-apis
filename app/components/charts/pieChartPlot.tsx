@@ -6,7 +6,8 @@ import { getCounts, transformCountsToArray } from "@/app/utils/transformers";
 
 // todo generic, extract
 interface ChartOptions {
-    legend: boolean;
+    legend?: boolean;
+    label?: boolean;
 }
 
 interface BarChartPlotProps {
@@ -20,6 +21,7 @@ const PieChartPlot = ({ chartData, sumKey, options }: BarChartPlotProps) => {
         return <div>No data available to render the chart.</div>;
     }
     const legend = options?.legend;
+    const label = options?.label;
     
     let pieData;
     // e.g., primary_structural_system or primary_use
@@ -39,7 +41,7 @@ const PieChartPlot = ({ chartData, sumKey, options }: BarChartPlotProps) => {
                         cx="50%"
                         cy="50%"
                         fill="#8884d8"
-                        label
+                        label={label}
                     >
                         {
                             pieData.map((_, index: number) => (
