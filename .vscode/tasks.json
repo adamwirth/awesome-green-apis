@@ -1,0 +1,29 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "tsc problem checker",
+			"command": "node_modules/.bin/tsc",
+			"type": "shell",
+			"isBackground": false,
+			"args": [
+				"-p",
+				".",
+				"--noEmit"
+			],
+			"problemMatcher": "$tsc",
+			"group": {
+				"kind": "build",
+				"isDefault": true
+			},
+			"presentation": {
+				"echo": true,
+				"reveal": "always",
+				"focus": true,
+				"panel": "shared",
+				"showReuseMessage": true,
+				"clear": false
+			},
+		}
+	]
+}

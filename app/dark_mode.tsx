@@ -9,7 +9,7 @@ import {
   ColorMode,
 } from "@aws-amplify/ui-react";
 
-export const DefaultDarkMode = ({ children, ...props }) => {
+export const DefaultDarkMode = ({ children, ...props }: any) => {
   const [colorMode, setColorMode] = React.useState<ColorMode>("system");
 
   const theme = {
