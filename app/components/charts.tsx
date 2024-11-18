@@ -7,8 +7,6 @@ import { explanation, projects } from "../utils/data/cscale/data";
 import StackedBarChartPlot from "./charts/stackedBarChartPlot";
 import BarChartPlot from "./charts/barChartPlot";
 import PieChartPlot from "./charts/pieChartPlot";
-import LineChartPlot from "./charts/lineChartPlot";
-import RadarChartPlot from './charts/radarChartPlot';
 import TextPlot from './text';
 
 const Charts = () => {

@@ -10,6 +10,9 @@ const AreaChartPlot = ({ chartData }: AreaChartPlotProps) => {
         return <div>No data available to render the chart.</div>;
     }
 
+    const leftY = chartData.yAxis[0];
+    const rightY = chartData.yAxis[1];
+
     return (
         <>
             <ResponsiveContainer width="100%" height="100%" >
@@ -31,19 +34,19 @@ const AreaChartPlot = ({ chartData }: AreaChartPlotProps) => {
                         interval="preserveStartEnd" >
                         <Label value={chartData.xAxis} offset={-5} position="insideBottom" />
                     </XAxis>
-                    <YAxis dataKey={chartData.yAxis}
+                    <YAxis dataKey={leftY}
                         yAxisId="left"
                         orientation="left"
                         stroke="url(#colorPv)"
                     // domain={['auto', 'auto']} // Auto domain to handle small ranges
                     // allowDecimals={true} // Allow decimals for finer scale
                     >
-                        <Label value={chartData.yAxis} offset={10} angle={-90} position="insideLeft" />
+                        <Label value={leftY} offset={10} angle={-90} position="insideLeft" />
                     </YAxis>
                     <YAxis yAxisId="right" orientation="right" stroke="white" />
                     <Tooltip />
-                    <Area yAxisId="left" type="monotone" dataKey={chartData.yAxis} stroke="url(#colorPv)" fill="url(#colorUv)" />
-                    <Area yAxisId="right" type="monotone" dataKey={'EUI_MEP_threshold'} stroke="white" fill="none" />
+                    <Area yAxisId="left" type="monotone" dataKey={leftY} stroke="url(#colorPv)" fill="url(#colorUv)" />
+                    <Area yAxisId="right" type="monotone" dataKey={rightY} stroke="white" fill="none" />
 
                 </AreaChart>
             </ResponsiveContainer>
