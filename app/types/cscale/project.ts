@@ -1,3 +1,5 @@
+import { ChartData } from "../common";
+
 export interface Project {
     project_name: number;
     year_completion: number;
@@ -20,10 +22,6 @@ export interface Project {
     all_electric: boolean;
 }
 
-
-export interface ChartData {
-    xAxis: string;
-    yAxis: [string, string];
+export interface ProjectChartData extends ChartData {
     data: Project[];
-  }
-  
+}

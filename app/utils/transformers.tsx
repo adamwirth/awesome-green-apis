@@ -1,4 +1,4 @@
-export const getCounts = (data: any[], key: string): Record<string, number> => {
+export const getCounts = (data: any[], key: string | symbol | number): Record<string, number> => {
     return data.reduce((acc: Record<string, number>, curr) => {
         const value = curr[key];
         if (value) {

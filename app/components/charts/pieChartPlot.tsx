@@ -1,8 +1,8 @@
 import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer, Legend } from "recharts";
 
-import { ChartData, Project } from '@/app/types/cscale/project';
 import { GET_PIE_COLOR } from "@/app/utils/constants";
 import { getCounts, transformCountsToArray } from "@/app/utils/transformers";
+import { ChartData } from "@/app/types/common";
 
 // todo generic, extract
 interface ChartOptions {
@@ -10,13 +10,14 @@ interface ChartOptions {
     label?: boolean;
 }
 
-interface BarChartPlotProps {
-    chartData: ChartData;
-    sumKey: keyof Project; // todo best practices on this one?
+interface PieChartPlotProps<T extends ChartData> {
+    chartData: T;
+    // This ensures `sumKey` must be a key of the data items
+    sumKey: keyof T['data'][number];
     options?: ChartOptions;
 }
 
-const PieChartPlot = ({ chartData, sumKey, options }: BarChartPlotProps) => {
+const PieChartPlot = <T extends ChartData>({ chartData, sumKey, options }: PieChartPlotProps<T>) => {
     if (!chartData || !chartData.data || chartData.data.length === 0) {
         return <div>No data available to render the chart.</div>;
     }

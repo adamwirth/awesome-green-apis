@@ -1,0 +1,137 @@
+[
+  {
+    "year": 2009,
+    "envelope": 180,
+    "structure": 210,
+    "interior_fitout": 100,
+    "mep": 90,
+    "hardscape": 85,
+    "pv_array": 50
+  },
+  {
+    "year": 2010,
+    "envelope": 175,
+    "structure": 205,
+    "interior_fitout": 95,
+    "mep": 88,
+    "hardscape": 82,
+    "pv_array": 49
+  },
+  {
+    "year": 2011,
+    "envelope": 170,
+    "structure": 200,
+    "interior_fitout": 92,
+    "mep": 86,
+    "hardscape": 80,
+    "pv_array": 48
+  },
+  {
+    "year": 2012,
+    "envelope": 165,
+    "structure": 195,
+    "interior_fitout": 90,
+    "mep": 85,
+    "hardscape": 78,
+    "pv_array": 47
+  },
+  {
+    "year": 2013,
+    "envelope": 160,
+    "structure": 190,
+    "interior_fitout": 88,
+    "mep": 83,
+    "hardscape": 76,
+    "pv_array": 46
+  },
+  {
+    "year": 2014,
+    "envelope": 155,
+    "structure": 185,
+    "interior_fitout": 85,
+    "mep": 81,
+    "hardscape": 74,
+    "pv_array": 45
+  },
+  {
+    "year": 2015,
+    "envelope": 150,
+    "structure": 180,
+    "interior_fitout": 83,
+    "mep": 80,
+    "hardscape": 72,
+    "pv_array": 44
+  },
+  {
+    "year": 2016,
+    "envelope": 145,
+    "structure": 175,
+    "interior_fitout": 80,
+    "mep": 78,
+    "hardscape": 70,
+    "pv_array": 43
+  },
+  {
+    "year": 2017,
+    "envelope": 140,
+    "structure": 170,
+    "interior_fitout": 78,
+    "mep": 76,
+    "hardscape": 69,
+    "pv_array": 42
+  },
+  {
+    "year": 2018,
+    "envelope": 135,
+    "structure": 165,
+    "interior_fitout": 75,
+    "mep": 74,
+    "hardscape": 67,
+    "pv_array": 41
+  },
+  {
+    "year": 2019,
+    "envelope": 130,
+    "structure": 160,
+    "interior_fitout": 72,
+    "mep": 73,
+    "hardscape": 65,
+    "pv_array": 40
+  },
+  {
+    "year": 2020,
+    "envelope": 125,
+    "structure": 155,
+    "interior_fitout": 70,
+    "mep": 71,
+    "hardscape": 63,
+    "pv_array": 39
+  },
+  {
+    "year": 2021,
+    "envelope": 120,
+    "structure": 150,
+    "interior_fitout": 68,
+    "mep": 70,
+    "hardscape": 62,
+    "pv_array": 38
+  },
+  {
+    "year": 2022,
+    "envelope": 115,
+    "structure": 145,
+    "interior_fitout": 65,
+    "mep": 69,
+    "hardscape": 60,
+    "pv_array": 37
+  },
+  {
+    "year": 2023,
+    "envelope": 110,
+    "structure": 140,
+    "interior_fitout": 63,
+    "mep": 68,
+    "hardscape": 59,
+    "pv_array": 36
+  }
+]

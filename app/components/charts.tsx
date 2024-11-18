@@ -2,7 +2,7 @@
 
 import { Grid, View, Text, useTheme, Card } from '@aws-amplify/ui-react';
 
-import { explanation, projects } from "../utils/data/cscale/data";
+import { carbon, explanation, projects } from "../utils/data/cscale/data";
 
 import StackedBarChartPlot from "./charts/stackedBarChartPlot";
 import BarChartPlot from "./charts/barChartPlot";
@@ -15,22 +15,24 @@ const Charts = () => {
   return (
     <View padding={tokens.space.medium}>
       {/* First section - Two equal columns */}
+      {/* TODO 1 large right column instead of this set up */}
       <Grid
         templateColumns="1fr 1fr"
         gap={tokens.space.small}
         marginBottom={tokens.space.medium}
       >
         <Card
-          height="300px"
+          height="350px"
           borderRadius={tokens.radii.medium}
         >
-          <BarChartPlot />
-          
+          <StackedBarChartPlot chartData={carbon} />
+
         </Card>
         <Card
-          height="300px"
-          borderRadius={tokens.radii.medium} >
-          <TextPlot data={explanation} />
+          height="350px"
+          borderRadius={tokens.radii.medium}
+          >
+            <TextPlot data={explanation} options={{height: "350px"}} />
         </Card>
       </Grid>
 
@@ -44,7 +46,7 @@ const Charts = () => {
           height="250px"
           borderRadius={tokens.radii.medium}
         >
-          <PieChartPlot chartData={projects} sumKey={'primary_structural_system'} options={({legend: true})} />
+          <PieChartPlot chartData={projects} sumKey={'primary_structural_system'} options={({ legend: true })} />
         </Card>
         <Card
           height="250px"
@@ -57,7 +59,7 @@ const Charts = () => {
           height="250px"
           borderRadius={tokens.radii.medium}
         >
-          {/* <RadarChartPlot />*/ }
+          {/* <RadarChartPlot />*/}
           <StackedBarChartPlot chartData={projects} />
         </Card>
       </Grid>

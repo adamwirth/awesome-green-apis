@@ -1,3 +1,5 @@
+import { ChartData } from "../common";
+
 /**
  * Represents a request for carbon intensity data.
  * @link https://api.cscale.io/api/cscale-swagger-docs#/
@@ -185,3 +187,32 @@ export interface Structure {
     woodMassTimber: Record<string, unknown>;
 }
 
+
+/**
+ * Simplified response structure to 
+ * 1. be more performant
+ * 2. avoid guessing what the unknown objects look like
+ * 3. more easily generate example data
+ */
+export interface CarbonIntensitiesResponseSimplified {
+    
+    envelope: number;
+    
+    structure: number;
+    
+    interior_fitout: number;
+    
+    mep: number;
+    
+    hardscape: number;
+    
+    pv_array: number;
+}
+
+export interface CarbonSimplifiedWithYear extends CarbonIntensitiesResponseSimplified {
+    year: number;
+}
+
+export interface CarbonIntensitiesChartData extends ChartData {
+    data: CarbonSimplifiedWithYear[];
+}

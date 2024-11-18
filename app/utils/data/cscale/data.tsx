@@ -1,25 +1,34 @@
+import { CarbonIntensitiesChartData } from "@/app/types/cscale/carbon_intensities";
+import { ProjectChartData } from "@/app/types/cscale/project";
 import { MarkdumbData } from "@/app/types/markdumb";
-import { Project, ChartData } from "../../../types/cscale/project";
+import cscale_generated_yearly_carbon from "./cscale_generated_yearly_carbon.json";
+import cscale_testset_sorted from "./cscale_testset_sorted.json";
 
-const jsonData = require("./cscale_testset_sorted.json") as Project[];
-
-export const projects: ChartData = {
+export const projects: ProjectChartData = {
   xAxis: 'year_completion',
   yAxis: ['benchmark_EUI', 'EUI_MEP_threshold',
     //  'window_to_wall_ratio'
     ],
-  data: jsonData
+  data: cscale_testset_sorted
 };
+
+export const carbon: CarbonIntensitiesChartData = {
+  xAxis: 'year',
+  yAxis: ['mep', 'pv_array'],
+  data: cscale_generated_yearly_carbon
+}
 
 /** Overview of the API to be rendered as a TextPlot */
 export const explanation: MarkdumbData = [
   {
       content: 'CScale',
-      size: 'xl',
+      size: 'xxl',
+      type: 'h1'
   },
   {
-      content: 'CScale\'s API designed to provide comprehensive carbon intensity data for various building elements and structures based on location and unit preferences. It helps users understand and track carbon emissions across multiple aspects of construction and design.',
+      content: 'An API designed to provide comprehensive carbon intensity data for various building elements and structures based on location and unit inputs. It helps users understand and track carbon emissions across aspects of construction and design.',
       size: 'm',
+      type: 'p'
   },
   {
       content: `
@@ -53,6 +62,6 @@ Response:
 }
       `,
       size: 'm',
-      code: true,
+      type: 'code',
   },
 ];

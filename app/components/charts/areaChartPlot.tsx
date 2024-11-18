@@ -1,11 +1,12 @@
-import { ChartData } from '@/app/types/cscale/project';
+import { ChartData } from '@/app/types/common';
 import { AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer, Label } from 'recharts';
+import { DataKey } from 'recharts/types/util/types';
 
-interface AreaChartPlotProps {
-    chartData: ChartData;
+interface AreaChartPlotProps<T extends ChartData> {
+    chartData: T;
 }
 
-const AreaChartPlot = ({ chartData }: AreaChartPlotProps) => {
+const AreaChartPlot = <T extends ChartData>({ chartData }: AreaChartPlotProps<T>) => {
     if (!chartData || !chartData.data || chartData.data.length === 0) {
         return <div>No data available to render the chart.</div>;
     }
@@ -28,7 +29,7 @@ const AreaChartPlot = ({ chartData }: AreaChartPlotProps) => {
                             <stop offset="95%" stopColor="#00b300" stopOpacity={0} />
                         </linearGradient>
                     </defs>
-                    <XAxis dataKey={chartData.xAxis}
+                    <XAxis dataKey={chartData.xAxis as T["xAxis"]}
                         domain={['auto', 'auto']}
                         type="number"
                         interval="preserveStartEnd" >

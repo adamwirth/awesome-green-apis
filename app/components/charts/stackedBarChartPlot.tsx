@@ -1,25 +1,28 @@
-import { ChartData } from '@/app/types/cscale/project';
+import { ChartData } from '@/app/types/common';
 import { LEFT_COLOR, RIGHT_COLOR } from '@/app/utils/constants';
 import { aggregateDataByYear } from '@/app/utils/transformers';
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, Label, Legend } from 'recharts';
 
-interface BarChartPlotProps {
-    chartData: ChartData;
+interface StackedBarChartPlotProps<T extends ChartData> {
+    chartData: T;
 }
-
 
 /**
  * Currently takes in a pair of yAxis-es to render with.
  * @todo trendline(s) automatically
  * @todo check for supplied statistics data (before calculating myself)
  */
-const StackedBarChartPlot = ({ chartData }: BarChartPlotProps) => {
+const StackedBarChartPlot = <T extends ChartData>({ chartData }: StackedBarChartPlotProps<T>) => {
     if (!chartData || !chartData.data || chartData.data.length === 0) {
         return <div>No data available to render the chart.</div>;
     }
 
     // Aggreegate data by year to calculate averages for supplied yAxis keys
-    const aggregatedData = aggregateDataByYear(chartData.data, chartData.xAxis, chartData.yAxis);
+    const aggregatedData = aggregateDataByYear(
+        chartData.data, 
+        chartData.xAxis as T["xAxis"], 
+        chartData.yAxis as T["yAxis"]
+    );
 
     return (
         <>
