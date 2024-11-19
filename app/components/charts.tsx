@@ -27,17 +27,15 @@ const Charts = () => {
       >
         <Card
           height="350px"
-          
-        columnSpan={{ base: 1, medium: 1 }}
           borderRadius={tokens.radii.medium}
+          columnSpan={{ base: 1, medium: 1 }}
         >
           <StackedBarChartPlot chartData={carbon} />
 
         </Card>
         <Card
+          height={{ 'base': "350px", "medium": "100%" }}
           borderRadius={tokens.radii.medium}
-          height={{'base': "350px", "medium": "100%"}}
-            
           columnSpan={{ base: 1, medium: 1 }}
           rowSpan={{ base: 1, medium: 3 }}
         >
@@ -45,12 +43,12 @@ const Charts = () => {
         </Card>
 
 
-      {/* Pie charts container */}
-      <Grid
-        columnSpan={{ base: 1, medium: 1 }}
-        templateColumns={'1fr 1fr'}
-        gap={tokens.space.small }
-      >
+        {/* Pie charts container */}
+        <Grid
+          columnSpan={{ base: 1, medium: 1 }}
+          templateColumns={'1fr 1fr'}
+          gap={tokens.space.small}
+        >
           <Card
             height="350px"
             borderRadius={tokens.radii.medium}
@@ -64,49 +62,13 @@ const Charts = () => {
             <PieChartPlot chartData={projects} sumKey={'primary_use'} />
           </Card>
         </Grid>
-        
+
         <Card
           height="250px"
           borderRadius={tokens.radii.medium}
         >
           <StackedBarChartPlot chartData={projects} />
         </Card>
-
-        {/* <Grid
-          columnSpan={{ base: 1, medium: 1 }}
-          templateColumns={'2fr 2fr'}
-          gap={tokens.space.small }
-        >
-        {[
-          { title: 'Total returns', value: '$30,000', change: '+34.5%' },
-          { title: 'Total sales', value: '$30,000', change: '+34.5%' },
-          { title: 'Total subscriptions', value: '$30,000', change: '+34.5%' },
-          { title: 'Total returns', value: '$30,000', change: '+34.5%' }
-        ].map((stat, index) => (
-          <Card
-            key={index}
-            padding={tokens.space.medium}
-            borderRadius={tokens.radii.medium}
-          >
-            <Text
-              variation="primary"
-              fontWeight={tokens.fontWeights.bold}
-            >
-              {stat.title}
-            </Text>
-            <Text
-              padding={`${tokens.space.medium} 0`}
-              fontWeight={tokens.fontWeights.bold}
-            >
-              {stat.value}
-            </Text>
-            <Text color={tokens.colors.font.success}>
-              {stat.change}
-            </Text>
-          </Card>
-        ))}
-        </Grid>
-         */}
       </Grid>
     </View>
   );

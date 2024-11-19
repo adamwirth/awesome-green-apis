@@ -56,6 +56,8 @@ const TextPlot = ({ data, options }: TextPlotProps) => {
                     as="pre"
                     className="preformatted"
                     fontWeight={tokens.fontWeights.bold}
+                    backgroundColor={tokens.colors.background.secondary}
+                    borderRadius={tokens.radii.small}
                     {...commonTextProps(datum)}
                 >
                     {datum.content}
