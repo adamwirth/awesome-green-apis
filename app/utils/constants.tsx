@@ -1,5 +1,5 @@
-export const LEFT_COLOR = "#00b300";
-export const RIGHT_COLOR = "#ff6600";
+export const LEFT_COLOR = "#FFCF96"; // rosy
+export const RIGHT_COLOR = "#B5DEFF"; // soft blue
 const PIE_COLORS = [
         "#8884d8",
         "#FA8072",

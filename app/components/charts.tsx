@@ -7,9 +7,41 @@ import Loading from './loading';
 
 import { carbon, explanation, projects } from "@/app/utils/data/cscale/data";
 
-import { StackedBarChartPlot } from "./charts/stackedBarChartPlot";
-import PieChartPlot from "./charts/pieChartPlot";
-import TextPlot from "./text";
+import TextPlot from './text';
+// TODO not sure if I should make this one dynamic or if that is overkill, or if it can be overkill...
+// const TextPlot = dynamic(
+//   () => import('./text'),
+//   {
+//     ssr: false,
+//     loading: () => <Loading />,
+//   }
+// )
+
+const StackedBarChartPlot = dynamic(
+  () => import('./charts/stackedBarChartPlot'),
+  {
+    ssr: false,
+    loading: () => <Loading />,
+  }
+);
+
+const PieChartPlot = dynamic(
+  () => import('./charts/pieChartPlot'),
+  {
+    ssr: false,
+    loading: () => <Loading />,
+  }
+);
+
+
+const AreaChartPlot = dynamic(
+  () => import('./charts/areaChartPlot'),
+  {
+    ssr: false,
+    loading: () => <Loading />,
+  }
+);
+
 
 const Charts = () => {
   const { tokens } = useTheme();
@@ -30,7 +62,6 @@ const Charts = () => {
       >
         <Card
           height="350px"
-          minHeight={{ "medium": "350px" }}
           borderRadius={tokens.radii.medium}
           columnSpan={{ base: 1, medium: 1 }}
         >
@@ -45,12 +76,14 @@ const Charts = () => {
         </Card>
         <Card
           height={{ "base": "350px", "medium": "100%" }}
-          minHeight={{ "medium": "350px" }}
           borderRadius={tokens.radii.medium}
           columnSpan={{ base: 1, medium: 1 }}
           rowSpan={{ base: 1, medium: 3 }}
         >
-          <TextPlot data={explanation} options={{ height: "100%" }} />
+          <TextPlot
+            data={explanation}
+            options={{ height: "100%" }}
+          />
         </Card>
 
 
@@ -62,26 +95,48 @@ const Charts = () => {
         >
           <Card
             height="350px"
-            minHeight={{ "medium": "350px" }}
             borderRadius={tokens.radii.medium}
           >
-            <PieChartPlot chartDataRef={projects} sumKey={'primary_structural_system'} options={({ legend: true })} />
+            <PieChartPlot
+              chartDataRef={projects}
+              sumKey={'primary_structural_system'}
+              options={(
+                {
+                  legend: true,
+                  title: 'Primary Structural System Stats',
+                  height: '100%',
+                  margin: { top: 20, right: 40, left: 10, bottom: 20 }
+                })} />
           </Card>
           <Card
             height="350px"
-            minHeight={{ "medium": "350px" }}
             borderRadius={tokens.radii.medium}
           >
-            <PieChartPlot chartDataRef={projects} sumKey={'primary_use'} />
+            <PieChartPlot
+              chartDataRef={projects}
+              sumKey={'primary_use'}
+
+              options={{
+                title: 'Primary Use Stats',
+                height: '100%',
+                margin: { top: 20, right: 40, left: 10, bottom: 20 }
+              }}
+            />
           </Card>
         </Grid>
 
         <Card
           height="250px"
-          minHeight={{ "medium": "250px" }}
           borderRadius={tokens.radii.medium}
         >
-          <StackedBarChartPlot chartDataRef={projects} />
+          <AreaChartPlot
+            chartDataRef={projects}
+
+            options={{
+              title: 'Projects',
+              height: '100%',
+              margin: { top: 20, right: 40, left: 10, bottom: 0 }
+            }} />
         </Card>
       </Grid>
     </View>
