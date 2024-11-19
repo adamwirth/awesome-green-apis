@@ -1,3 +1,5 @@
+import { Heading } from '@aws-amplify/ui-react';
+import { Customized } from 'recharts';
 import * as React from 'react';
 
 function SimpleErrorBoundary({ children }: { children: React.ReactNode }) {
@@ -19,15 +21,15 @@ export interface ChartOptions {
   width?: string;
   margin?: any;
   [key: string]: any;
- }
+}
 
 export interface BaseChartProps {
   chartDataRef: {
-    data: () => Promise<{default: any[]}>;
+    data: () => Promise<{ default: any[] }>;
     [key: string]: any;
   };
   options?: ChartOptions;
- }
+}
 
 export interface BaseChartState {
   processedData: any | null,
@@ -54,7 +56,7 @@ export class BaseChart<P extends BaseChartProps> extends React.Component<P> {
       this.setState({ error: error as Error, isLoading: false });
     }
   }
-  
+
   componentDidMount() {
     this.loadData();
   }
@@ -86,4 +88,16 @@ export class BaseChart<P extends BaseChartProps> extends React.Component<P> {
 
     return <SimpleErrorBoundary>{renderContent()}</SimpleErrorBoundary>;
   }
+
+  /**
+   * Render a heading within the chart.
+   * @param props recharts props, looking for "title"
+   * @returns text element to render
+   */
+  customTitle(props: any): React.ReactNode {
+    const { title } = props;
+
+    if (!title) return null;
+    return <Heading>{title}</Heading>;
+  };
 }

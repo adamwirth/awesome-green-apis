@@ -3,6 +3,7 @@ import { Cell, Legend, Pie, PieChart, ResponsiveContainer, Tooltip } from "recha
 import { GET_PIE_COLOR } from "@/app/utils/constants";
 import { getCounts, transformCountsToArray } from "@/app/utils/transformers";
 import { BaseChart, BaseChartProps, ChartOptions } from "./baseChart";
+import { Heading } from "@aws-amplify/ui-react";
 
 interface PieChartData {
     data: () => Promise<{ default: any[] }>;
@@ -28,9 +29,8 @@ class PieChartPlot extends BaseChart<PieChartPlotProps> {
     renderChart() {
         const { processedData } = this.state;
         const { sumKey, options = {} } = this.props;
-        
-        const legend = options?.legend;
-        const label = options?.label;
+
+        const legend = options.legend;
 
         // e.g., primary_structural_system or primary_use
         const sumKeyCounts = getCounts(processedData.data, sumKey);
@@ -38,8 +38,9 @@ class PieChartPlot extends BaseChart<PieChartPlotProps> {
 
         return (
             <>
+                {this.customTitle(options)}
                 <ResponsiveContainer width="100%" height="100%" >
-                    <PieChart width={730} height={250} >
+                    <PieChart width={730} height={options.title ? 200 : 250} >
                         <Pie
                             data={pieData}
                             dataKey="value"

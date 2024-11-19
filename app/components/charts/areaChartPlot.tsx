@@ -1,10 +1,17 @@
 import { Area, AreaChart, Label, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
-import { BaseChart, BaseChartProps } from './baseChart';
+import { BaseChart, BaseChartProps, ChartOptions } from './baseChart';
 import { aggregateDataByYear } from '@/app/utils/transformers';
 import { LEFT_COLOR, RIGHT_COLOR } from '@/app/utils/constants';
+import { Heading } from '@aws-amplify/ui-react';
+
+
+interface AreaChartOptions extends ChartOptions {
+    title?: boolean;
+}
 
 interface AreaChartData {
     data: any[];
+    options?: AreaChartOptions;
     [key: string]: any;
 }
 
@@ -19,7 +26,8 @@ interface AreaChartPlotProps extends BaseChartProps {
 class AreaChartPlot extends BaseChart<AreaChartPlotProps> {
     renderChart() {
         const { processedData } = this.state;
-        
+        const { options = {} } = this.props;
+
         // Aggregate data by year
         const aggregatedData = aggregateDataByYear(
             processedData.data,
@@ -29,13 +37,18 @@ class AreaChartPlot extends BaseChart<AreaChartPlotProps> {
 
         return (
             <>
+                {this.customTitle(options)}
                 <ResponsiveContainer width="100%" height="100%" >
-                    <AreaChart data={aggregatedData}
-                        margin={{ top: 10, right: 30, left: 0, bottom: 15 }}>
+                    <AreaChart
+                        data={aggregatedData}
+                        margin={{ top: 10, right: 30, left: 0, bottom: 15 }}
+                        height={options.title ? 250 : 350}
+                    >
+                        {this.customTitle(options)}
+
                         <XAxis dataKey={processedData.xAxis as string}
                             domain={['auto', 'auto']}
-                            type="number" >
-                        </XAxis>
+                            type="number" />
                         <Tooltip />
 
                         {processedData.yAxis.map((key: string, index: number) => (

@@ -12,7 +12,7 @@ interface TextPlotProps {
  * @description Uses factory methods to spool up text elements, given MarkdumbData.
  * @returns 
  */
-const TextPlot = ({ data, options }: TextPlotProps) => {
+const TextPlot = ({ data, options = {} }: TextPlotProps) => {
     const { tokens } = useTheme();
 
     const commonTextProps = (datum: MarkdumbElement) => ({
@@ -49,7 +49,7 @@ const TextPlot = ({ data, options }: TextPlotProps) => {
         (datum: MarkdumbElement, index: number) => (
             <ScrollView
                 maxWidth="100%"
-                maxHeight={options?.height}
+                maxHeight={options.height}
                 key={index}
             >
                 <Text
@@ -64,7 +64,7 @@ const TextPlot = ({ data, options }: TextPlotProps) => {
                 </Text>
             </ScrollView>
         ),
-        [tokens, options?.height]
+        [tokens, options.height]
     );
 
     // Map object to handle different datum types
