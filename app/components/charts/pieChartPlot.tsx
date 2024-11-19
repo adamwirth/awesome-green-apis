@@ -1,8 +1,7 @@
-import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer, Legend } from "recharts";
+import { Cell, Legend, Pie, PieChart, ResponsiveContainer, Tooltip } from "recharts";
 
 import { GET_PIE_COLOR } from "@/app/utils/constants";
 import { getCounts, transformCountsToArray } from "@/app/utils/transformers";
-import { ChartData } from "@/app/types/common";
 import { BaseChart, BaseChartProps, ChartOptions } from "./baseChart";
 
 interface PieChartData {

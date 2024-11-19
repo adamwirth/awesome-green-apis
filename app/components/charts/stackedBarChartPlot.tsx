@@ -1,35 +1,34 @@
-import React from 'react';
-import { 
-  BarChart, 
-  Bar, 
-  XAxis, 
-  YAxis, 
-  Tooltip, 
-  ResponsiveContainer, 
-  Label, 
-  Legend 
-} from 'recharts';
 import { LEFT_COLOR, RIGHT_COLOR } from '@/app/utils/constants';
 import { aggregateDataByYear } from '@/app/utils/transformers';
+import {
+  Bar,
+  BarChart,
+  Label,
+  Legend,
+  ResponsiveContainer,
+  Tooltip,
+  XAxis,
+  YAxis
+} from 'recharts';
 
 import { BaseChart, BaseChartProps, ChartOptions } from './baseChart';
-import { ChartData } from '@/app/types/common';
 
 interface StackedBarChartProps extends BaseChartProps {
   chartDataRef: {
-    data: () => Promise<{default: any[]}>;
+    data: () => Promise<{ default: any[] }>;
     xAxis: string;
     yAxis: string[];
   };
+  
   options?: ChartOptions & {
-    margin?: { 
+    margin?: {
       top?: number;
       right?: number;
       left?: number;
       bottom?: number;
     };
   };
- }
+}
 
 /**
  * Currently takes in a pair of yAxis-es to render with.
@@ -37,7 +36,7 @@ interface StackedBarChartProps extends BaseChartProps {
  * @todo check for supplied statistics data (before calculating myself)
  */
 export class StackedBarChart extends BaseChart<StackedBarChartProps> {
-  
+
   renderChart() {
     const { processedData } = this.state;
     const { options = {} } = this.props;
@@ -78,17 +77,17 @@ export class StackedBarChart extends BaseChart<StackedBarChartProps> {
             orientation="left"
             stroke={LEFT_COLOR}
           >
-            <Label 
-              value={"Averages"} 
-              offset={10} 
-              angle={-90} 
-              position="insideLeft" 
+            <Label
+              value={"Averages"}
+              offset={10}
+              angle={-90}
+              position="insideLeft"
             />
           </YAxis>
-          <YAxis 
-            yAxisId="right" 
-            orientation="right" 
-            stroke={RIGHT_COLOR} 
+          <YAxis
+            yAxisId="right"
+            orientation="right"
+            stroke={RIGHT_COLOR}
           />
           <Tooltip />
           <Legend />

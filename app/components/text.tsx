@@ -1,6 +1,7 @@
-import { Card, Heading, ScrollView, Text, useTheme, View } from '@aws-amplify/ui-react';
-import { MarkdumbData, MarkdumbElement } from '../types/markdumb';
+import { Heading, ScrollView, Text, useTheme } from '@aws-amplify/ui-react';
 import * as React from 'react';
+
+import { MarkdumbData, MarkdumbElement } from '../types/markdumb';
 
 interface TextPlotProps {
     data: MarkdumbData;
@@ -14,13 +15,12 @@ interface TextPlotProps {
 const TextPlot = ({ data, options }: TextPlotProps) => {
     const { tokens } = useTheme();
 
-    
     const commonTextProps = (datum: MarkdumbElement) => ({
         fontSize: tokens.fontSizes[datum.size],
         padding: `${tokens.space.small} 0`,
     });
 
-    
+
     const headerBuilder = React.useCallback(
         (datum: MarkdumbElement, index: number) => (
             <Heading

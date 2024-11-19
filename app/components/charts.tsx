@@ -1,6 +1,9 @@
 "use client";
 
-import { Grid, View, useTheme, Card } from '@aws-amplify/ui-react';
+import { Card, Grid, View, useTheme } from '@aws-amplify/ui-react';
+import dynamic from 'next/dynamic';
+
+import Loading from './loading';
 
 import { carbon, explanation, projects } from "@/app/utils/data/cscale/data";
 

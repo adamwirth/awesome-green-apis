@@ -1,13 +1,13 @@
-import * as React from "react";
 import {
-  defaultDarkModeOverride,
-  ThemeProvider,
   Card,
+  ColorMode,
+  defaultDarkModeOverride,
   Text,
+  ThemeProvider,
   ToggleButton,
   ToggleButtonGroup,
-  ColorMode,
 } from "@aws-amplify/ui-react";
+import * as React from "react";
 
 export const DefaultDarkMode = ({ children, ...props }: any) => {
   const [colorMode, setColorMode] = React.useState<ColorMode>("system");

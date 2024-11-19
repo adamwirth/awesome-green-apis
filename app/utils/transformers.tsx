@@ -13,7 +13,6 @@ export const transformCountsToArray = (counts: Record<string, number>) => {
     return Object.entries(counts).map(([name, value]) => ({ name, value }));
 };
 
-
 // Helper function to aggregate data by year + calculate averages for multiple keys
 export const aggregateDataByYear = (data: any[], xAxisKey: string, yAxis: string | string[]) => {
     const yAxisKeys = typeof yAxis === 'object' ? yAxis : [yAxis];

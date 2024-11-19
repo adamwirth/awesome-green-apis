@@ -1,5 +1,4 @@
-import * as React from 'react';
-import { Card, Grid, View, Text, Heading, Icon, useTheme } from '@aws-amplify/ui-react';
+import { Card, Grid, Heading, Icon, Text, useTheme, View } from '@aws-amplify/ui-react';
 import { useState } from 'react';
 
 const DashboardHeader = () => {
