@@ -2,11 +2,11 @@
 
 import { Grid, View, useTheme, Card } from '@aws-amplify/ui-react';
 
-import { carbon, explanation, projects } from "../utils/data/cscale/data";
+import { carbon, explanation, projects } from "@/app/utils/data/cscale/data";
 
-import StackedBarChartPlot from "./charts/stackedBarChartPlot";
+import { StackedBarChartPlot } from "./charts/stackedBarChartPlot";
 import PieChartPlot from "./charts/pieChartPlot";
-import TextPlot from './text';
+import TextPlot from "./text";
 
 const Charts = () => {
   const { tokens } = useTheme();
@@ -27,14 +27,22 @@ const Charts = () => {
       >
         <Card
           height="350px"
+          minHeight={{ "medium": "350px" }}
           borderRadius={tokens.radii.medium}
           columnSpan={{ base: 1, medium: 1 }}
         >
-          <StackedBarChartPlot chartData={carbon} />
-
+          <StackedBarChartPlot
+            chartDataRef={carbon}
+            options={{
+              title: 'Carbon Data',
+              height: '350px',
+              margin: { top: 20, right: 40, left: 10, bottom: 20 }
+            }}
+          />
         </Card>
         <Card
-          height={{ 'base': "350px", "medium": "100%" }}
+          height={{ "base": "350px", "medium": "100%" }}
+          minHeight={{ "medium": "350px" }}
           borderRadius={tokens.radii.medium}
           columnSpan={{ base: 1, medium: 1 }}
           rowSpan={{ base: 1, medium: 3 }}
@@ -51,23 +59,26 @@ const Charts = () => {
         >
           <Card
             height="350px"
+            minHeight={{ "medium": "350px" }}
             borderRadius={tokens.radii.medium}
           >
-            <PieChartPlot chartData={projects} sumKey={'primary_structural_system'} options={({ legend: true })} />
+            <PieChartPlot chartDataRef={projects} sumKey={'primary_structural_system'} options={({ legend: true })} />
           </Card>
           <Card
             height="350px"
+            minHeight={{ "medium": "350px" }}
             borderRadius={tokens.radii.medium}
           >
-            <PieChartPlot chartData={projects} sumKey={'primary_use'} />
+            <PieChartPlot chartDataRef={projects} sumKey={'primary_use'} />
           </Card>
         </Grid>
 
         <Card
           height="250px"
+          minHeight={{ "medium": "250px" }}
           borderRadius={tokens.radii.medium}
         >
-          <StackedBarChartPlot chartData={projects} />
+          <StackedBarChartPlot chartDataRef={projects} />
         </Card>
       </Grid>
     </View>

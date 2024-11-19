@@ -23,5 +23,5 @@ export interface Project {
 }
 
 export interface ProjectChartData extends ChartData {
-    data: Project[];
+    data: () => Promise<any>
 }

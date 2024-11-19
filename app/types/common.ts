@@ -1,5 +1,5 @@
 export interface ChartData {
     xAxis: string;
     yAxis: [string, string];
-    data: any[];
+    data: () => Promise<any>;
 }
