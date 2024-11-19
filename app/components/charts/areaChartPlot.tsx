@@ -19,11 +19,7 @@ interface AreaChartPlotProps extends BaseChartProps {
 class AreaChartPlot extends BaseChart<AreaChartPlotProps> {
     renderChart() {
         const { processedData } = this.state;
-
-        if (!processedData || !processedData.data || processedData.data.length === 0) {
-            return <div>No data available to render the chart.</div>;
-        }
-
+        
         // Aggregate data by year
         const aggregatedData = aggregateDataByYear(
             processedData.data,

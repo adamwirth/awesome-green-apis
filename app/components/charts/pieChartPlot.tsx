@@ -28,17 +28,13 @@ class PieChartPlot extends BaseChart<PieChartPlotProps> {
     renderChart() {
         const { processedData } = this.state;
         const { sumKey, options = {} } = this.props;
-
-        if (!processedData || !processedData.data || processedData.data.length === 0) {
-            return <div>No data available to render the chart.</div>;
-        }
+        
         const legend = options?.legend;
         const label = options?.label;
 
         // e.g., primary_structural_system or primary_use
         const sumKeyCounts = getCounts(processedData.data, sumKey);
         const pieData = transformCountsToArray(sumKeyCounts);
-
 
         return (
             <>

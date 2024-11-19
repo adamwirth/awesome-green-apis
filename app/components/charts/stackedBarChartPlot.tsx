@@ -41,10 +41,6 @@ export class StackedBarChart extends BaseChart<StackedBarChartProps> {
     const { processedData } = this.state;
     const { options = {} } = this.props;
 
-    if (!processedData || !processedData.data || processedData.data.length === 0) {
-      return <div>No data available to render the chart.</div>;
-    }
-
     // Aggregate data by year
     const aggregatedData = aggregateDataByYear(
       processedData.data,
