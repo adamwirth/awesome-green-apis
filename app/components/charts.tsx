@@ -1,11 +1,10 @@
-'use client'
+"use client";
 
-import { Grid, View, Text, useTheme, Card } from '@aws-amplify/ui-react';
+import { Grid, View, useTheme, Card } from '@aws-amplify/ui-react';
 
 import { carbon, explanation, projects } from "../utils/data/cscale/data";
 
 import StackedBarChartPlot from "./charts/stackedBarChartPlot";
-import BarChartPlot from "./charts/barChartPlot";
 import PieChartPlot from "./charts/pieChartPlot";
 import TextPlot from './text';
 
@@ -14,62 +13,70 @@ const Charts = () => {
 
   return (
     <View padding={tokens.space.medium}>
-      {/* First section - Two equal columns */}
-      {/* TODO 1 large right column instead of this set up */}
       <Grid
-        templateColumns="1fr 1fr"
+        templateColumns={{
+          base: '1fr',
+          medium: '4fr 3fr'
+        }}
+        templateRows={{
+          base: 'repeat(4, auto)',
+          medium: '350px 350px'
+        }}
         gap={tokens.space.small}
         marginBottom={tokens.space.medium}
       >
         <Card
           height="350px"
+          
+        columnSpan={{ base: 1, medium: 1 }}
           borderRadius={tokens.radii.medium}
         >
           <StackedBarChartPlot chartData={carbon} />
 
         </Card>
         <Card
-          height="350px"
           borderRadius={tokens.radii.medium}
-          >
-            <TextPlot data={explanation} options={{height: "350px"}} />
+          height={{'base': "350px", "medium": "100%"}}
+            
+          columnSpan={{ base: 1, medium: 1 }}
+          rowSpan={{ base: 1, medium: 3 }}
+        >
+          <TextPlot data={explanation} options={{ height: "100%" }} />
         </Card>
-      </Grid>
 
-      {/* Second section - Three unequal columns */}
+
+      {/* Pie charts container */}
       <Grid
-        templateColumns="1fr 1fr 2fr"
-        gap={tokens.space.small}
-        marginBottom={tokens.space.medium}
+        columnSpan={{ base: 1, medium: 1 }}
+        templateColumns={'1fr 1fr'}
+        gap={tokens.space.small }
       >
+          <Card
+            height="350px"
+            borderRadius={tokens.radii.medium}
+          >
+            <PieChartPlot chartData={projects} sumKey={'primary_structural_system'} options={({ legend: true })} />
+          </Card>
+          <Card
+            height="350px"
+            borderRadius={tokens.radii.medium}
+          >
+            <PieChartPlot chartData={projects} sumKey={'primary_use'} />
+          </Card>
+        </Grid>
+        
         <Card
           height="250px"
           borderRadius={tokens.radii.medium}
         >
-          <PieChartPlot chartData={projects} sumKey={'primary_structural_system'} options={({ legend: true })} />
-        </Card>
-        <Card
-          height="250px"
-          borderRadius={tokens.radii.medium}
-        >
-          {/* <LineChartPlot /> */}
-          <PieChartPlot chartData={projects} sumKey={'primary_use'} />
-        </Card>
-        <Card
-          height="250px"
-          borderRadius={tokens.radii.medium}
-        >
-          {/* <RadarChartPlot />*/}
           <StackedBarChartPlot chartData={projects} />
         </Card>
-      </Grid>
 
-      {/* Last section - Stats cards */}
-      <Grid
-        templateColumns="1fr 1fr 1fr 1fr"
-        gap={tokens.space.small}
-        marginBottom={tokens.space.medium}
-      >
+        {/* <Grid
+          columnSpan={{ base: 1, medium: 1 }}
+          templateColumns={'2fr 2fr'}
+          gap={tokens.space.small }
+        >
         {[
           { title: 'Total returns', value: '$30,000', change: '+34.5%' },
           { title: 'Total sales', value: '$30,000', change: '+34.5%' },
@@ -98,6 +105,8 @@ const Charts = () => {
             </Text>
           </Card>
         ))}
+        </Grid>
+         */}
       </Grid>
     </View>
   );

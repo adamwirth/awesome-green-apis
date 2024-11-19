@@ -23,14 +23,14 @@ const PieChartPlot = <T extends ChartData>({ chartData, sumKey, options }: PieCh
     }
     const legend = options?.legend;
     const label = options?.label;
-    
+
     let pieData;
     // e.g., primary_structural_system or primary_use
     {
         const sumKeyCounts = getCounts(chartData.data, sumKey);
         pieData = transformCountsToArray(sumKeyCounts);
     }
-    
+
     return (
         <>
             <ResponsiveContainer width="100%" height="100%" >
@@ -47,7 +47,8 @@ const PieChartPlot = <T extends ChartData>({ chartData, sumKey, options }: PieCh
                         {
                             pieData.map((_, index: number) => (
                                 <Cell key={`cell-${index}`} fill={GET_PIE_COLOR(index)} />
-                            ))}
+                            ))
+                        }
                     </Pie>
                     < Tooltip />
                     {legend ? (< Legend />) : null}

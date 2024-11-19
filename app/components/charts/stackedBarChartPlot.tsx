@@ -45,11 +45,11 @@ const StackedBarChartPlot = <T extends ChartData>({ chartData }: StackedBarChart
                         domain={['auto', 'auto']}
                         // interval="equidistantPreserveStart"
                         // scale="sequential"
-                    >
-                        <Label value={chartData.xAxis} offset={-1} position="insideBottom" />
-                    </XAxis>
+                    />
                     <YAxis
-                        yAxisId="left" orientation="left" stroke={LEFT_COLOR}
+                        yAxisId="left" 
+                        orientation="left" 
+                        stroke={LEFT_COLOR}
                         // domain={['auto', 'auto']} // Auto domain to handle small ranges
                         // allowDecimals={true} // Allow decimals for finer scale
                     >
