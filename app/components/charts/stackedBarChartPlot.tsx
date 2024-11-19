@@ -91,13 +91,13 @@ export class StackedBarChart extends BaseChart<StackedBarChartProps> {
           />
           <Tooltip />
           <Legend />
-          
+
           {processedData.yAxis.map((key: string, index: number) => (
             <Bar
               key={key}
               yAxisId={index % 2 === 0 ? "left" : "right"}
               dataKey={`average_${key}`}
-              stackId="aaa"
+              stackId="bbb"
               fill={index % 2 === 0 ? LEFT_COLOR : RIGHT_COLOR}
               name={`Average ${key}`}
             />
@@ -108,6 +108,4 @@ export class StackedBarChart extends BaseChart<StackedBarChartProps> {
   }
 }
 
-export const StackedBarChartPlot = (props: {chartDataRef: ChartData, options?: any}) => {
-  return <StackedBarChart {...props} />;
-};
+export default StackedBarChart;

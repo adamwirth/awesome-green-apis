@@ -1,12 +1,12 @@
-import { ChartData } from '@/app/types/common';
-import React from 'react';
+import * as React from 'react';
 
 function SimpleErrorBoundary({ children }: { children: React.ReactNode }) {
   try {
     return <>{children}</>;
   } catch (error) {
+    console.error(error);
     return (
-      <div className="p-4 text-red-500">
+      <div className="--amplify-colors-font-error">
         <p>An error occurred while rendering the chart.</p>
         {error instanceof Error && <pre>{error.message}</pre>}
       </div>

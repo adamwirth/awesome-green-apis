@@ -1,8 +1,6 @@
 import { CarbonIntensitiesChartData } from "@/app/types/cscale/carbon_intensities";
 import { ProjectChartData } from "@/app/types/cscale/project";
 import { MarkdumbData } from "@/app/types/markdumb";
-// import cscale_generated_yearly_carbon from "./cscale_generated_yearly_carbon.json";
-// import cscale_testset_sorted from "./cscale_testset_sorted.json";
 
 export const projects: ProjectChartData = {
   xAxis: 'year_completion',
@@ -65,18 +63,3 @@ Response:
       type: 'code',
   },
 ];
-
-
-// todo extract
-export async function loadChartData<T extends ProjectChartData>(chartData: T) {
-  try {
-    const importedData = await chartData.data();
-    return {
-      ...chartData,
-      data: importedData.default
-    };
-  } catch (error) {
-    console.error('Error loading chart data:', error);
-    throw error;
-  }
-}
