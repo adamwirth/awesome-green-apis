@@ -38,7 +38,11 @@ class AreaChartPlot extends BaseChart<AreaChartPlotProps> {
         return (
             <>
                 {this.customTitle(options)}
-                <ResponsiveContainer width="100%" height="100%" >
+                <ResponsiveContainer
+                    width="100%"
+                    height="100%"
+                    maxHeight={options.title ? 300 : 350}
+                >
                     <AreaChart
                         data={aggregatedData}
                         margin={{ top: 10, right: 30, left: 0, bottom: 15 }}

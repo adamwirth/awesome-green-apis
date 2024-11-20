@@ -52,10 +52,12 @@ export class StackedBarChart extends BaseChart<StackedBarChartProps> {
     return (
       <>
         {this.customTitle(options)}
-        <ResponsiveContainer width="100%" height="100%">
+        <ResponsiveContainer
+          width="100%"
+          maxHeight={options.title ? 300 : 350}
+        >
           <BarChart
             data={aggregatedData}
-            height={options.title ? 250 : 350}
             margin={options.margin || { top: 10, right: 30, left: 0, bottom: 15 }}
           >
 

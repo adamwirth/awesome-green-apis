@@ -39,7 +39,11 @@ class PieChartPlot extends BaseChart<PieChartPlotProps> {
         return (
             <>
                 {this.customTitle(options)}
-                <ResponsiveContainer width="100%" height="100%" >
+                <ResponsiveContainer
+                    width="100%"
+                    height="100%"
+                    maxHeight={options.title ? 300 : 350}
+                >
                     <PieChart width={730} height={options.title ? 200 : 250} >
                         <Pie
                             data={pieData}
