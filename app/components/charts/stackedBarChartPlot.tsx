@@ -12,7 +12,6 @@ import {
 } from 'recharts';
 
 import { BaseChart, BaseChartProps, ChartOptions } from './baseChart';
-import { Heading } from '@aws-amplify/ui-react';
 
 interface StackedBarChartProps extends BaseChartProps {
   chartDataRef: {
@@ -21,14 +20,7 @@ interface StackedBarChartProps extends BaseChartProps {
     yAxis: string[];
   };
 
-  options?: ChartOptions & {
-    margin?: {
-      top?: number;
-      right?: number;
-      left?: number;
-      bottom?: number;
-    };
-  };
+  options?: ChartOptions;
 }
 
 /**
@@ -58,9 +50,8 @@ export class StackedBarChart extends BaseChart<StackedBarChartProps> {
         >
           <BarChart
             data={aggregatedData}
-            margin={options.margin || { top: 10, right: 30, left: 0, bottom: 15 }}
           >
-
+            {/* 
             <defs>
               <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
                 <stop offset="5%" stopColor="#00b300" stopOpacity={0.85} />
@@ -70,7 +61,7 @@ export class StackedBarChart extends BaseChart<StackedBarChartProps> {
                 <stop offset="5%" stopColor="#ccffcc" stopOpacity={0.85} />
                 <stop offset="95%" stopColor="#00b300" stopOpacity={0} />
               </linearGradient>
-            </defs>
+            </defs> */}
             <XAxis
               dataKey={processedData.xAxis}
               domain={['auto', 'auto']}

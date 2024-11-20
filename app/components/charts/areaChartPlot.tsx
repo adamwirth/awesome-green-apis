@@ -1,8 +1,7 @@
-import { Area, AreaChart, Label, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
+import { Area, AreaChart, ResponsiveContainer, Tooltip, XAxis } from 'recharts';
 import { BaseChart, BaseChartProps, ChartOptions } from './baseChart';
 import { aggregateDataByYear } from '@/app/utils/transformers';
 import { LEFT_COLOR, RIGHT_COLOR } from '@/app/utils/constants';
-import { Heading } from '@aws-amplify/ui-react';
 
 
 interface AreaChartOptions extends ChartOptions {
@@ -45,7 +44,6 @@ class AreaChartPlot extends BaseChart<AreaChartPlotProps> {
                 >
                     <AreaChart
                         data={aggregatedData}
-                        margin={{ top: 10, right: 30, left: 0, bottom: 15 }}
                         height={options.title ? 250 : 350}
                     >
                         {this.customTitle(options)}

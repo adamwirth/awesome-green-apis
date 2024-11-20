@@ -7,15 +7,8 @@ import Loading from './loading';
 
 import { carbon, explanation, projects } from "@/app/utils/data/cscale/data";
 
-import TextPlot from './text';
 // TODO not sure if I should make this one dynamic or if that is overkill, or if it can be overkill...
-// const TextPlot = dynamic(
-//   () => import('./text'),
-//   {
-//     ssr: false,
-//     loading: () => <Loading />,
-//   }
-// )
+import TextPlot from './text';
 
 const StackedBarChartPlot = dynamic(
   () => import('./charts/stackedBarChartPlot'),
@@ -63,21 +56,19 @@ const Charts = () => {
         <Card
           height="350px"
           borderRadius={tokens.radii.medium}
-          columnSpan={{ base: 1, medium: 1 }}
+          columnSpan={1}
         >
           <StackedBarChartPlot
             chartDataRef={carbon}
             options={{
               title: 'Carbon Data',
-              height: '350px',
-              margin: { top: 20, right: 40, left: 10, bottom: 20 }
             }}
           />
         </Card>
         <Card
           height={{ "base": "350px", "medium": "100%" }}
           borderRadius={tokens.radii.medium}
-          columnSpan={{ base: 1, medium: 1 }}
+          columnSpan={1}
           rowSpan={{ base: 1, medium: 3 }}
         >
           <TextPlot
@@ -89,7 +80,7 @@ const Charts = () => {
 
         {/* Pie charts container */}
         <Grid
-          columnSpan={{ base: 1, medium: 1 }}
+          columnSpan={1}
           templateColumns={'1fr 1fr'}
           gap={tokens.space.small}
         >
@@ -104,8 +95,6 @@ const Charts = () => {
                 {
                   legend: true,
                   title: 'Primary Structural System Stats',
-                  height: '100%',
-                  margin: { top: 20, right: 40, left: 10, bottom: 20 }
                 })} />
           </Card>
           <Card
@@ -118,8 +107,6 @@ const Charts = () => {
 
               options={{
                 title: 'Primary Use Stats',
-                height: '100%',
-                margin: { top: 20, right: 40, left: 10, bottom: 20 }
               }}
             />
           </Card>
@@ -131,11 +118,8 @@ const Charts = () => {
         >
           <AreaChartPlot
             chartDataRef={projects}
-
             options={{
-              title: 'Projects',
-              height: '100%',
-              margin: { top: 20, right: 40, left: 10, bottom: 0 }
+              title: 'Projects: EUI-MEP Averages',
             }} />
         </Card>
       </Grid>

@@ -19,7 +19,7 @@ function SimpleErrorBoundary({ children }: { children: React.ReactNode }) {
 export interface ChartOptions {
   height?: string;
   width?: string;
-  margin?: any;
+  title: string;
   [key: string]: any;
 }
 

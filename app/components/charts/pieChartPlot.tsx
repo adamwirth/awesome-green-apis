@@ -44,7 +44,10 @@ class PieChartPlot extends BaseChart<PieChartPlotProps> {
                     height="100%"
                     maxHeight={options.title ? 300 : 350}
                 >
-                    <PieChart width={730} height={options.title ? 200 : 250} >
+                    <PieChart
+                        width={730}
+                        height={options.title ? 200 : 250}
+                    >
                         <Pie
                             data={pieData}
                             dataKey="value"
