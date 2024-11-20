@@ -17,7 +17,7 @@ export const carbon: CarbonIntensitiesChartData = {
 }
 
 /** Overview of the API to be rendered as a TextPlot */
-export const explanation: MarkdumbData = [
+export const explanation: Readonly<MarkdumbData> = Object.freeze([
   {
       content: 'CScale',
       size: 'xxl',
@@ -29,8 +29,7 @@ export const explanation: MarkdumbData = [
       type: 'p'
   },
   {
-      content: `
-/** Example Request and Response Overview */
+      content: `/** Example Request and Response Overview */
 {
   location: {
       latitude: 37.7749,
@@ -62,4 +61,4 @@ Response:
       size: 'm',
       type: 'code',
   },
-];
+]);

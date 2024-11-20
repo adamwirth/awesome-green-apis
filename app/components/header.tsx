@@ -1,7 +1,8 @@
 import { Card, Grid, Heading, Icon, useTheme, View, ToggleButton, ToggleButtonGroup, ColorMode, Message } from '@aws-amplify/ui-react';
 import { useContext, useState } from 'react';
 
-import { ColorModeContext } from '../dark_mode';
+import { ColorModeContext } from '@/app/dark_mode';
+
 import { SunIcon, MoonIcon, GithubIcon } from './icons';
 
 const DashboardHeader = () => {

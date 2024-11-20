@@ -1,4 +1,4 @@
-import { ChartData } from "../common";
+import { ChartData } from "@/app/types/common";
 
 export interface Project {
     project_name: number;

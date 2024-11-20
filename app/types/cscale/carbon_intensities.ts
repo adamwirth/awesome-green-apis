@@ -1,4 +1,4 @@
-import { ChartData } from "../common";
+import { ChartData } from "@/app/types/common";
 
 /**
  * Represents a request for carbon intensity data.

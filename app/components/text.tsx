@@ -1,10 +1,10 @@
 import { Heading, ScrollView, Text, useTheme } from '@aws-amplify/ui-react';
 import * as React from 'react';
 
-import { MarkdumbData, MarkdumbElement } from '../types/markdumb';
+import { MarkdumbData } from '@/app/types/markdumb';
 
 interface TextPlotProps {
-    data: MarkdumbData;
+    data: Readonly<MarkdumbData>;
     options?: any;
 }
 
@@ -15,14 +15,17 @@ interface TextPlotProps {
 const TextPlot = ({ data, options = {} }: TextPlotProps) => {
     const { tokens } = useTheme();
 
-    const commonTextProps = (datum: MarkdumbElement) => ({
+    /**
+     * @param {TextPlotProps['data'][number]} datum An array element out of MarkdumbData
+     */
+    const commonTextProps = (datum: TextPlotProps['data'][number]) => ({
         fontSize: tokens.fontSizes[datum.size],
         padding: `${tokens.space.small} 0`,
     });
 
 
     const headerBuilder = React.useCallback(
-        (datum: MarkdumbElement, index: number) => (
+        (datum: TextPlotProps['data'][number], index: number) => (
             <Heading
                 key={index}
                 fontWeight={tokens.fontWeights.bold}
@@ -35,7 +38,7 @@ const TextPlot = ({ data, options = {} }: TextPlotProps) => {
     );
 
     const textBuilder = React.useCallback(
-        (datum: MarkdumbElement, index: number) => (
+        (datum: TextPlotProps['data'][number], index: number) => (
             <Text key={index} {...commonTextProps(datum)}>
                 {datum.content}
             </Text>
@@ -46,7 +49,7 @@ const TextPlot = ({ data, options = {} }: TextPlotProps) => {
     // TODO (1) look into accessibility options https://ui.docs.amplify.aws/react/components/scrollview#accessibility
     // TODO (2) bulk up default scroll bar, add a little shimmy to suggest there's a scrolling option, and add border
     const codeBuilder = React.useCallback(
-        (datum: MarkdumbElement, index: number) => (
+        (datum: TextPlotProps['data'][number], index: number) => (
             <ScrollView
                 maxWidth="100%"
                 maxHeight={options.height}
@@ -68,7 +71,7 @@ const TextPlot = ({ data, options = {} }: TextPlotProps) => {
     );
 
     // Map object to handle different datum types
-    const builderMap: Record<string, (datum: MarkdumbElement, index: number) => JSX.Element> = {
+    const builderMap: Record<string, (datum: TextPlotProps['data'][number], index: number) => JSX.Element> = {
         code: codeBuilder,
         h1: headerBuilder,
         p: textBuilder,
@@ -76,7 +79,7 @@ const TextPlot = ({ data, options = {} }: TextPlotProps) => {
 
     // Helper function to render based on type with map lookup
     const renderTextElement = React.useCallback(
-        (datum: MarkdumbElement, index: number) => {
+        (datum: TextPlotProps['data'][number], index: number) => {
             const builder = builderMap[datum.type];
             if (builder) {
                 return builder(datum, index);
