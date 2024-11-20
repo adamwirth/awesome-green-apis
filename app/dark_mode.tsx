@@ -1,9 +1,9 @@
+import * as React from "react";
 import {
   ColorMode,
   defaultDarkModeOverride,
   ThemeProvider,
 } from "@aws-amplify/ui-react";
-import * as React from "react";
 
 // Create a context to share the color mode state
 export const ColorModeContext = React.createContext({
@@ -12,7 +12,8 @@ export const ColorModeContext = React.createContext({
 });
 
 export const DefaultDarkMode = ({ children, ...props }: any) => {
-  const [colorMode, setColorMode] = React.useState<ColorMode>("system");
+  // Set default to dark mode, rather than "system"
+  const [colorMode, setColorMode] = React.useState<ColorMode>("dark");
 
   const theme = {
     name: "default-theme",
