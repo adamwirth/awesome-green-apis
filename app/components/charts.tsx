@@ -61,7 +61,7 @@ const Charts = () => {
           <StackedBarChartPlot
             chartDataRef={carbon}
             options={{
-              title: 'Carbon Data',
+              title: 'Carbon Data (kgCO2e/m2)',
             }}
           />
         </Card>
