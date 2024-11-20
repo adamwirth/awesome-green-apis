@@ -7,13 +7,13 @@ export const projects: ProjectChartData = {
   yAxis: ['benchmark_EUI', 'EUI_MEP_threshold',
     //  'window_to_wall_ratio'
     ],
-  data: () => import("./cscale_testset_sorted.json")
+  data: () => import("./cscale_testset_sorted.json", { with: { type: "json" }})
 };
 
 export const carbon: CarbonIntensitiesChartData = {
   xAxis: 'year',
   yAxis: ['mep', 'pv_array'],
-  data: () => import("./cscale_generated_yearly_carbon.json")
+  data: () => import("./cscale_generated_yearly_carbon.json", { with: { type: "json" }})
 }
 
 /** Overview of the API to be rendered as a TextPlot */
