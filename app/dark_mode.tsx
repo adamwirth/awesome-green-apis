@@ -1,13 +1,15 @@
 import {
-  Card,
   ColorMode,
   defaultDarkModeOverride,
-  Text,
   ThemeProvider,
-  ToggleButton,
-  ToggleButtonGroup,
 } from "@aws-amplify/ui-react";
 import * as React from "react";
+
+// Create a context to share the color mode state
+export const ColorModeContext = React.createContext({
+  colorMode: 'system' as ColorMode,
+  setColorMode: (mode: ColorMode) => {}
+});
 
 export const DefaultDarkMode = ({ children, ...props }: any) => {
   const [colorMode, setColorMode] = React.useState<ColorMode>("system");
@@ -18,20 +20,10 @@ export const DefaultDarkMode = ({ children, ...props }: any) => {
   };
 
   return (
-    <ThemeProvider theme={theme} colorMode={colorMode} {...props}>
-      <Card>
-        <ToggleButtonGroup
-          value={colorMode}
-          isExclusive
-          onChange={(value) => setColorMode(value as ColorMode)}
-        >
-          <ToggleButton value="light">Light</ToggleButton>
-          <ToggleButton value="dark">Dark</ToggleButton>
-          <ToggleButton value="system">System</ToggleButton>
-        </ToggleButtonGroup>
-        <Text>Current color mode: {colorMode}</Text>
-      </Card>
-      {children}
-    </ThemeProvider>
+    <ColorModeContext.Provider value={{ colorMode, setColorMode }}>
+      <ThemeProvider theme={theme} colorMode={colorMode} {...props}>
+        {children}
+      </ThemeProvider>
+    </ColorModeContext.Provider>
   );
 };
