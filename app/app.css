@@ -8,4 +8,5 @@ pre.amplify-text {
   white-space: pre-wrap;
   overflow-y: scroll;
   text-overflow: ellipsis;
+  padding: 1em;
 }
