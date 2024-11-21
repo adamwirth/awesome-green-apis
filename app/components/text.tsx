@@ -3,16 +3,21 @@ import * as React from 'react';
 
 import { MarkdumbData } from '@/app/types/markdumb';
 
+
+interface TextPlotOptions {
+    height: string;
+}
+
 interface TextPlotProps {
     data: Readonly<MarkdumbData>;
-    options?: any;
+    options: TextPlotOptions;
 }
 
 /**
  * @description Uses factory methods to spool up text elements, given MarkdumbData.
  * @returns 
  */
-const TextPlot = ({ data, options = {} }: TextPlotProps) => {
+const TextPlot = ({ data, options }: TextPlotProps) => {
     const { tokens } = useTheme();
 
     /**
@@ -95,7 +100,7 @@ const TextPlot = ({ data, options = {} }: TextPlotProps) => {
     );
 
     // Guard clause for empty data
-    if (!data || data.length === 0) {
+    if (data.length === 0) {
         return <div>No data available to render text.</div>;
     }
 

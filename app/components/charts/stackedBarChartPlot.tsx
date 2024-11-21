@@ -11,7 +11,7 @@ import {
   YAxis
 } from 'recharts';
 
-import { BaseChart, BaseChartProps, ChartOptions } from './baseChart';
+import { BaseChart, BaseChartProps, BaseChartOptions } from './baseChart';
 
 interface StackedBarChartProps extends BaseChartProps {
   chartDataRef: {
@@ -19,8 +19,7 @@ interface StackedBarChartProps extends BaseChartProps {
     xAxis: string;
     yAxis: string[];
   };
-
-  options?: ChartOptions;
+  options: BaseChartOptions;
 }
 
 /**
@@ -32,7 +31,7 @@ export class StackedBarChart extends BaseChart<StackedBarChartProps> {
 
   renderChart() {
     const { processedData } = this.state;
-    const { options = {} } = this.props;
+    const { options } = this.props;
 
     // Aggregate data by year
     const aggregatedData = aggregateDataByYear(
@@ -46,13 +45,12 @@ export class StackedBarChart extends BaseChart<StackedBarChartProps> {
         {this.customTitle(options)}
         <ResponsiveContainer
           width="100%"
-          maxHeight={options.title ? 300 : 350}
+          maxHeight={(options?.title) ? 300 : 350}
         >
           <BarChart
             data={aggregatedData}
           >
-            {/* 
-            <defs>
+            {/* <defs>
               <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
                 <stop offset="5%" stopColor="#00b300" stopOpacity={0.85} />
                 <stop offset="95%" stopColor="#ccffcc" stopOpacity={0} />

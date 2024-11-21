@@ -1,6 +1,6 @@
-import { Heading } from '@aws-amplify/ui-react';
-import { Customized } from 'recharts';
 import * as React from 'react';
+
+import { Heading } from '@aws-amplify/ui-react';
 
 function SimpleErrorBoundary({ children }: { children: React.ReactNode }) {
   try {
@@ -16,19 +16,17 @@ function SimpleErrorBoundary({ children }: { children: React.ReactNode }) {
   }
 }
 
-export interface ChartOptions {
+export interface BaseChartOptions {
   height?: string;
   width?: string;
   title: string;
-  [key: string]: any;
 }
 
 export interface BaseChartProps {
   chartDataRef: {
     data: () => Promise<{ default: any[] }>;
-    [key: string]: any;
   };
-  options?: ChartOptions;
+  options: BaseChartOptions;
 }
 
 export interface BaseChartState {
@@ -38,6 +36,10 @@ export interface BaseChartState {
 };
 
 export class BaseChart<P extends BaseChartProps> extends React.Component<P> {
+  static defaultProps = {
+    options: { title: "" } as BaseChartOptions
+  };
+
   state: BaseChartState = {
     processedData: null,
     isLoading: true,
@@ -66,7 +68,7 @@ export class BaseChart<P extends BaseChartProps> extends React.Component<P> {
   }
 
   render() {
-    const { options = {} } = this.props;
+    const { options } = this.props;
     const { processedData, isLoading, error } = this.state;
 
     const renderContent = () => {

@@ -1,3 +1,6 @@
+/*
+* TODO refactor all of these out & store static, computed versions in a cache
+*/
 export const getCounts = (data: any[], key: string | symbol | number): Record<string, number> => {
     return data.reduce((acc: Record<string, number>, curr) => {
         const value = curr[key];

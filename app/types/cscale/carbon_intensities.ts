@@ -213,7 +213,6 @@ export interface CarbonSimplifiedWithYear extends CarbonIntensitiesResponseSimpl
     year: number;
 }
 
-// todo fix typing
 export interface CarbonIntensitiesChartData extends ChartData {
-    data: any | CarbonSimplifiedWithYear[];
+    data: () => Promise<{ default: CarbonSimplifiedWithYear[] }>;
 }

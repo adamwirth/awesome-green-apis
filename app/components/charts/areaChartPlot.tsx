@@ -1,31 +1,26 @@
 import { Area, AreaChart, ResponsiveContainer, Tooltip, XAxis } from 'recharts';
-import { BaseChart, BaseChartProps, ChartOptions } from './baseChart';
+import { BaseChart, BaseChartProps, BaseChartOptions } from './baseChart';
 import { aggregateDataByYear } from '@/app/utils/transformers';
 import { LEFT_COLOR, RIGHT_COLOR } from '@/app/utils/constants';
 
 
-interface AreaChartOptions extends ChartOptions {
-    title?: boolean;
-}
-
-interface AreaChartData {
-    data: any[];
-    options?: AreaChartOptions;
-    [key: string]: any;
+interface AreaChartOptions extends BaseChartOptions {
+    title: string;
 }
 
 interface AreaChartPlotProps extends BaseChartProps {
     chartDataRef: {
-        data: () => Promise<{ default: AreaChartData[] }>;
+        data: () => Promise<{ default: any[] }>;
         xAxis: string;
         yAxis: string[];
     };
+    options: AreaChartOptions;
 }
 
 class AreaChartPlot extends BaseChart<AreaChartPlotProps> {
     renderChart() {
         const { processedData } = this.state;
-        const { options = {} } = this.props;
+        const { options } = this.props;
 
         // Aggregate data by year
         const aggregatedData = aggregateDataByYear(

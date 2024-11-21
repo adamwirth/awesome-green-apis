@@ -2,8 +2,7 @@ import { Cell, Legend, Pie, PieChart, ResponsiveContainer, Tooltip } from "recha
 
 import { GET_PIE_COLOR } from "@/app/utils/constants";
 import { getCounts, transformCountsToArray } from "@/app/utils/transformers";
-import { BaseChart, BaseChartProps, ChartOptions } from "./baseChart";
-import { Heading } from "@aws-amplify/ui-react";
+import { BaseChart, BaseChartProps, BaseChartOptions } from "./baseChart";
 
 interface PieChartData {
     data: () => Promise<{ default: any[] }>;
@@ -12,7 +11,7 @@ interface PieChartData {
     yAxis?: string[];
 }
 
-interface PieChartOptions extends ChartOptions {
+interface PieChartOptions extends BaseChartOptions {
     legend?: boolean;
     label?: boolean;
 }
@@ -20,17 +19,18 @@ interface PieChartOptions extends ChartOptions {
 interface PieChartPlotProps extends BaseChartProps {
     chartDataRef: PieChartData;
     sumKey: string;
-    options?: PieChartOptions;
+    options: PieChartOptions;
 }
-
 
 class PieChartPlot extends BaseChart<PieChartPlotProps> {
 
     renderChart() {
         const { processedData } = this.state;
-        const { sumKey, options = {} } = this.props;
+        const { sumKey, options } = this.props;
 
-        const legend = options.legend;
+        const legend = options?.legend;
+        const title = options?.title;
+        const label = options?.label;
 
         // e.g., primary_structural_system or primary_use
         const sumKeyCounts = getCounts(processedData.data, sumKey);
@@ -42,11 +42,11 @@ class PieChartPlot extends BaseChart<PieChartPlotProps> {
                 <ResponsiveContainer
                     width="100%"
                     height="100%"
-                    maxHeight={options.title ? 300 : 350}
+                    maxHeight={title ? 300 : 350}
                 >
                     <PieChart
                         width={730}
-                        height={options.title ? 200 : 250}
+                        height={title ? 200 : 250}
                     >
                         <Pie
                             data={pieData}
@@ -55,7 +55,7 @@ class PieChartPlot extends BaseChart<PieChartPlotProps> {
                             cx="50%"
                             cy="50%"
                             fill="#8884d8"
-                            label={options.label}
+                            label={label}
                         >
                             {
                                 pieData.map((_, index: number) => (
