@@ -1,7 +1,9 @@
+type DataItem = Record<string | symbol | number, any>;
 /*
 * TODO refactor all of these out & store static, computed versions in a cache
 */
-export const getCounts = (data: any[], key: string | symbol | number): Record<string, number> => {
+/** @description This typing is just saying that key is inside whatever the @param data's keys are */
+export const getCounts = <T extends keyof DataItem>(data: DataItem[], key: T): Record<string, number> => {
     return data.reduce((acc: Record<string, number>, curr) => {
         const value = curr[key];
         if (value) {
@@ -17,7 +19,7 @@ export const transformCountsToArray = (counts: Record<string, number>) => {
 };
 
 // Helper function to aggregate data by year + calculate averages for multiple keys
-export const aggregateDataByYear = (data: any[], xAxisKey: string, yAxis: string | string[]) => {
+export const aggregateDataByYear = (data: DataItem[], xAxisKey: string, yAxis: string | string[]) => {
     const yAxisKeys = typeof yAxis === 'object' ? yAxis : [yAxis];
     const aggregatedData = data.reduce((acc, curr) => {
         const year = curr[xAxisKey];
@@ -44,7 +46,7 @@ export const aggregateDataByYear = (data: any[], xAxisKey: string, yAxis: string
     }, {});
 
     // Calculate averages for each yAxis key
-    return Object.values(aggregatedData).map((entry: any) => {
+    return Object.values(aggregatedData).map((entry: Record<string, any>) => {
         const averages: Record<string, number> = { [xAxisKey]: entry[xAxisKey] };
         // Doing statistics here
         // todo add others here as needed

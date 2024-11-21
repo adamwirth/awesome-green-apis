@@ -8,10 +8,13 @@ import {
 // Create a context to share the color mode state
 export const ColorModeContext = React.createContext({
   colorMode: 'system' as ColorMode,
-  setColorMode: (mode: ColorMode) => {}
+  setColorMode: (_: ColorMode) => { }
 });
 
-export const DefaultDarkMode = ({ children, ...props }: any) => {
+
+export const DefaultDarkMode = ({ children, ...props }:
+  React.PropsWithChildren<React.HTMLAttributes<HTMLDivElement>>
+) => {
   // Set default to dark mode, rather than "system"
   const [colorMode, setColorMode] = React.useState<ColorMode>("dark");
 

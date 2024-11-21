@@ -96,7 +96,7 @@ export class BaseChart<P extends BaseChartProps> extends React.Component<P> {
    * @param props recharts props, looking for "title"
    * @returns text element to render
    */
-  customTitle(props: any): React.ReactNode {
+  customTitle(props: { title?: string }): React.ReactNode {
     const { title } = props;
 
     if (!title) return null;

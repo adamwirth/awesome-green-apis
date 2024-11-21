@@ -39,7 +39,7 @@ const TextPlot = ({ data, options }: TextPlotProps) => {
                 {datum.content}
             </Heading>
         ),
-        [tokens]
+        [tokens, commonTextProps]
     );
 
     const textBuilder = React.useCallback(
@@ -48,7 +48,7 @@ const TextPlot = ({ data, options }: TextPlotProps) => {
                 {datum.content}
             </Text>
         ),
-        [tokens]
+        [tokens, commonTextProps]
     );
 
     // TODO (1) look into accessibility options https://ui.docs.amplify.aws/react/components/scrollview#accessibility
@@ -72,7 +72,7 @@ const TextPlot = ({ data, options }: TextPlotProps) => {
                 </Text>
             </ScrollView>
         ),
-        [tokens, options.height]
+        [tokens, options.height, commonTextProps]
     );
 
     // Map object to handle different datum types
@@ -96,7 +96,7 @@ const TextPlot = ({ data, options }: TextPlotProps) => {
                 </Text>
             );
         },
-        [builderMap]
+        [builderMap, commonTextProps]
     );
 
     // Guard clause for empty data

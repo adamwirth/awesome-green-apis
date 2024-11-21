@@ -20,7 +20,7 @@ export const projects: ProjectChartData = {
     try {
       const session = await fetchAuthSession();
       const { data: projectData } = await client.models.Project.list();
-      return { default: projectData as unknown as InferredProjectData };
+      return { default: projectData as InferredProjectData };
     } catch (error) {
       console.error('Error fetching project data:', error);
       return import("./cscale_testset_sorted.json", { with: { type: "json" }})
