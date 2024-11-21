@@ -1,6 +1,6 @@
 import { type ClientSchema, a, defineData } from "@aws-amplify/backend";
 
-const CScaleCarbonDataSchema = a.schema({
+const schema = a.schema({
   CScaleCarbonData: a
     .model({
       year: a.integer(),
@@ -12,30 +12,34 @@ const CScaleCarbonDataSchema = a.schema({
       pv_array: a.integer(),
     })
     .authorization(allow => allow.guest().to(['read'])),
+
+  Project: a
+    .model({
+      project_name: a.integer(),
+      year_completion: a.integer(),
+      zipcode: a.string(),
+      country: a.string(),
+      primary_structural_system: a.string(),
+      primary_use: a.string(),
+      above_floors: a.integer(),
+      above_floor_sqf: a.integer(),
+      window_to_wall_ratio: a.float(),
+      reference_period: a.integer(),
+      benchmark_EUI: a.integer(),
+      refurbish_pc: a.float(),
+      EUI_MEP_threshold: a.float(),
+      steel_specification: a.string(),
+      concrete_specification: a.string(),
+      timber_specification: a.string(),
+      interior_fitout_specification: a.string(),
+      envelope_specification: a.string(),
+      all_electric: a.boolean(),
+    })
+    .authorization(allow => allow.guest().to(['read'])),
 });
 
-export type Schema = ClientSchema<typeof CScaleCarbonDataSchema>;
+export type Schema = ClientSchema<typeof schema>;
 
 export const data = defineData({
-  schema: CScaleCarbonDataSchema,
+  schema,
 });
-
-/*== USAGE EXAMPLES =============================================================
-
-todo wip...
-
-Using JavaScript or Next.js React Server Components:
-
-"use client"
-import { generateClient } from "aws-amplify/data";
-import type { CScaleCarbonDataSchema } from "@/amplify/data/resource";
-
-const client = generateClient<CScaleCarbonDataSchema>();
-
-// List all carbon data entries
-const { data: carbonData } = await client.models.CScaleCarbonDataSchema.list();
-
-// Get carbon data for a specific year
-const { data: yearData } = await client.models.CScaleCarbonDataSchema.get({ year: 2023 });
-
-=========================================================================*/
