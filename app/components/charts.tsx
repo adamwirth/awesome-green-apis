@@ -44,84 +44,122 @@ const Charts = () => {
       <Grid
         templateColumns={{
           base: '1fr',
-          medium: '4fr 3fr'
+          medium: '5fr 4fr'
         }}
         templateRows={{
           base: 'repeat(4, auto)',
-          medium: '350px 350px'
+          medium: 'repeat(3, 350px)'
         }}
         gap={tokens.space.small}
         marginBottom={tokens.space.medium}
       >
-        <Card
-          height="350px"
-          borderRadius={tokens.radii.medium}
-          columnSpan={1}
+        {/* Left Column */}
+        <View
+          columnStart={1}
+          columnEnd={2}
+          rowStart={1}
+          rowEnd={2}
         >
-          <StackedBarChartPlot
-            chartDataRef={carbon}
-            options={{
-              title: 'Carbon Data (kgCO2e/m2)',
+          <Card
+            height='100%'
+            columnStart={1}
+            columnEnd={{ base: 1, medium: 2 }}
+            rowStart={1}
+            rowEnd={{ base: 2, medium: 4 }}
+            style={{
+              gridRow: '1 / span 1'
             }}
-          />
-        </Card>
-        <Card
-          height={{ "base": "350px", "medium": "100%" }}
-          borderRadius={tokens.radii.medium}
-          columnSpan={1}
-          rowSpan={{ base: 1, medium: 3 }}
-        >
-          <TextPlot
-            data={explanation}
-            options={{ height: "100%" }}
-          />
-        </Card>
-
-
-        {/* Pie charts container */}
-        <Grid
-          columnSpan={1}
-          templateColumns={'1fr 1fr'}
-          gap={tokens.space.small}
-        >
-          <Card
-            height="350px"
             borderRadius={tokens.radii.medium}
           >
-            <PieChartPlot
-              chartDataRef={projects}
-              sumKey={'primary_structural_system'}
-              options={(
-                {
-                  legend: true,
-                  title: 'Primary Structural System Stats',
-                })} />
-          </Card>
-          <Card
-            height="350px"
-            borderRadius={tokens.radii.medium}
-          >
-            <PieChartPlot
-              chartDataRef={projects}
-              sumKey={'primary_use'}
-
+            <StackedBarChartPlot
+              chartDataRef={carbon}
               options={{
-                title: 'Primary Use Stats',
+                title: 'Carbon Data (kgCO2e/m2)',
               }}
             />
           </Card>
-        </Grid>
+        </View>
 
-        <Card
-          height="250px"
-          borderRadius={tokens.radii.medium}
+        {/* Right Column - Text Plot */}
+        <View
+          height={'100%'}
+          columnStart={{ base: 1, medium: 2 }}
+          columnEnd={{ base: 2, medium: 3 }}
+          rowStart={1}
+          rowEnd={{ base: 2, medium: 4 }}
+          style={{
+            gridRow: '1 / span 3',
+          }}
         >
-          <AreaChartPlot
-            chartDataRef={projects}
-            options={{
-              title: 'Projects: EUI-MEP Averages',
-            }} />
-        </Card>
+          <Card
+            height="100%"
+            borderRadius={tokens.radii.medium}
+          >
+            <TextPlot
+              data={explanation}
+              options={{ height: "100%" }}
+            />
+          </Card>
+        </View>
+
+        {/* Pie Charts */}
+        <View
+          columnStart={1}
+          columnEnd={2}
+          rowStart={2}
+          rowEnd={3}
+        >
+          <Grid
+            templateColumns={'1fr 1fr'}
+            gap={tokens.space.small}
+            height="100%"
+          >
+            <Card
+              height="100%"
+              borderRadius={tokens.radii.medium}
+            >
+              <PieChartPlot
+                chartDataRef={projects}
+                sumKey={'primary_structural_system'}
+                options={(
+                  {
+                    legend: true,
+                    title: 'Primary Structural System Stats',
+                  })} />
+            </Card>
+            <Card
+              height="100%"
+              borderRadius={tokens.radii.medium}
+            >
+              <PieChartPlot
+                chartDataRef={projects}
+                sumKey={'primary_use'}
+                options={{
+                  title: 'Primary Use Stats',
+                }}
+              />
+            </Card>
+          </Grid>
+        </View>
+
+        {/* Area Chart */}
+        <View
+          columnStart={1}
+          columnEnd={2}
+          rowStart={3}
+          rowEnd={4}
+        >
+          <Card
+            height="100%"
+            borderRadius={tokens.radii.medium}
+          >
+            <AreaChartPlot
+              chartDataRef={projects}
+              options={{
+                title: 'Projects: EUI-MEP Averages',
+              }} />
+          </Card>
+        </View>
       </Grid>
     </View>
   );

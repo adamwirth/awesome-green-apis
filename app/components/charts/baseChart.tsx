@@ -72,7 +72,10 @@ export class BaseChart<P extends BaseChartProps> extends React.Component<P> {
     const { processedData, isLoading, error } = this.state;
 
     const renderContent = () => {
-      if (isLoading) return <div>Loading chart...</div>;
+      if (isLoading) return <div style={{
+        height: options.height || '100%',
+        width: options.width || '100%'
+      }}>Loading chart...</div>;
       if (error) return <div>Error: {error.message}</div>;
       if (!processedData) return <div>No data available to render the chart.</div>;
 
