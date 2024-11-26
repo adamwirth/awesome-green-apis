@@ -38,7 +38,7 @@ export const carbon: CarbonIntensitiesChartData = {
       return { default: carbonData as InferredCarbonData };
     } catch (error) {
       console.error('Error fetching carbon data:', error);
-      return import("./cscale_generated_yearly_carbon.json", { with: { type: "json" }})
+      return import("./cscale_yearly_carbon_generated.json", { with: { type: "json" }})
     }
   }
 };

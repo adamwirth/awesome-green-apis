@@ -1,0 +1,28 @@
+{
+  "data": [
+    { 
+      "fsid": "1234567",
+      "relativeYear": 2024,
+      "mid": 0.15,
+      "yMaxMid": 0.25
+    },
+    {
+      "fsid": "1234567",
+      "relativeYear": 2030,
+      "mid": 0.22,
+      "yMaxMid": 0.35
+    },
+    {
+      "fsid": "1234567",
+      "relativeYear": 2040,
+      "mid": 0.35,
+      "yMaxMid": 0.52
+    },
+    {
+      "fsid": "1234567",
+      "relativeYear": 2050,
+      "mid": 0.45,
+      "yMaxMid": 0.65
+    }
+  ]
+}
