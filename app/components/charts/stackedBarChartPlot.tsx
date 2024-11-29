@@ -15,6 +15,10 @@ import { aggregateDataByYear } from '@/app/utils/transformers';
 interface StackedBarChartProps extends BaseChartProps{};
 
 class StackedBarChart extends BaseChart<StackedBarChartProps> {
+  
+  // todo keep this in sync with the first page that loads in some better way that'll compile in
+  static DEFAULT_STACKED_BAR_CHART_POINTS = 14;
+  
   renderChart() {
     const { data, isFinishedLoading } = this.state;
     const { chartDataRef } = this.props;
@@ -64,7 +68,7 @@ class StackedBarChart extends BaseChart<StackedBarChartProps> {
   private createEmptyDataPoints(): Array<{ [key: string]: string | number }> {
     // todo generalize these mthods and have them become passed in as defaults per company package
     const { chartDataRef } = this.props;
-    const defaultPoints = Array(5).fill(0).map((_, i) => i + 1);
+    const defaultPoints = Array(StackedBarChart.DEFAULT_STACKED_BAR_CHART_POINTS).fill(0).map((_, i) => i + 1);
     
     return defaultPoints.map(point => {
       const dataPoint: { [key: string]: string | number } = {

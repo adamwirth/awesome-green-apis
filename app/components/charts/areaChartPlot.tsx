@@ -16,6 +16,9 @@ import { aggregateDataByYear } from '@/app/utils/transformers';
 interface AreaChartProps extends BaseChartProps { };
 
 class AreaChartPlot extends BaseChart<AreaChartProps> {
+  // todo keep this in sync with the first page that loads in some better way that'll compile in
+  static DEFAULT_AREA_CHART_POINTS = 9;
+
   constructor(props: AreaChartProps) {
     super(props);
     this.state = {
@@ -32,7 +35,7 @@ class AreaChartPlot extends BaseChart<AreaChartProps> {
       });
     }
   }
-  
+
   renderChart() {
     const { data, isFinishedLoading } = this.state;
     const { chartDataRef, options } = this.props;
@@ -47,7 +50,7 @@ class AreaChartPlot extends BaseChart<AreaChartProps> {
         <AreaChart data={chartData}>
           <XAxis
             dataKey={chartDataRef.xAxis}
-            // label={{ value: chartDataRef.xAxis, position: "insideBottom" }}
+          // label={{ value: chartDataRef.xAxis, position: "insideBottom" }}
           />
           <YAxis>
             <Label value="Values" angle={-90} position="insideLeft" />
@@ -75,7 +78,7 @@ class AreaChartPlot extends BaseChart<AreaChartProps> {
 
   private createEmptyDataPoints(): Array<{ [key: string]: string | number }> {
     const { chartDataRef } = this.props;
-    const defaultPoints = Array(5).fill(0).map((_, i) => i + 1);
+    const defaultPoints = Array(AreaChartPlot.DEFAULT_AREA_CHART_POINTS).fill(0).map((_, i) => i + 1);
 
     return defaultPoints.map(point => {
       const dataPoint: { [key: string]: string | number } = {
