@@ -1,68 +1,93 @@
-import { Area, AreaChart, ResponsiveContainer, Tooltip, XAxis } from 'recharts';
-import { BaseChart, BaseChartProps, BaseChartOptions } from './baseChart';
+import {
+  Area,
+  AreaChart,
+  Label,
+  Legend,
+  ResponsiveContainer,
+  Tooltip,
+  XAxis,
+  YAxis
+} from 'recharts';
+import { getMetricColor, CHART_COLORS } from '@/app/utils/constants';
+
+import { BaseChart, BaseChartProps } from './baseChart';
 import { aggregateDataByYear } from '@/app/utils/transformers';
-import { LEFT_COLOR, RIGHT_COLOR } from '@/app/utils/constants';
 
+interface AreaChartProps extends BaseChartProps { };
 
-interface AreaChartOptions extends BaseChartOptions {
-    title: string;
-}
-
-interface AreaChartPlotProps extends BaseChartProps {
-    chartDataRef: {
-        data: () => Promise<{ default: any[] }>;
-        xAxis: string;
-        yAxis: string[];
+class AreaChartPlot extends BaseChart<AreaChartProps> {
+  constructor(props: AreaChartProps) {
+    super(props);
+    this.state = {
+      data: this.createEmptyDataPoints(),
+      isFinishedLoading: false,
+      error: null
     };
-    options: AreaChartOptions;
-}
-
-class AreaChartPlot extends BaseChart<AreaChartPlotProps> {
-    renderChart() {
-        const { processedData } = this.state;
-        const { options } = this.props;
-
-        // Aggregate data by year
-        const aggregatedData = aggregateDataByYear(
-            processedData.data,
-            processedData.xAxis,
-            processedData.yAxis
-        );
-
-        return (
-            <>
-                {this.customTitle(options)}
-                <ResponsiveContainer
-                    width="100%"
-                    height="100%"
-                    maxHeight={options.title ? 300 : 350}
-                >
-                    <AreaChart
-                        data={aggregatedData}
-                        height={options.title ? 250 : 350}
-                    >
-                        {this.customTitle(options)}
-
-                        <XAxis dataKey={processedData.xAxis as string}
-                            domain={['auto', 'auto']}
-                            type="number" />
-                        <Tooltip />
-
-                        {processedData.yAxis.map((key: string, index: number) => (
-                            <Area
-                                key={key}
-                                yAxisId={index % 2 === 0 ? "left" : "right"}
-                                dataKey={`average_${key}`}
-                                stackId="ccc"
-                                fill={index % 2 === 0 ? LEFT_COLOR : RIGHT_COLOR}
-                                name={`Average ${key}`}
-                            />
-                        ))}
-                    </AreaChart>
-                </ResponsiveContainer>
-            </>
-        );
+  }
+  componentDidUpdate(prevProps: AreaChartProps) {
+    if (prevProps.chartDataRef !== this.props.chartDataRef) {
+      // Only update if the chartDataRef has changed
+      this.setState({
+        data: this.createEmptyDataPoints()
+      });
     }
-}
+  }
+  
+  renderChart() {
+    const { data, isFinishedLoading } = this.state;
+    const { chartDataRef, options } = this.props;
 
+    const chartData = aggregateDataByYear(
+      this.isDataReady() ? data! : this.createEmptyDataPoints(),
+      chartDataRef
+    );
+
+    return (
+      <ResponsiveContainer width="100%" height={options?.height || 300}>
+        <AreaChart data={chartData}>
+          <XAxis
+            dataKey={chartDataRef.xAxis}
+            // label={{ value: chartDataRef.xAxis, position: "insideBottom" }}
+          />
+          <YAxis>
+            <Label value="Values" angle={-90} position="insideLeft" />
+          </YAxis>
+          <Tooltip />
+          <Legend />
+
+          {chartDataRef.yAxis.map((metric: string, index: number) => (
+            <Area
+              key={metric}
+              type="monotone"
+              dataKey={metric}
+              name={metric}
+              stackId="1"
+              fill={getMetricColor(index)}
+              stroke={getMetricColor(index)}
+              fillOpacity={CHART_COLORS.OPACITY.FILL}
+              animationDuration={isFinishedLoading ? 1500 : 0}
+            />
+          ))}
+        </AreaChart>
+      </ResponsiveContainer>
+    );
+  }
+
+  private createEmptyDataPoints(): Array<{ [key: string]: string | number }> {
+    const { chartDataRef } = this.props;
+    const defaultPoints = Array(5).fill(0).map((_, i) => i + 1);
+
+    return defaultPoints.map(point => {
+      const dataPoint: { [key: string]: string | number } = {
+        [chartDataRef.xAxis]: `Point ${point}`
+      };
+
+      chartDataRef.yAxis.forEach(metric => {
+        dataPoint[metric] = 0;
+      });
+
+      return dataPoint;
+    });
+  }
+}
 export default AreaChartPlot;

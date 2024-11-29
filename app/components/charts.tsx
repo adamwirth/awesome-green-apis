@@ -11,8 +11,7 @@ import { carbon, explanation, projects } from "@/app/utils/data/cscale/data";
 import TextPlot from './text';
 
 const StackedBarChartPlot = dynamic(
-  () => import('./charts/stackedBarChartPlot'),
-  {
+  () => import('./charts/stackedBarChartPlot'),  {
     ssr: false,
     loading: () => <Loading />,
   }
@@ -120,11 +119,11 @@ const Charts = () => {
             >
               <PieChartPlot
                 chartDataRef={projects}
-                sumKey={'primary_structural_system'}
                 options={(
                   {
                     legend: true,
                     title: 'Primary Structural System Stats',
+                    sumKey: 'primary_structural_system'
                   })} />
             </Card>
             <Card
@@ -133,9 +132,9 @@ const Charts = () => {
             >
               <PieChartPlot
                 chartDataRef={projects}
-                sumKey={'primary_use'}
                 options={{
                   title: 'Primary Use Stats',
+                  sumKey: 'primary_use'
                 }}
               />
             </Card>

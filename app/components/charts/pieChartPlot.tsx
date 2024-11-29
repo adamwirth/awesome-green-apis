@@ -2,43 +2,40 @@ import { Cell, Legend, Pie, PieChart, ResponsiveContainer, Tooltip } from "recha
 
 import { GET_PIE_COLOR } from "@/app/utils/constants";
 import { getCounts, transformCountsToArray } from "@/app/utils/transformers";
-import { BaseChart, BaseChartProps, BaseChartOptions } from "./baseChart";
+import { BaseChart, BaseChartOptions, BaseChartProps } from "./baseChart";
 
-interface PieChartData {
-    data: () => Promise<{ default: any[] }>;
-    sumKey?: string;
-    xAxis?: string;
-    yAxis?: string[];
-}
 
 interface PieChartOptions extends BaseChartOptions {
+    sumKey: string;
     legend?: boolean;
     label?: boolean;
 }
 
 interface PieChartPlotProps extends BaseChartProps {
-    chartDataRef: PieChartData;
-    sumKey: string;
     options: PieChartOptions;
 }
 
 class PieChartPlot extends BaseChart<PieChartPlotProps> {
 
     renderChart() {
-        const { processedData } = this.state;
-        const { sumKey, options } = this.props;
+        const { data } = this.state;
+        const { options } = this.props;
 
         const legend = options?.legend;
         const title = options?.title;
         const label = options?.label;
+        const sumKey = options?.sumKey;
+
+        const chartData = this.isDataReady()
+            ? data! :
+            []; // todo dummy data method
 
         // e.g., primary_structural_system or primary_use
-        const sumKeyCounts = getCounts(processedData.data, sumKey);
+        const sumKeyCounts = getCounts(chartData, sumKey);
         const pieData = transformCountsToArray(sumKeyCounts);
 
         return (
             <>
-                {this.customTitle(options)}
                 <ResponsiveContainer
                     width="100%"
                     height="100%"

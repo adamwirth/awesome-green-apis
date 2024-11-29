@@ -4,7 +4,8 @@
 * Make charts generic
   [x] Add metadata like "xaxis", "yaxis" to datasets to have them be able to slot in without editing chart code
   [ ] Add more metadata to pre-render charts with expected, static x-/y-axis ranges
-  [ ] Try and have an idea per company that comes up with a creative insight to chart 
+  * Including adding the empty data pre-render methods to the base chart
+  [ ] Try and have an idea per company that comes up with a creative insight to chart
 * More datasets
   [] Define data models for other use-cases/verticals
   [] Add other example companies', spool up example data using data models

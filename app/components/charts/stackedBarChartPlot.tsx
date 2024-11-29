@@ -1,5 +1,4 @@
-import { LEFT_COLOR, RIGHT_COLOR } from '@/app/utils/constants';
-import { aggregateDataByYear } from '@/app/utils/transformers';
+import { BaseChart, BaseChartProps } from './baseChart';
 import {
   Bar,
   BarChart,
@@ -10,94 +9,74 @@ import {
   XAxis,
   YAxis
 } from 'recharts';
+import { getMetricColor, CHART_COLORS } from '@/app/utils/constants';
+import { aggregateDataByYear } from '@/app/utils/transformers';
 
-import { BaseChart, BaseChartProps, BaseChartOptions } from './baseChart';
+interface StackedBarChartProps extends BaseChartProps{};
 
-interface StackedBarChartProps extends BaseChartProps {
-  chartDataRef: {
-    data: () => Promise<{ default: any[] }>;
-    xAxis: string;
-    yAxis: string[];
-  };
-  options: BaseChartOptions;
-}
-
-/**
- * Currently takes in a pair of yAxis-es to render with.
- * @todo trendline(s) automatically
- * @todo check for supplied statistics data (before calculating myself)
- */
-export class StackedBarChart extends BaseChart<StackedBarChartProps> {
-
+class StackedBarChart extends BaseChart<StackedBarChartProps> {
   renderChart() {
-    const { processedData } = this.state;
-    const { options } = this.props;
+    const { data, isFinishedLoading } = this.state;
+    const { chartDataRef } = this.props;
 
+    // Ensure we're working with an array
+    let chartData = this.isDataReady()
+      ? data!
+      : this.createEmptyDataPoints();
+      
     // Aggregate data by year
-    const aggregatedData = aggregateDataByYear(
-      processedData.data,
-      processedData.xAxis,
-      processedData.yAxis
+    // todo pass by reference or whatever the term is to not make somethin new
+    // todo but also just remove these
+    const processedData = aggregateDataByYear(
+      chartData,
+      chartDataRef
     );
 
     return (
-      <>
-        {this.customTitle(options)}
-        <ResponsiveContainer
-          width="100%"
-          maxHeight={(options?.title) ? 300 : 350}
-        >
-          <BarChart
-            data={aggregatedData}
-          >
-            {/* <defs>
-              <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="5%" stopColor="#00b300" stopOpacity={0.85} />
-                <stop offset="95%" stopColor="#ccffcc" stopOpacity={0} />
-              </linearGradient>
-              <linearGradient id="colorPv" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="5%" stopColor="#ccffcc" stopOpacity={0.85} />
-                <stop offset="95%" stopColor="#00b300" stopOpacity={0} />
-              </linearGradient>
-            </defs> */}
-            <XAxis
-              dataKey={processedData.xAxis}
-              domain={['auto', 'auto']}
+      <ResponsiveContainer width="100%" height={300}>
+        <BarChart data={processedData}>
+          <XAxis
+            dataKey={chartDataRef.xAxis}
+            // label={{ value: chartDataRef.xAxis, position: 'insideBottom' }}
+          />
+          <YAxis>
+            <Label value="Values" angle={-90} position="insideLeft" />
+          </YAxis>
+          <Tooltip />
+          <Legend />
+          
+          {chartDataRef.yAxis.map((metric: string, index: number) => (
+            <Bar
+              key={metric}
+              dataKey={metric}
+              name={metric}
+              stackId="stack"
+              fill={getMetricColor(index)}
+              fillOpacity={CHART_COLORS.OPACITY.FILL}
+              animationDuration={isFinishedLoading ? 1500 : 0}
             />
-            <YAxis
-              yAxisId="left"
-              orientation="left"
-              stroke={LEFT_COLOR}
-            >
-              <Label
-                value={"Averages"}
-                offset={10}
-                angle={-90}
-                position="insideLeft"
-              />
-            </YAxis>
-            <YAxis
-              yAxisId="right"
-              orientation="right"
-              stroke={RIGHT_COLOR}
-            />
-            <Tooltip />
-            <Legend />
-
-            {processedData.yAxis.map((key: string, index: number) => (
-              <Bar
-                key={key}
-                yAxisId={index % 2 === 0 ? "left" : "right"}
-                dataKey={`average_${key}`}
-                stackId="bbb"
-                fill={index % 2 === 0 ? LEFT_COLOR : RIGHT_COLOR}
-                name={`Average ${key}`}
-              />
-            ))}
-          </BarChart>
-        </ResponsiveContainer>
-      </>
+          ))}
+        </BarChart>
+      </ResponsiveContainer>
     );
+  }
+
+  private createEmptyDataPoints(): Array<{ [key: string]: string | number }> {
+    // todo generalize these mthods and have them become passed in as defaults per company package
+    const { chartDataRef } = this.props;
+    const defaultPoints = Array(5).fill(0).map((_, i) => i + 1);
+    
+    return defaultPoints.map(point => {
+      const dataPoint: { [key: string]: string | number } = {
+        [chartDataRef.xAxis]: `Point ${point}`
+      };
+      
+      chartDataRef.yAxis.forEach(metric => {
+        dataPoint[metric] = 0;
+      });
+      
+      return dataPoint;
+    });
   }
 }
 

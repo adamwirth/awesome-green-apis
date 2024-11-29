@@ -1,4 +1,14 @@
+import { ChartData } from "../types/common";
+
 type DataItem = Record<string | symbol | number, any>;
+interface AggregatedEntry {
+    [key: string]: string | number;
+    count: number;
+}
+
+interface AggregationAccumulator {
+    [year: string]: AggregatedEntry;
+}
 /*
 * TODO refactor all of these out & store static, computed versions in a cache
 */
@@ -18,15 +28,19 @@ export const transformCountsToArray = (counts: Record<string, number>) => {
     return Object.entries(counts).map(([name, value]) => ({ name, value }));
 };
 
-// Helper function to aggregate data by year + calculate averages for multiple keys
-export const aggregateDataByYear = (data: DataItem[], xAxisKey: string, yAxis: string | string[]) => {
-    const yAxisKeys = typeof yAxis === 'object' ? yAxis : [yAxis];
-    const aggregatedData = data.reduce((acc, curr) => {
-        const year = curr[xAxisKey];
+export const aggregateDataByYear = (data: DataItem[], chartDataRef: ChartData) => {
+    const { yAxis, xAxis } = chartDataRef;
+    const yAxisKeys = Array.isArray(yAxis) ? yAxis : [yAxis];
+
+    // First, ensure we convert any Date objects or complex types to strings for the xAxis
+    const aggregatedData = data.reduce((acc: AggregationAccumulator, curr) => {
+        // Convert the year value to a string if it's not already
+        const year = String(curr[xAxis]);
+
         if (!acc[year]) {
             // Initialize entry for each year
             acc[year] = {
-                [xAxisKey]: year,
+                [xAxis]: year,
                 count: 0,
             };
             // Initialize totals accumulators for each yAxis key
@@ -35,24 +49,28 @@ export const aggregateDataByYear = (data: DataItem[], xAxisKey: string, yAxis: s
             });
         }
 
-        // Accumulate values for each yAxis key
+        // Accumulate values for each yAxis key, ensuring numeric conversion
         yAxisKeys.forEach(key => {
-            acc[year][`total_${key}`] += curr[key];
+            const currentValue = Number(curr[key]) || 0;
+            const existingTotal = Number(acc[year][`total_${key}`]) || 0;
+            acc[year][`total_${key}`] = existingTotal + currentValue;
         });
-        // Store counts to do statistics later
-        acc[year].count += 1;
 
+        acc[year].count += 1;
         return acc;
     }, {});
 
     // Calculate averages for each yAxis key
-    return Object.values(aggregatedData).map((entry: Record<string, any>) => {
-        const averages: Record<string, number> = { [xAxisKey]: entry[xAxisKey] };
-        // Doing statistics here
-        // todo add others here as needed
+    return Object.values(aggregatedData).map((entry: AggregatedEntry) => {
+        const averages: Record<string, string | number> = {
+            [xAxis]: entry[xAxis] // Keep the original xAxis value as is
+        };
+
         yAxisKeys.forEach(key => {
-            averages[`average_${key}`] = Math.round((entry[`total_${key}`] / entry.count) * 100) / 100;
+            const total = Number(entry[`total_${key}`]) || 0;
+            averages[key] = Math.round((total / entry.count) * 100) / 100;
         });
+
         return averages;
     });
 };

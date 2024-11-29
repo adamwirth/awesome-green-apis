@@ -1,99 +1,75 @@
 import * as React from 'react';
-
 import { Heading } from '@aws-amplify/ui-react';
 
-function SimpleErrorBoundary({ children }: { children: React.ReactNode }) {
-  try {
-    return <>{children}</>;
-  } catch (error) {
-    console.error(error);
-    return (
-      <div className="--amplify-colors-font-error">
-        <p>An error occurred while rendering the chart.</p>
-        {error instanceof Error && <pre>{error.message}</pre>}
-      </div>
-    );
-  }
-}
+import { ChartData } from '@/app/types/common';
 
 export interface BaseChartOptions {
-  height?: string;
-  width?: string;
-  title: string;
+    title: string;
+    height?: string | number;
+    width?: string | number;
+    colors?: string[]; // todo use
 }
 
 export interface BaseChartProps {
-  chartDataRef: {
-    data: () => Promise<{ default: any[] }>;
-  };
+  chartDataRef: ChartData;
   options: BaseChartOptions;
 }
 
 export interface BaseChartState {
-  processedData: any | null,
-  isLoading: boolean,
-  error: Error | null,
-};
+  data: any[] | null; // todo some crazy generic typing for this one too
+  isFinishedLoading: boolean;
+  error: Error | null;
+}
 
-export class BaseChart<P extends BaseChartProps> extends React.Component<P> {
-  static defaultProps = {
-    options: { title: "" } as BaseChartOptions
-  };
-
+export abstract class BaseChart<P extends BaseChartProps> extends React.Component<P, BaseChartState> {
   state: BaseChartState = {
-    processedData: null,
-    isLoading: true,
-    error: null,
+    data: null,
+    isFinishedLoading: false,
+    error: null
   };
 
-  async loadData() {
+  async componentDidMount() {
+    await this.loadData();
+  }
+  protected async loadData() {
     try {
       const { chartDataRef } = this.props;
-      const importedData = await chartDataRef.data();
+      const importedData = (await chartDataRef.data()).default;
       this.setState({
-        processedData: { ...chartDataRef, data: importedData.default },
-        isLoading: false
+        data: importedData,
+        isFinishedLoading: true
       });
     } catch (error) {
-      this.setState({ error: error as Error, isLoading: false });
+      this.setState({ 
+        error: error as Error, 
+        isFinishedLoading: true
+      });
     }
   }
 
-  componentDidMount() {
-    this.loadData();
-  }
-
-  renderChart(): React.ReactNode {
-    throw new Error('renderChart must be implemented');
-  }
+  abstract renderChart(): React.ReactNode;
 
   render() {
     const { options } = this.props;
-    const { processedData, isLoading, error } = this.state;
+    const { error } = this.state;
 
-    const renderContent = () => {
-      if (isLoading) return <div style={{
-        height: options.height || '100%',
-        width: options.width || '100%'
-      }}>Loading chart...</div>;
-      if (error) return <div>Error: {error.message}</div>;
-      if (!processedData) return <div>No data available to render the chart.</div>;
-
-      return (
-        <div
-          style={{
-            height: options.height || '100%',
-            width: options.width || '100%'
-          }}
-        >
-          {this.renderChart()}
-        </div>
-      );
+    const containerStyle = {
+      height: options?.height || '100%',
+      width: options?.width || '100%',
     };
 
-    return <SimpleErrorBoundary>{renderContent()}</SimpleErrorBoundary>;
+    return (
+      <div style={containerStyle}>
+                {this.customTitle(options)}
+        {error ? (
+          <div className="error-container">Error: {error.message}</div>
+        ) : (
+          this.renderChart()
+        )}
+      </div>
+    );
   }
-
+  
   /**
    * Render a heading within the chart.
    * @param props recharts props, looking for "title"
@@ -105,4 +81,9 @@ export class BaseChart<P extends BaseChartProps> extends React.Component<P> {
     if (!title) return null;
     return <Heading>{title}</Heading>;
   };
+  
+  isDataReady(): this is BaseChart<P> & { state: { data: NonNullable<BaseChartState['data']> } } {
+    return this.state.isFinishedLoading && Array.isArray(this.state.data);
+  }
+
 }
