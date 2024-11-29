@@ -62,10 +62,9 @@ const TextPlot = ({ data, options }: TextPlotProps) => {
             >
                 <Text
                     as="pre"
-                    className="preformatted"
                     backgroundColor={tokens.colors.background.secondary}
                     borderRadius={tokens.radii.small}
-                    // Padding specified in .preformatted
+                    // Padding specified in pre.amplify-text
                     fontSize={commonTextProps(datum).fontSize}
                 >
                     {datum.content}

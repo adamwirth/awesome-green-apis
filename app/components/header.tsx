@@ -1,11 +1,16 @@
 import { Card, Grid, Heading, Icon, useTheme, View, ToggleButton, ToggleButtonGroup, ColorMode, Message } from '@aws-amplify/ui-react';
 import { useContext, useState } from 'react';
-
 import { ColorModeContext } from '@/app/dark_mode';
-
 import { SunIcon, MoonIcon, GithubIcon } from './icons';
 
-const DashboardHeader = () => {
+export type VisualizationType = 'cscale' | 'firststreet' | 'third thing';
+
+interface DashboardHeaderProps {
+    onViewChange: (view: VisualizationType) => void;
+    currentView: VisualizationType;
+}
+
+const Header = ({ onViewChange, currentView }: DashboardHeaderProps) => {
     const { tokens } = useTheme();
     const [showInfo, setShowInfo] = useState(false);
     const { colorMode, setColorMode } = useContext(ColorModeContext);
@@ -17,7 +22,7 @@ const DashboardHeader = () => {
                 variation="elevated">
                 <Grid
                     gap={tokens.space.xs}
-                    templateColumns={{ base: "1fr auto", medium: "2fr 1fr" }}
+                    templateColumns={{ base: "1fr auto", medium: "2fr 1fr auto" }}
                     padding={tokens.space.small}
                 >
                     <View display="inline-flex">
@@ -72,6 +77,45 @@ const DashboardHeader = () => {
                         </View>
                     </View>
 
+                    {/* Visualization Toggle Buttons 
+                    TODO currently does a little shuffling on loading 
+                    */}
+                    <View
+                        display="flex"
+                        style={{
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            gap: '0.5rem'
+                        }}
+                    >
+                        <ToggleButtonGroup
+                            value={currentView}
+                            isExclusive
+                            onChange={(value) => onViewChange(value as VisualizationType)}
+                            size="large"
+                            minHeight={44}
+                        >
+                            <ToggleButton
+                                value="cscale"
+                                ariaLabel="CScale view">
+                                CScale
+                            </ToggleButton>
+                            <ToggleButton
+                                value="firststreet"
+                                ariaLabel="FirstStreet view">
+                                FirstStreet
+                            </ToggleButton>
+                            {/* todo dynamically extract in compiled way */}
+                            <ToggleButton
+                                value="third thing"
+                                ariaLabel="Third thing"
+                                disabled>
+                                Third Thing
+                            </ToggleButton>
+                        </ToggleButtonGroup>
+                    </View>
+
+                    {/* Theme Toggle and GitHub Link */}
                     <View
                         aria-hidden="true"
                         display="flex"
@@ -120,4 +164,4 @@ const DashboardHeader = () => {
     );
 };
 
-export default DashboardHeader;
+export default Header;
