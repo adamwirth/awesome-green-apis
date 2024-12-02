@@ -13,6 +13,7 @@ import { getMetricColor, CHART_COLORS } from '@/app/utils/constants';
 import { BaseChart, BaseChartProps } from './baseChart';
 import { aggregateDataByYear } from '@/app/utils/transformers';
 
+// todo avoid empty supertype like this
 interface AreaChartProps extends BaseChartProps { };
 
 class AreaChartPlot extends BaseChart<AreaChartProps> {

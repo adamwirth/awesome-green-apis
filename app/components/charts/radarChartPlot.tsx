@@ -55,6 +55,7 @@ class RadarChartPlot extends BaseChart<RadarChartProps> {
         const defaultCategories = ['Category 1', 'Category 2', 'Category 3'];
 
         return defaultCategories.map(category => {
+            // todo avoid empty supertype like this
             const dataPoint: { [key: string]: string | number } = {
                 [chartDataRef.xAxis]: category
             };

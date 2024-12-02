@@ -12,6 +12,7 @@ import {
 import { getMetricColor, CHART_COLORS } from '@/app/utils/constants';
 import { aggregateDataByYear } from '@/app/utils/transformers';
 
+// todo avoid empty supertype like this
 interface StackedBarChartProps extends BaseChartProps{};
 
 class StackedBarChart extends BaseChart<StackedBarChartProps> {
@@ -24,7 +25,7 @@ class StackedBarChart extends BaseChart<StackedBarChartProps> {
     const { chartDataRef } = this.props;
 
     // Ensure we're working with an array
-    let chartData = this.isDataReady()
+    const chartData = this.isDataReady()
       ? data!
       : this.createEmptyDataPoints();
       

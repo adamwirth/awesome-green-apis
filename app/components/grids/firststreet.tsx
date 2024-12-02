@@ -11,6 +11,7 @@ const StackedBarChartPlot = dynamic(
   loading: () => <Loading />,
 }
 );
+// todo replace this maybe
 const PieChartPlot = dynamic(
   () => import('../charts/pieChartPlot'),
   {
