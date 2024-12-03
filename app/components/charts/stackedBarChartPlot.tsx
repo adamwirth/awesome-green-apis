@@ -12,8 +12,7 @@ import {
 import { getMetricColor, CHART_COLORS } from '@/app/utils/constants';
 import { aggregateDataByYear } from '@/app/utils/transformers';
 
-// todo avoid empty supertype like this
-interface StackedBarChartProps extends BaseChartProps{};
+type StackedBarChartProps = BaseChartProps;
 
 class StackedBarChart extends BaseChart<StackedBarChartProps> {
   

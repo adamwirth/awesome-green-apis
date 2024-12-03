@@ -1,8 +1,6 @@
+import { MarkdumbData } from '@/app/types/markdumb';
 import { Heading, ScrollView, Text, useTheme } from '@aws-amplify/ui-react';
 import * as React from 'react';
-
-import { MarkdumbData } from '@/app/types/markdumb';
-
 
 interface TextPlotOptions {
     height: string;
@@ -15,7 +13,6 @@ interface TextPlotProps {
 
 /**
  * @description Uses factory methods to spool up text elements, given MarkdumbData.
- * @returns 
  */
 const TextPlot = ({ data, options }: TextPlotProps) => {
     const { tokens } = useTheme();
@@ -23,11 +20,10 @@ const TextPlot = ({ data, options }: TextPlotProps) => {
     /**
      * @param {TextPlotProps['data'][number]} datum An array element out of MarkdumbData
      */
-    const commonTextProps = (datum: TextPlotProps['data'][number]) => ({
+    const commonTextProps = React.useCallback((datum: TextPlotProps['data'][number]) => ({
         fontSize: tokens.fontSizes[datum.size],
         padding: `${tokens.space.small} 0`,
-    });
-
+    }), [tokens.fontSizes, tokens.space.small]);
 
     const headerBuilder = React.useCallback(
         (datum: TextPlotProps['data'][number], index: number) => (
@@ -39,7 +35,7 @@ const TextPlot = ({ data, options }: TextPlotProps) => {
                 {datum.content}
             </Heading>
         ),
-        [tokens, commonTextProps]
+        [tokens.fontWeights.bold, commonTextProps]
     );
 
     const textBuilder = React.useCallback(
@@ -48,11 +44,9 @@ const TextPlot = ({ data, options }: TextPlotProps) => {
                 {datum.content}
             </Text>
         ),
-        [tokens, commonTextProps]
+        [commonTextProps]
     );
 
-    // TODO (1) look into accessibility options https://ui.docs.amplify.aws/react/components/scrollview#accessibility
-    // TODO (2) bulk up default scroll bar, add a little shimmy to suggest there's a scrolling option, and add border
     const codeBuilder = React.useCallback(
         (datum: TextPlotProps['data'][number], index: number) => (
             <ScrollView
@@ -64,31 +58,27 @@ const TextPlot = ({ data, options }: TextPlotProps) => {
                     as="pre"
                     backgroundColor={tokens.colors.background.secondary}
                     borderRadius={tokens.radii.small}
-                    // Padding specified in pre.amplify-text
                     fontSize={commonTextProps(datum).fontSize}
                 >
                     {datum.content}
                 </Text>
             </ScrollView>
         ),
-        [tokens, options.height, commonTextProps]
+        [tokens.colors.background.secondary, tokens.radii.small, options.height, commonTextProps]
     );
 
-    // Map object to handle different datum types
-    const builderMap: Record<string, (datum: TextPlotProps['data'][number], index: number) => JSX.Element> = {
+    const builderMap = React.useMemo(() => ({
         code: codeBuilder,
         h1: headerBuilder,
         p: textBuilder,
-    };
+    }), [codeBuilder, headerBuilder, textBuilder]);
 
-    // Helper function to render based on type with map lookup
     const renderTextElement = React.useCallback(
         (datum: TextPlotProps['data'][number], index: number) => {
             const builder = builderMap[datum.type];
             if (builder) {
                 return builder(datum, index);
             }
-            // Fallback if the type does not match any builder
             return (
                 <Text key={index} {...commonTextProps(datum)}>
                     {datum.content}
@@ -98,13 +88,11 @@ const TextPlot = ({ data, options }: TextPlotProps) => {
         [builderMap, commonTextProps]
     );
 
-    // Guard clause for empty data
     if (data.length === 0) {
         return <div>No data available to render text.</div>;
     }
 
     return <>{data.map(renderTextElement)}</>;
 };
-
 
 export default TextPlot;

@@ -1,4 +1,3 @@
-// components/visualizations/CScaleGrid.tsx
 import { Card, Grid, View, useTheme } from '@aws-amplify/ui-react';
 import dynamic from 'next/dynamic';
 import Loading from '../loading';
@@ -10,14 +9,6 @@ const StackedBarChartPlot = dynamic(
   ssr: false,
   loading: () => <Loading />,
 }
-);
-// todo replace this maybe
-const PieChartPlot = dynamic(
-  () => import('../charts/pieChartPlot'),
-  {
-    ssr: false,
-    loading: () => <Loading />,
-  }
 );
 const AreaChartPlot = dynamic(
   () => import('../charts/areaChartPlot'),

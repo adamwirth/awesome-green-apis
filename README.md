@@ -9,7 +9,6 @@
 ![W3C Validation](https://img.shields.io/w3c-validation/html?targetUrl=https%3A%2F%2Fawesomegreenapis.org%2F&style=flat-square&cacheSeconds=302400)
 ![CodeFactor Code Quality Grade on main branch](https://img.shields.io/codefactor/grade/github/adamwirth/awesome-green-apis/main?style=flat-square&label=codefactor%20code%20quality)
 
-
 ---
 
 ## Features from AWS

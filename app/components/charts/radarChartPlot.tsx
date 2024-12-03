@@ -3,7 +3,7 @@ import { ResponsiveContainer, RadarChart, PolarGrid, PolarAngleAxis, Radar, Lege
 import { CHART_COLORS, getMetricColor } from '@/app/utils/constants';
 import { BaseChartProps, BaseChart } from './baseChart';
 
-interface RadarChartProps extends BaseChartProps{};
+type RadarChartProps = BaseChartProps;
 
 class RadarChartPlot extends BaseChart<RadarChartProps> {
     renderChart() {

@@ -1,4 +1,3 @@
-import { fetchAuthSession } from "aws-amplify/auth";
 import { generateClient } from "aws-amplify/data";
 
 import { type Schema } from "@/amplify/data/resource";
@@ -18,7 +17,6 @@ export const projects: ProjectChartData = {
   yAxis: ['benchmark_EUI', 'EUI_MEP_threshold'],
   data: async () => {
     try {
-      const session = await fetchAuthSession();
       const { data: projectData } = await client.models.Project.list();
       return { default: projectData as InferredProjectData };
     } catch (error) {
@@ -33,7 +31,6 @@ export const carbon: CarbonIntensitiesChartData = {
   yAxis: ['mep', 'pv_array'],
   data: async () => {
     try {
-      const session = await fetchAuthSession();
       const { data: carbonData } = await client.models.CScaleCarbonData.list();
       return { default: carbonData as InferredCarbonData };
     } catch (error) {

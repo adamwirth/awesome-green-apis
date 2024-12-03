@@ -1,4 +1,3 @@
-import { fetchAuthSession } from "aws-amplify/auth";
 import { generateClient } from "aws-amplify/data";
 import { type Schema } from "@/amplify/data/resource";
 
@@ -18,7 +17,6 @@ export const burnProbability: BurnProbabilityChartData = {
   yAxis: ['percent', 'emberPercent', 'flamePercent'],
   data: async (): Promise<{ default: BurnProbability[] }> => {
     try {
-      const session = await fetchAuthSession();
       const { data: burnData } = await client.models.FirstStreetBurnProbability.list();
       return { default: burnData as InferredBurnProbabilityData };
     } catch (error) {
@@ -34,7 +32,6 @@ export const airFactor: AirFactorChartData = {
   yAxis: ['airFactor'],
   data: async (): Promise<{ default: AirFactor[] }> => {
     try {
-      const session = await fetchAuthSession();
       const { data: airData } = await client.models.FirstStreetAirFactor.list();
       return { default: airData as InferredAirFactorData };
     } catch (error) {
@@ -51,7 +48,6 @@ export const floodRisk: FloodRiskChartData = {
   yAxis: ['mid', 'yMaxMid'],
   data: async (): Promise<{ default: FloodRisk[] }> => {
     try {
-      const session = await fetchAuthSession();
       const { data: floodData } = await client.models.FirstStreetFloodRisk.list();
       return { default: floodData as InferredFloodRiskData };
     } catch (error) {

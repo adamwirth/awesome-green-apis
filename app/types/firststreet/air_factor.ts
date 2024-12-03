@@ -30,17 +30,6 @@ export interface AirFactor {
     factorScale: FactorScale;
 }
 
-// Type check that the values are legit for factors, return undefined if not.
-function getFactorScale(airFactor: number): FactorScale | undefined {
-    for (const [scale, range] of Object.entries(FactorScaleMap)) {
-        if (range.includes(airFactor)) {
-            return scale as FactorScale;
-        }
-    }
-    return undefined;
-}
-
-
 export interface AirFactorChartData extends ChartData {
     data: () => Promise<{ default: AirFactor[] }>;
 }
