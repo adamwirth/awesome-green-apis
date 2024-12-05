@@ -1,6 +1,6 @@
 import { Cell, Legend, Pie, PieChart, ResponsiveContainer, Tooltip } from "recharts";
 
-import { GET_PIE_COLOR } from "@/app/utils/constants";
+import { GET_PIE_COLOR } from "@/app/utils/constants/colors";
 import { getCounts, transformCountsToArray } from "@/app/utils/transformers";
 import { BaseChart, BaseChartOptions, BaseChartProps } from "./baseChart";
 

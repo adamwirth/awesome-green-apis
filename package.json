@@ -1,7 +1,7 @@
 {
   "name": "awesome_green_apis",
-  "description": "Showing off cool green APIs",
-  "version": "0.1.1",
+  "description": "Showing off cool green APIs of different companies",
+  "version": "0.1.2",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -14,7 +14,7 @@
     "next": "14.2.10",
     "react": "^18",
     "react-dom": "^18",
-    "recharts": "^2.13.3"
+    "recharts": "^2.14.1"
   },
   "devDependencies": {
     "@aws-amplify/backend": "^1.5.1",
@@ -29,14 +29,21 @@
     "eslint": "8.57.1",
     "eslint-config-next": "15.0.3",
     "tsx": "^4.19.0",
-    "typescript": "^5.6.2"
+    "typescript": "^5.6.3"
   },
   "repository": {
-    "url": "https://github.com/adamwirth/awesome-green-apis",
+    "url": "github:adamwirth/awesome-green-apis",
     "type": "GitHub"
   },
-  "author": {
-    "name": "Adam Wirth"
+  "homepage": "https://github.com/adamwirth/awesome-green-apis#readme",
+  "bugs": {
+    "url": "https://github.com/adamwirth/awesome-green-apis/issues"
   },
-  "private": true
+  "author": {
+    "name": "Adam Wirth",
+    "url": "https://adamowirth.com",
+    "email": "aow991@proton.me"
+  },
+  "private": true,
+  "license": "MIT"
 }

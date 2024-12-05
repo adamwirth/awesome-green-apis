@@ -2,6 +2,7 @@ import { Card, Grid, Heading, Icon, useTheme, View, ToggleButton, ToggleButtonGr
 import { useContext, useState } from 'react';
 import { ColorModeContext } from '@/app/dark_mode';
 import { SunIcon, MoonIcon, GithubIcon } from './icons';
+import { AlphaBadge } from '@/app/utils/constants/badges';
 
 export type VisualizationType = 'cscale' | 'firststreet' | 'third thing';
 
@@ -75,9 +76,10 @@ const Header = ({ onViewChange, currentView }: DashboardHeaderProps) => {
                                 It serves as an example of what an API dashboard could look like with real data.
                             </Message>
                         </View>
+                        <AlphaBadge />
                     </View>
 
-                    {/* Visualization Toggle Buttons 
+                    {/* Visualization Toggle Buttons
                     TODO currently does a little shuffling on loading 
                     */}
                     <View

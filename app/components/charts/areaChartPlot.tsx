@@ -8,7 +8,7 @@ import {
   XAxis,
   YAxis
 } from 'recharts';
-import { getMetricColor, CHART_COLORS } from '@/app/utils/constants';
+import { getMetricColor, CHART_COLORS } from '@/app/utils/constants/colors';
 
 import { BaseChart, BaseChartProps } from './baseChart';
 import { aggregateDataByYear } from '@/app/utils/transformers';

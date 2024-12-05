@@ -1,6 +1,6 @@
 import { ResponsiveContainer, RadarChart, PolarGrid, PolarAngleAxis, Radar, Legend, Tooltip } from 'recharts';
 
-import { CHART_COLORS, getMetricColor } from '@/app/utils/constants';
+import { CHART_COLORS, getMetricColor } from '@/app/utils/constants/colors';
 import { BaseChartProps, BaseChart } from './baseChart';
 
 type RadarChartProps = BaseChartProps;
