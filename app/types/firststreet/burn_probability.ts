@@ -1,5 +1,3 @@
-import { ChartData } from "@/app/types/common";
-
 export interface BurnProbability {
     fsid: number;
     relativeYear: number;
@@ -12,8 +10,4 @@ export interface BurnProbability {
     emberPoint: number;
     flameYAxisHeight: number;
     flamePoint: number;
-}
-
-export interface BurnProbabilityChartData extends ChartData {
-    data: () => Promise<{ default: BurnProbability[] }>;
 }

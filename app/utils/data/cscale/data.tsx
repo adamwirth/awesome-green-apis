@@ -1,43 +1,18 @@
-import { generateClient } from "aws-amplify/data";
-
-import { type Schema } from "@/amplify/data/resource";
-
-import { CarbonIntensitiesChartData } from "@/app/types/cscale/carbon_intensities";
-import { ProjectChartData } from "@/app/types/cscale/project";
+import { ChartData } from "@/app/types/common";
+import { CarbonSimplifiedWithYear } from "@/app/types/cscale/carbon_intensities";
+import { Project } from "@/app/types/cscale/project";
 import { MarkdumbData } from "@/app/types/markdumb";
 
-
-type InferredProjectData = Awaited<ReturnType<ProjectChartData['data']>>['default'];
-type InferredCarbonData = Awaited<ReturnType<CarbonIntensitiesChartData['data']>>['default'];
-
-const client = generateClient<Schema>();
-
-export const projects: ProjectChartData = {
+export const projects: ChartData<Project> = {
   xAxis: 'year_completion',
   yAxis: ['benchmark_EUI', 'EUI_MEP_threshold'],
-  data: async () => {
-    try {
-      const { data: projectData } = await client.models.Project.list();
-      return { default: projectData as InferredProjectData };
-    } catch (error) {
-      console.error('Error fetching project data:', error);
-      return import("./cscale_testset_sorted.json", { with: { type: "json" }})
-    }
-  }
+  data: async () => import("./cscale_testset_sorted.json", { with: { type: "json" } })
 };
 
-export const carbon: CarbonIntensitiesChartData = {
+export const carbon: ChartData<CarbonSimplifiedWithYear> = {
   xAxis: 'year',
   yAxis: ['mep', 'pv_array'],
-  data: async () => {
-    try {
-      const { data: carbonData } = await client.models.CScaleCarbonData.list();
-      return { default: carbonData as InferredCarbonData };
-    } catch (error) {
-      console.error('Error fetching carbon data:', error);
-      return import("./cscale_yearly_carbon_generated.json", { with: { type: "json" }})
-    }
-  }
+  data: async () => import("./cscale_yearly_carbon_generated.json", { with: { type: "json" } })
 };
 
 /** Overview of the API to be rendered as a TextPlot */

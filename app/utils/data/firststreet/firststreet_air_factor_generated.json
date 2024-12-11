@@ -1,29 +1,27 @@
-{
-  "data": [
-    {
-      "fsid": 10000001,
-      "airFactor": 1,
-      "factorScale": "Minimal"
-    },
-    {
-      "fsid": 10000002,
-      "airFactor": 3,
-      "factorScale": "Moderate"
-    },
-    {
-      "fsid": 10000003,
-      "airFactor": 5,
-      "factorScale": "Major"
-    },
-    {
-      "fsid": 10000004,
-      "airFactor": 7,
-      "factorScale": "Severe"
-    },
-    {
-      "fsid": 10000005,
-      "airFactor": 9,
-      "factorScale": "Extreme"
-    }
-  ]
-}
+[
+  {
+    "fsid": 10000001,
+    "airFactor": 1,
+    "factorScale": "Minimal"
+  },
+  {
+    "fsid": 10000002,
+    "airFactor": 3,
+    "factorScale": "Moderate"
+  },
+  {
+    "fsid": 10000003,
+    "airFactor": 5,
+    "factorScale": "Major"
+  },
+  {
+    "fsid": 10000004,
+    "airFactor": 7,
+    "factorScale": "Severe"
+  },
+  {
+    "fsid": 10000005,
+    "airFactor": 9,
+    "factorScale": "Extreme"
+  }
+]

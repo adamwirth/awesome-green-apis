@@ -49,7 +49,7 @@ class AreaChartPlot extends BaseChart<AreaChartProps> {
       <ResponsiveContainer width="100%" height={options?.height || 300}>
         <AreaChart data={chartData}>
           <XAxis
-            dataKey={chartDataRef.xAxis}
+            dataKey={String(chartDataRef.xAxis)}
           // label={{ value: chartDataRef.xAxis, position: "insideBottom" }}
           />
           <YAxis>
@@ -58,12 +58,12 @@ class AreaChartPlot extends BaseChart<AreaChartProps> {
           <Tooltip />
           <Legend />
 
-          {chartDataRef.yAxis.map((metric: string, index: number) => (
+          {chartDataRef.yAxis.map((metric: string | number | symbol, index: number) => (
             <Area
-              key={metric}
+              key={String(metric)}
               type="monotone"
-              dataKey={metric}
-              name={metric}
+              dataKey={String(metric)}
+              name={String(metric)}
               stackId="1"
               fill={getMetricColor(index)}
               stroke={getMetricColor(index)}
@@ -86,7 +86,7 @@ class AreaChartPlot extends BaseChart<AreaChartProps> {
       };
 
       chartDataRef.yAxis.forEach(metric => {
-        dataPoint[metric] = 0;
+        dataPoint[String(metric)] = 0;
       });
 
       return dataPoint;

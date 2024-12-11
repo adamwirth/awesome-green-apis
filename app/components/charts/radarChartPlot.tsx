@@ -22,16 +22,16 @@ class RadarChartPlot extends BaseChart<RadarChartProps> {
             <ResponsiveContainer width="100%" height={350}>
                 <RadarChart outerRadius={90} data={chartData}>
                     <PolarGrid />
-                    <PolarAngleAxis dataKey={xAxis} />
+                    <PolarAngleAxis dataKey={String(xAxis)} />
 
-                    {yAxis.map((metric: string, index: number) => {
+                    {yAxis.map((metric: string | symbol | number, index: number) => {
                         const color = options?.colors?.[index] || getMetricColor(index);
 
                         return (
                             <Radar
-                                key={metric}
-                                name={metric}
-                                dataKey={metric}
+                                key={String(metric)}
+                                name={String(metric)}
+                                dataKey={String(metric)}
                                 stroke={color}
                                 fill={color}
                                 fillOpacity={CHART_COLORS.OPACITY.FILL}
@@ -61,7 +61,7 @@ class RadarChartPlot extends BaseChart<RadarChartProps> {
             };
 
             chartDataRef.yAxis.forEach(metric => {
-                dataPoint[metric] = 0;
+                dataPoint[String(metric)] = 0;
             });
 
             return dataPoint;

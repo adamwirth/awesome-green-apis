@@ -1,56 +1,54 @@
-{
-  "data": [
-    {
-      "fsid": 10000002,
-      "relativeYear": 2024,
-      "percent": 0.15,
-      "emberPercent": 0.12,
-      "flamePercent": 0.08,
-      "yAxisHeight": 0.18,
-      "point": 0.15,
-      "emberYAxisHeight": 0.14,
-      "emberPoint": 0.12,
-      "flameYAxisHeight": 0.10,
-      "flamePoint": 0.08
-    },
-    {
-      "fsid": 10000002,
-      "relativeYear": 2030,
-      "percent": 0.25,
-      "emberPercent": 0.20,
-      "flamePercent": 0.15,
-      "yAxisHeight": 0.28,
-      "point": 0.25,
-      "emberYAxisHeight": 0.22,
-      "emberPoint": 0.20,
-      "flameYAxisHeight": 0.18,
-      "flamePoint": 0.15
-    },
-    {
-      "fsid": 10000002,
-      "relativeYear": 2040,
-      "percent": 0.35,
-      "emberPercent": 0.30,
-      "flamePercent": 0.25,
-      "yAxisHeight": 0.38,
-      "point": 0.35,
-      "emberYAxisHeight": 0.32,
-      "emberPoint": 0.30,
-      "flameYAxisHeight": 0.28,
-      "flamePoint": 0.25
-    },
-    {
-      "fsid": 10000002,
-      "relativeYear": 2050,
-      "percent": 0.45,
-      "emberPercent": 0.40,
-      "flamePercent": 0.35,
-      "yAxisHeight": 0.48,
-      "point": 0.45,
-      "emberYAxisHeight": 0.42,
-      "emberPoint": 0.40,
-      "flameYAxisHeight": 0.38,
-      "flamePoint": 0.35
-    }
-  ]
-}
+[
+  {
+    "fsid": 10000002,
+    "relativeYear": 2024,
+    "percent": 0.15,
+    "emberPercent": 0.12,
+    "flamePercent": 0.08,
+    "yAxisHeight": 0.18,
+    "point": 0.15,
+    "emberYAxisHeight": 0.14,
+    "emberPoint": 0.12,
+    "flameYAxisHeight": 0.10,
+    "flamePoint": 0.08
+  },
+  {
+    "fsid": 10000002,
+    "relativeYear": 2030,
+    "percent": 0.25,
+    "emberPercent": 0.20,
+    "flamePercent": 0.15,
+    "yAxisHeight": 0.28,
+    "point": 0.25,
+    "emberYAxisHeight": 0.22,
+    "emberPoint": 0.20,
+    "flameYAxisHeight": 0.18,
+    "flamePoint": 0.15
+  },
+  {
+    "fsid": 10000002,
+    "relativeYear": 2040,
+    "percent": 0.35,
+    "emberPercent": 0.30,
+    "flamePercent": 0.25,
+    "yAxisHeight": 0.38,
+    "point": 0.35,
+    "emberYAxisHeight": 0.32,
+    "emberPoint": 0.30,
+    "flameYAxisHeight": 0.28,
+    "flamePoint": 0.25
+  },
+  {
+    "fsid": 10000002,
+    "relativeYear": 2050,
+    "percent": 0.45,
+    "emberPercent": 0.40,
+    "flamePercent": 0.35,
+    "yAxisHeight": 0.48,
+    "point": 0.45,
+    "emberYAxisHeight": 0.42,
+    "emberPoint": 0.40,
+    "flameYAxisHeight": 0.38,
+    "flamePoint": 0.35
+  }
+]

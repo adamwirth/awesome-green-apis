@@ -1,5 +1,3 @@
-import { ChartData } from "@/app/types/common";
-
 /**
  * Represents a request for carbon intensity data.
  * @link https://api.cscale.io/api/cscale-swagger-docs#/
@@ -211,8 +209,4 @@ export interface CarbonIntensitiesResponseSimplified {
 
 export interface CarbonSimplifiedWithYear extends CarbonIntensitiesResponseSimplified {
     year: number;
-}
-
-export interface CarbonIntensitiesChartData extends ChartData {
-    data: () => Promise<{ default: CarbonSimplifiedWithYear[] }>;
 }

@@ -1,5 +1,3 @@
-import { ChartData } from "@/app/types/common";
-
 export interface Project {
     project_name: number;
     year_completion: number;
@@ -20,8 +18,4 @@ export interface Project {
     interior_fitout_specification: string;
     envelope_specification: string;
     all_electric: boolean;
-}
-
-export interface ProjectChartData extends ChartData {
-    data: () => Promise<{ default: Project[] }>;
 }

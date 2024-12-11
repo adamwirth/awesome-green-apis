@@ -1,7 +1,4 @@
-import { ChartData } from "@/app/types/common";
-
-export type FactorScale =
-    | "Minimal" // 1
+export type FactorScale = "Minimal" // 1
     | "Minor" // 2
     | "Moderate" // 3, 4
     | "Major" // 5, 6
@@ -28,8 +25,4 @@ export interface AirFactor {
     fsid: number;
     airFactor: number;
     factorScale: FactorScale;
-}
-
-export interface AirFactorChartData extends ChartData {
-    data: () => Promise<{ default: AirFactor[] }>;
 }

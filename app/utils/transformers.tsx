@@ -1,76 +1,108 @@
-import { ChartData } from "../types/common";
+import { ChartData } from "@/app/types/common";
 
-type DataItem = Record<string | symbol | number, any>;
+type DataValue = string | number | Date;
+type DataKey = string | symbol | number;
+type DataItem = Record<DataKey, DataValue>;
+
 interface AggregatedEntry {
-    [key: string]: string | number;
     count: number;
+    [key: string]: string | number;
 }
 
 interface AggregationAccumulator {
-    [year: string]: AggregatedEntry;
+    [key: string]: AggregatedEntry;
 }
-/*
-* TODO refactor all of these out & store static, computed versions in a cache
-*/
-/** @description This typing is just saying that key is inside whatever the @param data's keys are */
-export const getCounts = <T extends keyof DataItem>(data: DataItem[], key: T): Record<string, number> => {
+
+/**
+ * Gets counts of unique values for a specific key in dataset
+ * 
+ * TODO refactor all of these out & store static, computed versions in a cache
+ * @description This typing is just saying that key is inside whatever the @param data's keys are
+ * @param data Array of data items
+ * @param key Key to count by
+ * @returns Record of counts by value
+ */
+export function getCounts<T extends DataItem>(
+    data: T[],
+    key: keyof T
+): Record<string, number> {
     return data.reduce((acc: Record<string, number>, curr) => {
         const value = curr[key];
-        if (value) {
-            acc[value] = (acc[value] || 0) + 1;
+        if (value !== undefined && value !== null) {
+            const stringValue = String(value);
+            acc[stringValue] = (acc[stringValue] || 0) + 1;
         }
         return acc;
     }, {});
-};
+}
 
-// Transform map object to array
-export const transformCountsToArray = (counts: Record<string, number>) => {
+/**
+ * Transforms a record of counts into an array of name/value objects
+ * @param counts Record of counts by key
+ * @returns Array of {name, value} objects
+ */
+export function transformCountsToArray(
+    counts: Record<string, number>
+): Array<{ name: string; value: number }> {
     return Object.entries(counts).map(([name, value]) => ({ name, value }));
-};
+}
 
-export const aggregateDataByYear = (data: DataItem[], chartDataRef: ChartData) => {
+/**
+ * Aggregates data by year with support for multiple y-axis values
+ * @param data Array of data items
+ * @param chartDataRef Chart configuration
+ * @returns Array of aggregated data points
+ */
+export function aggregateDataByYear<T extends DataItem>(
+    data: T[],
+    chartDataRef: ChartData<T>
+): Record<string, number | string>[] {
     const { yAxis, xAxis } = chartDataRef;
     const yAxisKeys = Array.isArray(yAxis) ? yAxis : [yAxis];
+    
+    // Helper function to safely convert keys to strings
+    const toStringKey = (key: keyof T): string => String(key);
 
-    // First, ensure we convert any Date objects or complex types to strings for the xAxis
+    // 1st pass: aggregate the data
     const aggregatedData = data.reduce((acc: AggregationAccumulator, curr) => {
-        // Convert the year value to a string if it's not already
-        const year = String(curr[xAxis]);
-
-        if (!acc[year]) {
-            // Initialize entry for each year
-            acc[year] = {
-                [xAxis]: year,
+        const yearKey = String(curr[xAxis]);
+        
+        if (!acc[yearKey]) {
+            acc[yearKey] = {
+                [toStringKey(xAxis)]: yearKey,
                 count: 0,
             };
-            // Initialize totals accumulators for each yAxis key
-            yAxisKeys.forEach((key: string) => {
-                acc[year][`total_${key}`] = 0;
+            
+            // Initialize totals for each y-axis
+            yAxisKeys.forEach(key => {
+                acc[yearKey][`total_${toStringKey(key)}`] = 0;
             });
         }
 
-        // Accumulate values for each yAxis key, ensuring numeric conversion
+        // Accumulate values for each y-axis key
         yAxisKeys.forEach(key => {
+            const stringKey = toStringKey(key);
             const currentValue = Number(curr[key]) || 0;
-            const existingTotal = Number(acc[year][`total_${key}`]) || 0;
-            acc[year][`total_${key}`] = existingTotal + currentValue;
+            const totalKey = `total_${stringKey}`;
+            acc[yearKey][totalKey] = (Number(acc[yearKey][totalKey]) || 0) + currentValue;
         });
 
-        acc[year].count += 1;
+        acc[yearKey].count += 1;
         return acc;
     }, {});
 
-    // Calculate averages for each yAxis key
+    // 2nd pass: calculate averages
     return Object.values(aggregatedData).map((entry: AggregatedEntry) => {
         const averages: Record<string, string | number> = {
-            [xAxis]: entry[xAxis] // Keep the original xAxis value as is
+            [toStringKey(xAxis)]: entry[toStringKey(xAxis)]
         };
 
         yAxisKeys.forEach(key => {
-            const total = Number(entry[`total_${key}`]) || 0;
-            averages[key] = Math.round((total / entry.count) * 100) / 100;
+            const stringKey = toStringKey(key);
+            const total = Number(entry[`total_${stringKey}`]) || 0;
+            averages[stringKey] = Math.round((total / entry.count) * 100) / 100;
         });
 
         return averages;
     });
-};
+}

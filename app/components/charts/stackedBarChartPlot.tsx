@@ -40,7 +40,7 @@ class StackedBarChart extends BaseChart<StackedBarChartProps> {
       <ResponsiveContainer width="100%" height={300}>
         <BarChart data={processedData}>
           <XAxis
-            dataKey={chartDataRef.xAxis}
+            dataKey={String(chartDataRef.xAxis)}
             // label={{ value: chartDataRef.xAxis, position: 'insideBottom' }}
           />
           <YAxis>
@@ -49,11 +49,11 @@ class StackedBarChart extends BaseChart<StackedBarChartProps> {
           <Tooltip />
           <Legend />
           
-          {chartDataRef.yAxis.map((metric: string, index: number) => (
+          {chartDataRef.yAxis.map((metric: string | number | symbol, index: number) => (
             <Bar
-              key={metric}
-              dataKey={metric}
-              name={metric}
+              key={String(metric)}
+              dataKey={String(metric)}
+              name={String(metric)}
               stackId="stack"
               fill={getMetricColor(index)}
               fillOpacity={CHART_COLORS.OPACITY.FILL}
@@ -76,7 +76,7 @@ class StackedBarChart extends BaseChart<StackedBarChartProps> {
       };
       
       chartDataRef.yAxis.forEach(metric => {
-        dataPoint[metric] = 0;
+        dataPoint[String(metric)  ] = 0;
       });
       
       return dataPoint;
