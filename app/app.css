@@ -10,3 +10,12 @@ pre.amplify-text {
   text-overflow: ellipsis;
   padding: 1em;
 }
+
+.amplify-badge {
+  line-height: unset;
+  display: inline;
+  vertical-align: middle;
+  margin: auto 1em auto;
+  overflow: hidden;
+  cursor: progress;
+}
