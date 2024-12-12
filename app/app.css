@@ -12,10 +12,34 @@ pre.amplify-text {
 }
 
 .amplify-badge {
-  line-height: unset;
-  display: inline;
+  line-height: 1.2;
+  align-items: center;
   vertical-align: middle;
-  margin: auto 1em auto;
+  margin: 0 0.5em;
   overflow: hidden;
-  cursor: progress;
+  white-space: nowrap;
+  border-radius: 4px;
+}
+
+.badge--api-type {
+  position: relative;
+  top: -0.15em;
+}
+
+.badge--api-type.badge--rest {
+  background-color: #bfdbfe;
+  color: #1e40af;
+}
+
+.badge--api-type.badge--graphql {
+  background-color: #ddd6fe;
+  color: #5b21b6;
+}
+
+/* Responsive adjustments */
+@media screen and (max-width: 640px) {
+  .amplify-badge {
+    margin: 0.25em 0.5em;
+    font-size: 0.8em;
+  }
 }

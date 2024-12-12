@@ -6,10 +6,27 @@
  * I'm using elements of the react setup on amplify to guide the decisions here, such as "height='xxl'"
  * @link https://ui.docs.amplify.aws/react/theming/style-props
  */
-export interface MarkdumbElement {
+
+interface MarkdumbElementCommon {
+    type: string;
+}
+
+export type MarkdumbTextElement = MarkdumbElementCommon & {
     content: string;
     size: 'xxl' | 'xl' | 'l' | 'm'
     type: 'code' | 'h1' | 'p';
 }
 
+const enum BadgeType {
+    REST = 'rest',
+    GRAPHQL = 'graphql'
+}
+export type ValidBadgeName = `${BadgeType}`;
+
+export type MarkdumbBadgeElement = MarkdumbElementCommon & {
+    badgeName: ValidBadgeName;
+    type: 'badge';
+}
+
+export type MarkdumbElement = MarkdumbTextElement | MarkdumbBadgeElement;
 export type MarkdumbData = MarkdumbElement[];

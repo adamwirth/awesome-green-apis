@@ -1,98 +1,95 @@
-import { MarkdumbData } from '@/app/types/markdumb';
-import { Heading, ScrollView, Text, useTheme } from '@aws-amplify/ui-react';
 import * as React from 'react';
+import { MarkdumbData } from '@/app/types/markdumb';
+import { Badge, Heading, ScrollView, Text, useTheme } from '@aws-amplify/ui-react';
 
-interface TextPlotOptions {
-    height: string;
-}
+const badgeMap = Object.freeze({
+    'rest': {
+        'className': 'badge--rest',
+        'content': 'REST'
+    },
+    'graphql': {
+        'className': 'badge--graphql',
+        'content': 'GraphQL'
+    }
+} as const);
 
 interface TextPlotProps {
     data: Readonly<MarkdumbData>;
-    options: TextPlotOptions;
+    options: {
+        height: string;
+    };
 }
 
-/**
- * @description Uses factory methods to spool up text elements, given MarkdumbData.
- */
 const TextPlot = ({ data, options }: TextPlotProps) => {
     const { tokens } = useTheme();
 
-    /**
-     * @param {TextPlotProps['data'][number]} datum An array element out of MarkdumbData
-     */
-    const commonTextProps = React.useCallback((datum: TextPlotProps['data'][number]) => ({
-        fontSize: tokens.fontSizes[datum.size],
+    const getTextProps = React.useCallback((element: { size: string }) => ({
+        fontSize: tokens.fontSizes[element.size],
         padding: `${tokens.space.small} 0`,
     }), [tokens.fontSizes, tokens.space.small]);
 
-    const headerBuilder = React.useCallback(
-        (datum: TextPlotProps['data'][number], index: number) => (
+    const builders = React.useMemo(() => ({
+        h1: (element: { type: 'h1', content: string, size: string }, index: number) => (
             <Heading
                 key={index}
                 fontWeight={tokens.fontWeights.bold}
-                {...commonTextProps(datum)}
+                style={{'display': 'inline'}}
+                {...getTextProps(element)}
             >
-                {datum.content}
+                {element.content}
             </Heading>
         ),
-        [tokens.fontWeights.bold, commonTextProps]
-    );
 
-    const textBuilder = React.useCallback(
-        (datum: TextPlotProps['data'][number], index: number) => (
-            <Text key={index} {...commonTextProps(datum)}>
-                {datum.content}
+        p: (element: { type: 'p', content: string, size: string }, index: number) => (
+            <Text key={index} {...getTextProps(element)}>
+                {element.content}
             </Text>
         ),
-        [commonTextProps]
-    );
 
-    const codeBuilder = React.useCallback(
-        (datum: TextPlotProps['data'][number], index: number) => (
-            <ScrollView
-                maxWidth="100%"
-                maxHeight={options.height}
-                key={index}
-            >
+        code: (element: { type: 'code', content: string, size: string }, index: number) => (
+            <ScrollView maxWidth="100%" maxHeight={options.height} key={index}>
                 <Text
                     as="pre"
                     backgroundColor={tokens.colors.background.secondary}
                     borderRadius={tokens.radii.small}
-                    fontSize={commonTextProps(datum).fontSize}
+                    fontSize={getTextProps(element).fontSize}
                 >
-                    {datum.content}
+                    {element.content}
                 </Text>
             </ScrollView>
         ),
-        [tokens.colors.background.secondary, tokens.radii.small, options.height, commonTextProps]
-    );
 
-    const builderMap = React.useMemo(() => ({
-        code: codeBuilder,
-        h1: headerBuilder,
-        p: textBuilder,
-    }), [codeBuilder, headerBuilder, textBuilder]);
-
-    const renderTextElement = React.useCallback(
-        (datum: TextPlotProps['data'][number], index: number) => {
-            const builder = builderMap[datum.type];
-            if (builder) {
-                return builder(datum, index);
-            }
+        badge: (element: { type: 'badge', badgeName: keyof typeof badgeMap }, index: number) => {
+            const badge = badgeMap[element.badgeName];
             return (
-                <Text key={index} {...commonTextProps(datum)}>
-                    {datum.content}
-                </Text>
+                <Badge key={index} className={'badge--api-type ' + badge.className}>
+                    {badge.content}
+                </Badge>
             );
+        }
+    }), [tokens, options.height, getTextProps]);
+
+    const renderElement = React.useCallback(
+        (element: MarkdumbData[number], index: number) => {
+            const builder = builders[element.type];
+            if (builder) {
+                return builder(element as any, index);
+            }
+            if ('content' in element) {
+                return (
+                    <Text key={index} {...getTextProps(element)}>
+                        {element.content}
+                    </Text>
+                );
+            }
+            return null;
         },
-        [builderMap, commonTextProps]
+        [builders, getTextProps]
     );
 
-    if (data.length === 0) {
-        return <div>No data available to render text.</div>;
-    }
-
-    return <>{data.map(renderTextElement)}</>;
+    if (!data.length) return <div>No data available to render text.</div>;
+    
+    return <>{data.map(renderElement)}</>;
 };
 
 export default TextPlot;

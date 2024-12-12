@@ -1,7 +1,7 @@
-import { Card, Grid, Heading, Icon, useTheme, View, ToggleButton, ToggleButtonGroup, ColorMode, Message } from '@aws-amplify/ui-react';
+import { Card, Grid, Heading, useTheme, View, ToggleButton, ToggleButtonGroup, ColorMode, Message } from '@aws-amplify/ui-react';
 import { useContext, useState } from 'react';
 import { ColorModeContext } from '@/app/dark_mode';
-import { SunIcon, MoonIcon, GithubIcon } from './icons';
+import { InfoIcon, SunIcon, MoonIcon, GithubIcon } from './icons';
 import { AlphaBadge } from '@/app/utils/constants/badges';
 
 export type VisualizationType = 'cscale' | 'firststreet' | 'third thing';
@@ -23,7 +23,7 @@ const Header = ({ onViewChange, currentView }: DashboardHeaderProps) => {
                 variation="elevated">
                 <Grid
                     gap={tokens.space.xs}
-                    templateColumns={{ base: "1fr auto", medium: "2fr 1fr auto" }}
+                    templateColumns={{ base: "auto", medium: "2fr 1fr auto" }}
                     padding={tokens.space.small}
                 >
                     <View display="inline-flex">
@@ -40,19 +40,15 @@ const Header = ({ onViewChange, currentView }: DashboardHeaderProps) => {
                                 Example Charts
                             </Heading>
 
-                            <Icon
+                            <View
                                 marginLeft={tokens.space.medium}
-                                ariaLabel="Info"
-                                width={24}
-                                height={24}
-                                viewBox={{ width: 24, height: 24 }}
-                                pathData={"M12 2c5.514 0 10 4.486 10 10s-4.486 10-10 10-10-4.486-10-10 4.486-10 10-10zm0-2c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm-.001 5.75c.69 0 1.251.56 1.251 1.25s-.561 1.25-1.251 1.25-1.249-.56-1.249-1.25.559-1.25 1.249-1.25zm2.001 12.25h-4v-1c.484-.179 1-.201 1-.735v-4.467c0-.534-.516-.618-1-.797v-1h3v6.265c0 .535.517.558 1 .735v.999z"}
-                                fill={tokens.colors.font.info.toString()}
                                 onClick={() => setShowInfo(true)}
                                 onMouseEnter={() => setShowInfo(true)}
                                 onMouseLeave={() => setShowInfo(false)}
                                 style={{ cursor: "pointer" }}
-                            />
+                            >
+                                <InfoIcon fill={tokens.colors.font.info.toString()} />
+                            </View>
                             <Message
                                 className="info-message"
                                 marginLeft="1rem"
@@ -75,8 +71,8 @@ const Header = ({ onViewChange, currentView }: DashboardHeaderProps) => {
                                 This dashboard uses generated data for demonstration purposes only.
                                 It serves as an example of what an API dashboard could look like with real data.
                             </Message>
+                            <AlphaBadge />
                         </View>
-                        <AlphaBadge />
                     </View>
 
                     {/* Visualization Toggle Buttons

@@ -35,6 +35,10 @@ export const explanation: Readonly<MarkdumbData> = Object.freeze([
     type: 'h1'
   },
   {
+    badgeName: 'graphql',
+    type: 'badge'
+  },
+  {
     content: 'A comprehensive GraphQL API that provides forward-looking risk assessment data for properties. Using property data from Lightbox (DMP), FirstStreet delivers detailed projections for flooding, heat stress, wind damage, and air quality metrics projected up to 30 years into the future. This enables portfolio managers and property stakeholders to make data-driven decisions based on climate risk factors.',
     size: 'm',
     type: 'p'

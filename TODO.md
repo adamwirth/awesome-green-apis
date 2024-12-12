@@ -15,13 +15,13 @@
 [] Make a tabulated landing page per use case, once more datasets/charts created
 [] Make for a "real" database/redis cache setup, even if its done locally
 [] Add badges
-  [] Badge that say "alpha"/"beta"
-  [] Badge that says "graphQL"/"REST"
+  [x] Badge that say "alpha"/"beta"
+  [x] Badge that says "graphQL"/"REST"
   [] Badge for industry topics covered by some company
 [] Add links
   [x] Github
   [] Climatedrift
   [] Each company ought to have some links -- use a link icon that looks like the up-right arrow
 [] Test for data binding and caching with the recharts as I try to reuse chart elements and ingest other data
-[] Move domains to the `.org` one
+[x] Move domains to the `.org` one
 * Keep adding ideas/thoughts to this list, instead of running down rabbit holes

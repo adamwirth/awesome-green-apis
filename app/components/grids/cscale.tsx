@@ -1,15 +1,15 @@
-// components/visualizations/CScaleGrid.tsx
-import { Card, Grid, View, useTheme } from '@aws-amplify/ui-react';
 import dynamic from 'next/dynamic';
+
+import { Card, Grid, View, useTheme } from '@aws-amplify/ui-react';
 import Loading from '../loading';
 import { carbon, explanation, projects } from "@/app/utils/data/cscale/data";
 import TextPlot from '../text';
 
 const StackedBarChartPlot = dynamic(
-  () => import('../charts/stackedBarChartPlot'),  {
-    ssr: false,
-    loading: () => <Loading />,
-  }
+  () => import('../charts/stackedBarChartPlot'), {
+  ssr: false,
+  loading: () => <Loading />,
+}
 );
 const PieChartPlot = dynamic(
   () => import('../charts/pieChartPlot'),
@@ -28,16 +28,11 @@ const AreaChartPlot = dynamic(
 
 const CScaleGrid = () => {
   const { tokens } = useTheme();
-  
+
   return (
     <Grid
-      templateColumns={{
-        base: '1fr',
-        medium: '5fr 4fr'
-      }}
       templateRows={{
-        base: 'repeat(4, auto)',
-        medium: 'repeat(3, 350px)'
+        base: '1fr'
       }}
       gap={tokens.space.small}
       marginBottom={tokens.space.medium}
@@ -45,19 +40,12 @@ const CScaleGrid = () => {
       {/* Left Column */}
       <View
         columnStart={1}
-        columnEnd={2}
+        columnEnd={{ base: 5 }}
         rowStart={1}
-        rowEnd={2}
+        rowEnd={{ base: 2, medium: 4 }}
       >
         <Card
           height='100%'
-          columnStart={1}
-          columnEnd={{ base: 1, medium: 2 }}
-          rowStart={1}
-          rowEnd={{ base: 2, medium: 4 }}
-          style={{
-            gridRow: '1 / span 1'
-          }}
           borderRadius={tokens.radii.medium}
         >
           <StackedBarChartPlot
@@ -74,10 +62,7 @@ const CScaleGrid = () => {
         columnStart={{ base: 1, medium: 2 }}
         columnEnd={{ base: 2, medium: 3 }}
         rowStart={1}
-        rowEnd={4}
-        style={{
-          gridRow: '1 / span 3',
-        }}
+        rowEnd={{ base: 1, medium: 4 }}
       >
         <Card
           height="100%"

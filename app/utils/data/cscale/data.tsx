@@ -23,6 +23,10 @@ export const explanation: Readonly<MarkdumbData> = Object.freeze([
     type: 'h1'
   },
   {
+    badgeName: 'rest',
+    type: 'badge'
+  },
+  {
     content: 'An API designed to provide comprehensive carbon intensity data for various building elements and structures based on location and unit inputs. It helps users understand and track carbon emissions across aspects of construction and design.',
     size: 'm',
     type: 'p'
