@@ -12,7 +12,7 @@ Amplify.configure(outputs);
 
 
 export default function App() {
-  const [currentView, setCurrentView] = useState<VisualizationType>('cscale');
+  const [currentView, setCurrentView] = useState<VisualizationType>('firststreet');
   
   return (
     <DefaultDarkMode>
