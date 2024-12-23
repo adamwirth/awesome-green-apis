@@ -24,11 +24,10 @@ const FirstStreetGrid = () => {
   return (
     <Grid
       templateColumns={{
-        base: '1fr',
-        medium: '5fr 4fr'
+        base: '5fr 4fr'
       }}
       templateRows={{
-        base: 'repeat(4, auto)',
+        base: 'repeat(3, auto)',
         medium: 'repeat(3, 350px)'
       }}
       gap={tokens.space.small}
@@ -43,13 +42,8 @@ const FirstStreetGrid = () => {
       >
         <Card
           height='100%'
-          columnStart={1}
           columnEnd={{ base: 1, medium: 2 }}
-          rowStart={1}
           rowEnd={{ base: 2, medium: 4 }}
-          style={{
-            gridRow: '1 / span 1'
-          }}
           borderRadius={tokens.radii.medium}
         >
           <StackedBarChartPlot
@@ -63,13 +57,10 @@ const FirstStreetGrid = () => {
       {/* Right Column - Text Plot */}
       <View
         height="100%"
-        columnStart={{ base: 1, medium: 2 }}
+        columnStart={{ base: 1 }}
         columnEnd={{ base: 2, medium: 3 }}
         rowStart={1}
-        rowEnd={4}
-        style={{
-          gridRow: '1 / span 3',
-        }}
+        rowEnd={5} // todo possibly shrink the code text so it goes down to a max of 4
       >
         <Card
           height="100%"

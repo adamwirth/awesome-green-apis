@@ -6,26 +6,39 @@ body {
 pre.amplify-text {
   font-family: 'Courier New', Courier, monospace;
   white-space: pre-wrap;
-  overflow-y: scroll;
   text-overflow: ellipsis;
   padding: 1em;
 }
 
-.amplify-badge {
-  line-height: 1.2;
+.info-message {
+  margin-left: 2.1rem;
+  position: absolute;
+  top: 2px;
+  max-width: 430px;
+  z-index: 100;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.2s ease-in-out, visibility 0.2s ease-in-out;
+}
+
+.info-message.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+.alpha-badge {
+  display: inline-flex;
+  float: right;
   align-items: center;
-  vertical-align: middle;
-  margin: 0 0.5em;
-  overflow: hidden;
-  white-space: nowrap;
-  border-radius: 4px;
+  margin: 0.5rem 0.25rem;
+  cursor: progress;
 }
 
 .badge--api-type {
-  position: relative;
-  top: -0.15em;
+  float: right;
+  align-items: center;
+  margin: 0.25rem 0;
 }
-
 .badge--api-type.badge--rest {
   background-color: #bfdbfe;
   color: #1e40af;
@@ -34,12 +47,4 @@ pre.amplify-text {
 .badge--api-type.badge--graphql {
   background-color: #ddd6fe;
   color: #5b21b6;
-}
-
-/* Responsive adjustments */
-@media screen and (max-width: 640px) {
-  .amplify-badge {
-    margin: 0.25em 0.5em;
-    font-size: 0.8em;
-  }
 }

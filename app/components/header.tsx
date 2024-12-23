@@ -1,8 +1,8 @@
-import { Card, Grid, Heading, useTheme, View, ToggleButton, ToggleButtonGroup, ColorMode, Message } from '@aws-amplify/ui-react';
+import { Card, Grid, Heading, useTheme, View, ToggleButton, ToggleButtonGroup, ColorMode, Message, Flex } from '@aws-amplify/ui-react';
 import { useContext, useState } from 'react';
-import { ColorModeContext } from '@/app/dark_mode';
+import { ColorModeContext } from '../dark_mode';
 import { InfoIcon, SunIcon, MoonIcon, GithubIcon } from './icons';
-import { AlphaBadge } from '@/app/utils/constants/badges';
+import { AlphaBadge } from '../utils/constants/badges';
 
 export type VisualizationType = 'cscale' | 'firststreet' | 'third thing';
 
@@ -13,7 +13,7 @@ interface DashboardHeaderProps {
 
 const Header = ({ onViewChange, currentView }: DashboardHeaderProps) => {
     const { tokens } = useTheme();
-    const [showInfo, setShowInfo] = useState(false);
+    const [showInfo, setShowInfo] = useState('');
     const { colorMode, setColorMode } = useContext(ColorModeContext);
 
     return (
@@ -25,101 +25,80 @@ const Header = ({ onViewChange, currentView }: DashboardHeaderProps) => {
                     gap={tokens.space.xs}
                     templateColumns={{ base: "auto", medium: "2fr 1fr auto" }}
                     padding={tokens.space.small}
+                    style={{ justifyItems: 'stretch' }}
                 >
-                    <View display="inline-flex">
-                        <View display="inline-flex" style={{ alignItems: 'center', position: 'relative' }}>
-                            <Heading
-                                level={3}
-                                fontSize={tokens.fontSizes.xxl}
-                                style={{
-                                    whiteSpace: 'nowrap',
-                                    overflow: 'hidden',
-                                    textOverflow: 'ellipsis'
-                                }}
-                            >
-                                Example Charts
-                            </Heading>
+                    <Flex style={{ alignItems: 'center' }}>
+                        <Flex style={{ alignItems: 'center', gap: '0.5rem' }}>
+                            <Flex style={{alignItems: 'center' }}>
+                                <Heading
+                                    level={3}
+                                    fontSize={tokens.fontSizes.xxl}
+                                    style={{
+                                        margin: 0,
+                                        whiteSpace: 'nowrap',
+                                        overflow: 'hidden',
+                                        textOverflow: 'ellipsis'
+                                    }}
+                                >
+                                    Example Charts
+                                </Heading>
+                                <AlphaBadge />
+                            </Flex>
 
-                            <View
-                                marginLeft={tokens.space.medium}
-                                onClick={() => setShowInfo(true)}
-                                onMouseEnter={() => setShowInfo(true)}
-                                onMouseLeave={() => setShowInfo(false)}
-                                style={{ cursor: "pointer" }}
-                            >
-                                <InfoIcon fill={tokens.colors.font.info.toString()} />
-                            </View>
-                            <Message
-                                className="info-message"
-                                marginLeft="1rem"
-                                heading="Note"
-                                role="note"
-                                variation="outlined"
-                                colorTheme="info"
-                                position="absolute"
-                                left="100%"
-                                top="0"
-                                width="400px"
-                                hasIcon={false}
-                                style={{
-                                    opacity: showInfo ? 1 : 0,
-                                    visibility: showInfo ? 'visible' : 'hidden',
-                                    transition: 'opacity 0.2s ease-in-out, visibility 0.2s ease-in-out',
-                                    zIndex: 100
-                                }}
-                            >
-                                This dashboard uses generated data for demonstration purposes only.
-                                It serves as an example of what an API dashboard could look like with real data.
-                            </Message>
-                            <AlphaBadge />
-                        </View>
-                    </View>
 
-                    {/* Visualization Toggle Buttons
-                    TODO currently does a little shuffling on loading 
-                    */}
-                    <View
-                        display="flex"
-                        style={{
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            gap: '0.5rem'
-                        }}
+                            <Flex>
+                                <View
+                                    onClick={() => setShowInfo(' show')}
+                                    onMouseEnter={() => setShowInfo(' show')}
+                                    onMouseLeave={() => setShowInfo('')}
+                                    style={{ cursor: "pointer" }}
+                                >
+                                    <InfoIcon fill={tokens.colors.font.info.toString()} />
+                                </View>
+                                <Message
+                                    className={"info-message" + showInfo}
+                                    heading="Note"
+                                    role="note"
+                                    variation="outlined"
+                                    colorTheme="info"
+                                    hasIcon={false}
+                                >
+                                    This dashboard uses generated data for demonstration purposes only.
+                                    It serves as an example of what an API dashboard could look like with real data.
+                                </Message>
+                            </Flex>
+                        </Flex>
+                    </Flex>
+
+                    <ToggleButtonGroup
+                        value={currentView}
+                        isExclusive
+                        onChange={(value) => onViewChange(value as VisualizationType)}
+                        size="large"
+                        minHeight={44}
                     >
-                        <ToggleButtonGroup
-                            value={currentView}
-                            isExclusive
-                            onChange={(value) => onViewChange(value as VisualizationType)}
-                            size="large"
-                            minHeight={44}
-                        >
-                            <ToggleButton
-                                value="cscale"
-                                ariaLabel="CScale view">
-                                CScale
-                            </ToggleButton>
-                            <ToggleButton
-                                value="firststreet"
-                                ariaLabel="FirstStreet view">
-                                FirstStreet
-                            </ToggleButton>
-                            {/* todo dynamically extract in compiled way */}
-                            <ToggleButton
-                                value="third thing"
-                                ariaLabel="Third thing"
-                                disabled>
-                                Third Thing
-                            </ToggleButton>
-                        </ToggleButtonGroup>
-                    </View>
+                        <ToggleButton
+                            value="cscale"
+                            ariaLabel="CScale view">
+                            CScale
+                        </ToggleButton>
+                        <ToggleButton
+                            value="firststreet"
+                            ariaLabel="FirstStreet view">
+                            FirstStreet
+                        </ToggleButton>
+                        <ToggleButton
+                            value="third thing"
+                            ariaLabel="Third thing"
+                            disabled>
+                            Third Thing
+                        </ToggleButton>
+                    </ToggleButtonGroup>
 
-                    {/* Theme Toggle and GitHub Link */}
-                    <View
+                    <Flex
                         aria-hidden="true"
-                        display="flex"
                         style={{
                             alignItems: 'center',
-                            justifyContent: 'flex-end',
                             gap: '0.5rem'
                         }}
                     >
@@ -155,7 +134,7 @@ const Header = ({ onViewChange, currentView }: DashboardHeaderProps) => {
                         >
                             <GithubIcon fill={tokens.colors.background.quaternary.toString()} />
                         </a>
-                    </View>
+                    </Flex>
                 </Grid>
             </Card>
         </>
