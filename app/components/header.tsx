@@ -1,8 +1,9 @@
-import { Card, Grid, Heading, useTheme, View, ToggleButton, ToggleButtonGroup, ColorMode, Message, Flex } from '@aws-amplify/ui-react';
+import { Card, ColorMode, Flex, Grid, Heading, Message, ToggleButton, ToggleButtonGroup, useTheme, View } from '@aws-amplify/ui-react';
 import { useContext, useState } from 'react';
+
 import { ColorModeContext } from '../dark_mode';
-import { InfoIcon, SunIcon, MoonIcon, GithubIcon } from './icons';
 import { AlphaBadge } from '../utils/constants/badges';
+import { GithubIcon, InfoIcon, MoonIcon, SunIcon } from './icons';
 
 export type VisualizationType = 'cscale' | 'firststreet' | 'third thing';
 
@@ -27,46 +28,42 @@ const Header = ({ onViewChange, currentView }: DashboardHeaderProps) => {
                     padding={tokens.space.small}
                     style={{ justifyItems: 'stretch' }}
                 >
-                    <Flex style={{ alignItems: 'center' }}>
+                    <Flex>
                         <Flex style={{ alignItems: 'center', gap: '0.5rem' }}>
-                            <Flex style={{alignItems: 'center' }}>
-                                <Heading
-                                    level={3}
-                                    fontSize={tokens.fontSizes.xxl}
-                                    style={{
-                                        margin: 0,
-                                        whiteSpace: 'nowrap',
-                                        overflow: 'hidden',
-                                        textOverflow: 'ellipsis'
-                                    }}
-                                >
-                                    Example Charts
-                                </Heading>
-                                <AlphaBadge />
-                            </Flex>
+                            <Heading
+                                level={3}
+                                fontSize={tokens.fontSizes.xxl}
+                                style={{
+                                    margin: 0,
+                                    whiteSpace: 'nowrap',
+                                    overflow: 'hidden',
+                                    textOverflow: 'ellipsis'
+                                }}
+                            >
+                                Example Charts
+                            </Heading>
+                            <AlphaBadge />
 
 
-                            <Flex>
-                                <View
-                                    onClick={() => setShowInfo(' show')}
-                                    onMouseEnter={() => setShowInfo(' show')}
-                                    onMouseLeave={() => setShowInfo('')}
-                                    style={{ cursor: "pointer" }}
-                                >
-                                    <InfoIcon fill={tokens.colors.font.info.toString()} />
-                                </View>
-                                <Message
-                                    className={"info-message" + showInfo}
-                                    heading="Note"
-                                    role="note"
-                                    variation="outlined"
-                                    colorTheme="info"
-                                    hasIcon={false}
-                                >
-                                    This dashboard uses generated data for demonstration purposes only.
-                                    It serves as an example of what an API dashboard could look like with real data.
-                                </Message>
-                            </Flex>
+                            <View
+                                onClick={() => setShowInfo(' show')}
+                                onMouseEnter={() => setShowInfo(' show')}
+                                onMouseLeave={() => setShowInfo('')}
+                                style={{ cursor: "pointer" }}
+                            >
+                                <InfoIcon fill={tokens.colors.font.info.toString()} />
+                            </View>
+                            <Message
+                                className={"info-message" + showInfo}
+                                heading="Note"
+                                role="note"
+                                variation="outlined"
+                                colorTheme="info"
+                                hasIcon={false}
+                            >
+                                This dashboard uses generated data for demonstration purposes only.
+                                It serves as an example of what an API dashboard could look like with real data.
+                            </Message>
                         </Flex>
                     </Flex>
 
@@ -128,7 +125,6 @@ const Header = ({ onViewChange, currentView }: DashboardHeaderProps) => {
                             rel="noopener noreferrer"
                             style={{
                                 display: 'flex',
-                                alignItems: 'center',
                                 marginLeft: '0.5rem'
                             }}
                         >
