@@ -1,3 +1,4 @@
+import { ScaleOrdinal } from 'd3-scale';
 import {
   Area,
   AreaChart,
@@ -13,7 +14,7 @@ import { getMetricColor, CHART_COLORS } from '@/app/utils/constants/colors';
 import { BaseChart, BaseChartProps } from './baseChart';
 import { aggregateDataByYear } from '@/app/utils/transformers';
 
-type AreaChartProps = BaseChartProps;
+type AreaChartProps = BaseChartProps & { YAxisScale?: ScaleOrdinal<number, string>; };
 
 class AreaChartPlot extends BaseChart<AreaChartProps> {
   // todo keep this in sync with the first page that loads in some better way that'll compile in
@@ -52,8 +53,13 @@ class AreaChartPlot extends BaseChart<AreaChartProps> {
             dataKey={String(chartDataRef.xAxis)}
           // label={{ value: chartDataRef.xAxis, position: "insideBottom" }}
           />
-          <YAxis>
-            <Label value="Values" angle={-90} position="insideLeft" />
+          <YAxis
+            scale={options?.YAxisScale?.scale || 'auto'}
+            tickFormatter={options?.YAxisScale?.tickFormatter}
+          >
+            <Label
+              value="Values"
+              angle={-90} position="insideLeft" />
           </YAxis>
           <Tooltip />
           <Legend />

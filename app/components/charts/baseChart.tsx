@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { ScaleType } from 'recharts/types/util/types';
 import { Heading } from '@aws-amplify/ui-react';
 
 import { ChartData } from '@/app/types/common';
@@ -8,6 +9,10 @@ export interface BaseChartOptions {
     height?: string | number;
     width?: string | number;
     colors?: string[]; // todo use
+    YAxisScale?: {
+      scale: ScaleType;
+      tickFormatter?: (value: number) => string;
+    };
 }
 
 export interface BaseChartProps {

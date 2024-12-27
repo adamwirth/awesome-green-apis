@@ -87,7 +87,27 @@ const FirstStreetGrid = () => {
             chartDataRef={airFactor}
             options={{
               title: 'Air Factor',
-            }}
+              YAxisScale: {
+                scale: 'linear',
+                // todo extract
+                tickFormatter: (value: number): string => {
+                  const x: Record<number, string> = {
+                    1: "Minimal",
+                    2: "Minor",
+                    3: "Moderate",
+                    4: "Moderate",
+                    5: "Major",
+                    6: "Major",
+                    7: "Severe",
+                    8: "Severe",
+                    9: "Extreme",
+                    10: "Extreme"
+                  };
+                  return x[value] || `${value}`;
+                }
+              }
+            }
+            }
           />
         </Card>
       </View>
