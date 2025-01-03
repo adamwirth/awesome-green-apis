@@ -5,7 +5,7 @@ import { ColorModeContext } from '../dark_mode';
 import { AlphaBadge } from '../utils/constants/badges';
 import { GithubIcon, InfoIcon, MoonIcon, SunIcon } from './icons';
 
-export type VisualizationType = 'cscale' | 'firststreet' | 'third thing';
+export type VisualizationType = 'cscale' | 'firststreet';
 
 interface DashboardHeaderProps {
     onViewChange: (view: VisualizationType) => void;
@@ -29,7 +29,7 @@ const Header = ({ onViewChange, currentView }: DashboardHeaderProps) => {
                     style={{ justifyItems: 'stretch' }}
                 >
                     <Flex>
-                        <Flex style={{ alignItems: 'center', gap: '0.5rem' }}>
+                        <Flex style={{ alignItems: 'center' }} gap={tokens.space.xs} >
                             <Heading
                                 level={3}
                                 fontSize={tokens.fontSizes.xxl}
@@ -75,29 +75,21 @@ const Header = ({ onViewChange, currentView }: DashboardHeaderProps) => {
                         minHeight={44}
                     >
                         <ToggleButton
-                            value="cscale"
-                            ariaLabel="CScale view">
-                            CScale
-                        </ToggleButton>
-                        <ToggleButton
                             value="firststreet"
                             ariaLabel="FirstStreet view">
                             FirstStreet
                         </ToggleButton>
                         <ToggleButton
-                            value="third thing"
-                            ariaLabel="Third thing"
-                            disabled>
-                            Third Thing
+                            value="cscale"
+                            ariaLabel="CScale view">
+                            CScale
                         </ToggleButton>
                     </ToggleButtonGroup>
 
                     <Flex
                         aria-hidden="true"
-                        style={{
-                            alignItems: 'center',
-                            gap: '0.5rem'
-                        }}
+                        alignItems="center"
+                        gap={tokens.space.xs}
                     >
                         <ToggleButtonGroup
                             value={colorMode}
@@ -125,7 +117,7 @@ const Header = ({ onViewChange, currentView }: DashboardHeaderProps) => {
                             rel="noopener noreferrer"
                             style={{
                                 display: 'flex',
-                                marginLeft: '0.5rem'
+                                marginLeft: Number(tokens.space.xs)
                             }}
                         >
                             <GithubIcon fill={tokens.colors.background.quaternary.toString()} />

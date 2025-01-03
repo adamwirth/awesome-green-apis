@@ -33,7 +33,7 @@ const TextPlot = ({ data, options }: TextPlotProps) => {
             <Heading
                 key={index}
                 fontWeight={tokens.fontWeights.bold}
-                style={{'display': 'inline'}}
+                style={{ 'display': 'inline' }}
                 {...getTextProps(element)}
             >
                 {element.content}
@@ -62,7 +62,9 @@ const TextPlot = ({ data, options }: TextPlotProps) => {
         badge: (element: { type: 'badge', badgeName: keyof typeof badgeMap }, index: number) => {
             const badge = badgeMap[element.badgeName];
             return (
-                <Badge key={index} className={'badge--api-type ' + badge.className}>
+                <Badge
+                    key={index}
+                    className={'badge--api-type ' + badge.className}>
                     {badge.content}
                 </Badge>
             );
@@ -88,7 +90,7 @@ const TextPlot = ({ data, options }: TextPlotProps) => {
     );
 
     if (!data.length) return <div>No data available to render text.</div>;
-    
+
     return <>{data.map(renderElement)}</>;
 };
 

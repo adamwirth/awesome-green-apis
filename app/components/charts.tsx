@@ -31,9 +31,9 @@ const Charts = ({ activeView = 'cscale' }: ChartsProps) => {
   const { tokens } = useTheme();
   return (
     <View padding={tokens.space.medium}>
+      {activeView === 'firststreet' && <FirstStreetGrid />}
       {activeView === 'cscale' && <CScaleGrid />}
       {/* Add other ones as I go */}
-      {activeView === 'firststreet' && <FirstStreetGrid />}
       {/* {activeView === 'other' && <OtherGrid />} */}
     </View>
   );
