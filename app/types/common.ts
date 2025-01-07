@@ -16,3 +16,7 @@ export interface ChartData<T = any> {
 export function isValidYAxis<T>(yAxis: Array<keyof T>): yAxis is YAxisTuple<T> {
     return yAxis.length >= 1 && yAxis.length <= 3;
 }
+
+export interface ExtraReactProps {
+  secondKey?: string; // For iteration of childrens' parent nodes
+}

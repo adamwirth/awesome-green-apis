@@ -2,7 +2,7 @@ import * as React from 'react';
 import { ScaleType } from 'recharts/types/util/types';
 import { Heading } from '@aws-amplify/ui-react';
 
-import { ChartData } from '@/app/types/common';
+import { ChartData, ExtraReactProps } from '@/app/types/common';
 
 export interface BaseChartOptions {
     title: string;
@@ -15,7 +15,7 @@ export interface BaseChartOptions {
     };
 }
 
-export interface BaseChartProps {
+export interface BaseChartProps extends ExtraReactProps {
   chartDataRef: ChartData;
   options: BaseChartOptions;
 }

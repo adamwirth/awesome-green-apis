@@ -1,6 +1,9 @@
 import * as React from 'react';
+
 import { MarkdumbData } from '@/app/types/markdumb';
 import { Badge, Heading, ScrollView, Text, useTheme } from '@aws-amplify/ui-react';
+
+import { ExtraReactProps } from '../types/common';
 
 const badgeMap = Object.freeze({
     'rest': {
@@ -13,7 +16,7 @@ const badgeMap = Object.freeze({
     }
 } as const);
 
-interface TextPlotProps {
+interface TextPlotProps extends ExtraReactProps {
     data: Readonly<MarkdumbData>;
     options: {
         height: string;

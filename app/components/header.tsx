@@ -44,7 +44,6 @@ const Header = ({ onViewChange, currentView }: DashboardHeaderProps) => {
                             </Heading>
                             <AlphaBadge />
 
-
                             <View
                                 onClick={() => setShowInfo(' show')}
                                 onMouseEnter={() => setShowInfo(' show')}
@@ -117,7 +116,7 @@ const Header = ({ onViewChange, currentView }: DashboardHeaderProps) => {
                             rel="noopener noreferrer"
                             style={{
                                 display: 'flex',
-                                marginLeft: Number(tokens.space.xs)
+                                marginLeft: tokens.space.xs.toString()
                             }}
                         >
                             <GithubIcon fill={tokens.colors.background.quaternary.toString()} />

@@ -1,41 +1,22 @@
-"use client";
+import React from 'react';
 
-import { View, useTheme } from '@aws-amplify/ui-react';
-import dynamic from 'next/dynamic';
-
-import Loading from './loading';
 import { VisualizationType } from './header';
+import GridLayout from './grids/layout';
 
-const CScaleGrid = dynamic(
-  () => import('./grids/cscale'),
-  {
-    ssr: false,
-    loading: () => <Loading />,
-  }
-);
-
-// todo dynamic load triggered only after the default one has loaded
-const FirstStreetGrid = dynamic(
-  () => import('./grids/firststreet'),
-  {
-    ssr: false,
-    loading: () => <Loading />,
-  }
-);
+import CScaleGrid from './grids/cscale';
+import FirstStreetGrid from './grids/firststreet';
 
 interface ChartsProps {
   activeView: VisualizationType;
 }
 
 const Charts = ({ activeView = 'cscale' }: ChartsProps) => {
-  const { tokens } = useTheme();
+  const GridComponents = activeView === 'firststreet' ? FirstStreetGrid : CScaleGrid;
+  // todo idk about the method calling stuff, im being cute
+  const children = React.useMemo(() => GridComponents(), [activeView]);
+
   return (
-    <View padding={tokens.space.medium}>
-      {activeView === 'firststreet' && <FirstStreetGrid />}
-      {activeView === 'cscale' && <CScaleGrid />}
-      {/* Add other ones as I go */}
-      {/* {activeView === 'other' && <OtherGrid />} */}
-    </View>
+    <GridLayout children={children} />
   );
 };
 
