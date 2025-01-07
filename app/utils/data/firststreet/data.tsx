@@ -89,8 +89,7 @@ Response:
     }
   }
 }
-[more for heat, for wind...]
-      `,
+[more for heat, for wind...]`,
     size: 'm',
     type: 'code',
   },
