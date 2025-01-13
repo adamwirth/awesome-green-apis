@@ -7,6 +7,7 @@ import { ChartData } from "@/app/types/common";
 export const airFactor: ChartData<AirFactor> = {
   xAxis: 'fsid',
   yAxis: ['airFactor'],
+  chartDescription: 'The property\'s Air Factor, a numeric integer from 1-10 (where 1 = minimal and 10 = extreme) based on risk to the building.',
   data: async () => {
     const data = await import("./firststreet_air_factor_generated.json", {
       with: { type: "json" }
@@ -18,12 +19,14 @@ export const airFactor: ChartData<AirFactor> = {
 export const burnProbability: ChartData<BurnProbability> = {
   xAxis: 'relativeYear',
   yAxis: ['percent', 'emberPercent', 'flamePercent'],
+  chartDescription: 'Fire probability details for property, such as percent chance of burn for a given year, and flame/ember projections.',
   data: async () => import("./firststreet_burn_probability_generated.json", { with: { type: "json" } })
 };
 
 export const floodRisk: ChartData<FloodRisk> = {
   xAxis: 'relativeYear',
   yAxis: ['mid', 'yMaxMid'],
+  chartDescription: 'Risk likelihood (% probability) for flooding to the building footprint broken down by depth threshold and cumulative year.',
   data: async () => import("./firststreet_flood_risk_generated.json", { with: { type: "json" } })
 };
 

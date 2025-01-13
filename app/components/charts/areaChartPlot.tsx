@@ -47,7 +47,7 @@ class AreaChartPlot extends BaseChart<AreaChartProps> {
     );
 
     return (
-      <ResponsiveContainer width="100%" height={options?.height || 300}>
+      <ResponsiveContainer width="100%" height={270}>
         <AreaChart data={chartData}>
           <XAxis
             dataKey={String(chartDataRef.xAxis)}

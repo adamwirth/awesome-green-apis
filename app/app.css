@@ -48,3 +48,9 @@ pre.amplify-text {
   background-color: #ddd6fe;
   color: #5b21b6;
 }
+
+.chart-container {
+  padding: 1rem;
+  height: 100%;
+  width: 100%;
+}

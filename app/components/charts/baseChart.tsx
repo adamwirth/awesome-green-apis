@@ -1,11 +1,12 @@
 import * as React from 'react';
 import { ScaleType } from 'recharts/types/util/types';
-import { Heading } from '@aws-amplify/ui-react';
+import { Heading, Text } from '@aws-amplify/ui-react';
 
-import { ChartData, ExtraReactProps } from '@/app/types/common';
+import { ChartData, ChartDescription, ExtraReactProps } from '@/app/types/common';
 
 export interface BaseChartOptions {
     title: string;
+    chartDescription?: ChartDescription;
     height?: string | number;
     width?: string | number;
     colors?: string[]; // todo use
@@ -36,6 +37,7 @@ export abstract class BaseChart<P extends BaseChartProps> extends React.Componen
   async componentDidMount() {
     await this.loadData();
   }
+  
   protected async loadData() {
     try {
       const { chartDataRef } = this.props;
@@ -55,17 +57,22 @@ export abstract class BaseChart<P extends BaseChartProps> extends React.Componen
   abstract renderChart(): React.ReactNode;
 
   render() {
-    const { options } = this.props;
+    // todo extract title/desc to the same, higher place
+    const { options, chartDataRef } = this.props;
+    console.log(chartDataRef);
     const { error } = this.state;
+    const description = chartDataRef?.chartDescription;
 
+    // Defaults to 100%s in the css, don't repeat it here if unseen
     const containerStyle = {
-      height: options?.height || '100%',
-      width: options?.width || '100%',
+      height: options?.height || undefined,
+      width: options?.width || undefined,
     };
 
     return (
-      <div style={containerStyle}>
-                {this.customTitle(options)}
+      <div style={containerStyle} className="chart-container">
+        {this.customTitle(options)}
+        {this.customDescription(description)}
         {error ? (
           <div className="error-container">Error: {error.message}</div>
         ) : (
@@ -86,6 +93,17 @@ export abstract class BaseChart<P extends BaseChartProps> extends React.Componen
     if (!title) return null;
     return <Heading>{title}</Heading>;
   };
+  
+  
+  /**
+   * Render a description within the chart.
+   * @param props recharts props
+   * @returns text element to render
+   */
+  customDescription(description?: ChartDescription): React.ReactNode {
+    if (!description) return null;
+    return <Text>{description}</Text>;
+  }
   
   isDataReady(): this is BaseChart<P> & { state: { data: NonNullable<BaseChartState['data']> } } {
     return this.state.isFinishedLoading && Array.isArray(this.state.data);

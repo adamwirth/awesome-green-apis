@@ -2,12 +2,11 @@ import { airFactor, burnProbability, explanation, floodRisk } from "@/app/utils/
 import TextPlot from '../text';
 import { GridComponents } from './types';
 
-import AreaChartPlot from '../charts/areaChartPlot';
-import StackedBarChartPlot from '../charts/stackedBarChartPlot';
+import BarChartPlot from '../charts/barChartPlot';
 
 const FirstStreetGrid = (): GridComponents => {
   const mainChart = (
-    <StackedBarChartPlot
+    <BarChartPlot
       key={'firststreet-main-chart'}
       chartDataRef={burnProbability}
       options={{
@@ -25,7 +24,7 @@ const FirstStreetGrid = (): GridComponents => {
   );
   
   const secondaryChart = (
-    <AreaChartPlot
+    <BarChartPlot
       key={'firststreet-secondary-chart'}
       chartDataRef={airFactor}
       options={{
@@ -48,7 +47,7 @@ const FirstStreetGrid = (): GridComponents => {
   );
   
   const tertiaryChart = (
-    <AreaChartPlot
+    <BarChartPlot
       key={'firststreet-tertiary-chart'}
       chartDataRef={floodRisk}
       options={{

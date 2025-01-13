@@ -4,14 +4,15 @@ import { GridComponents } from './types';
 
 import AreaChartPlot from '../charts/areaChartPlot';
 import PieChartPlot from '../charts/pieChartPlot';
-import StackedBarChartPlot from '../charts/stackedBarChartPlot';
+import BarChartPlot from '../charts/barChartPlot';
 import TextPlot from '../text';
 
 const CScaleGrid = (): GridComponents => {
   const mainChart = (
-    <StackedBarChartPlot
+    <BarChartPlot
       key={'cscale-main-chart'}
       chartDataRef={carbon}
+      stack={true}
       options={{
         title: 'Carbon Data (kgCO2e/m2)',
       }}

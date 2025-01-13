@@ -3,6 +3,8 @@ export type YAxisTuple<T> =
     | [AxisKey<T>] 
     | [AxisKey<T>, AxisKey<T>] 
     | [AxisKey<T>, AxisKey<T>, AxisKey<T>];
+    
+export type ChartDescription = string;
 
 /**
  * @description One xAxis, sometimes several yAxises(sp?).
@@ -12,6 +14,7 @@ export type YAxisTuple<T> =
 export interface ChartData<T = any> {
     xAxis: keyof T;
     yAxis: YAxisTuple<T>;
+    chartDescription?: ChartDescription;
     data: () => Promise<{ default: Array<T> }>;
 }
 

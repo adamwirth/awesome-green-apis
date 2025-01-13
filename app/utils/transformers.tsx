@@ -52,6 +52,7 @@ export function transformCountsToArray(
  * @param data Array of data items
  * @param chartDataRef Chart configuration
  * @returns Array of aggregated data points
+ * @todo remove all these calculators and just have the data done, especially any reductions
  */
 export function aggregateDataByYear<T extends DataItem>(
     data: T[],

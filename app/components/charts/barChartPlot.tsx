@@ -1,58 +1,89 @@
-import { Bar, BarChart, Legend, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
+import { BaseChart, BaseChartProps } from './baseChart';
+import {
+    Bar,
+    BarChart as BC,
+    Label,
+    Legend,
+    ResponsiveContainer,
+    Tooltip,
+    XAxis,
+    YAxis
+} from 'recharts';
+import { getMetricColor, CHART_COLORS } from '@/app/utils/constants/colors';
+import { aggregateDataByYear } from '@/app/utils/transformers';
 
-const BarChartPlot = () => {
-    const data = [
-        {
-            name: "Jan",
-            high: 4000,
-            low: 2400
-        },
-        {
-            name: "Feb",
-            high: 5000,
-            low: 1500
-        },
-        {
-            name: "Mar",
-            high: 6000,
-            low: 3000
-        },
-        {
-            name: "Apr",
-            high: 6500,
-            low: 4500
-        },
-        {
-            name: "May",
-            high: 7000,
-            low: 2200
-        },
-        {
-            name: "Jun",
-            high: 8000,
-            low: 3500
-        },
-        {
-            name: "Jul",
-            high: 7400,
-            low: 5500
-        },
-    ];
+type BarChartProps = BaseChartProps & {
+    stack?: boolean;
+};
 
-    return (
-        <>
-            <ResponsiveContainer width="100%" height="100%" >
-                <BarChart width={730} height={250} data={data} >
-                    <XAxis dataKey="name" />
-                    <YAxis />
-                    < Tooltip />
+class BarChart extends BaseChart<BarChartProps> {
+
+    // todo keep this in sync with the first page that loads in some better way that'll compile in
+    static DEFAULT_STACKED_BAR_CHART_POINTS = 14;
+
+    renderChart() {
+        const { data, isFinishedLoading } = this.state;
+        const { chartDataRef } = this.props;
+
+        // Ensure we're working with an array
+        const chartData = this.isDataReady()
+            ? data!
+            : this.createEmptyDataPoints();
+
+        // Aggregate data by year
+        // todo pass by reference or whatever the term is to not make somethin new
+        // todo but also just remove these
+        const processedData = aggregateDataByYear(
+            chartData,
+            chartDataRef
+        );
+
+        return (
+            <ResponsiveContainer width="100%" height={270}>
+                <BC data={processedData}>
+                    <XAxis
+                        dataKey={String(chartDataRef.xAxis)}
+                    // label={{ value: chartDataRef.xAxis, position: 'insideBottom' }}
+                    />
+                    <YAxis>
+                        <Label value="Values" angle={-90} position="insideLeft" />
+                    </YAxis>
+                    <Tooltip />
                     <Legend />
-                    < Bar dataKey="high" fill="#82ca9d" />
-                    <Bar dataKey="low" fill="#FA8072" />
-                </BarChart>
+
+                    {chartDataRef.yAxis.map((metric: string | number | symbol, index: number) => (
+                        <Bar
+                            key={String(metric)}
+                            dataKey={String(metric)}
+                            name={String(metric)}
+                            stackId={this.props.stack ? "stack" : undefined}
+                            fill={getMetricColor(index)}
+                            fillOpacity={CHART_COLORS.OPACITY.FILL}
+                            animationDuration={isFinishedLoading ? 1500 : 0}
+                        />
+                    ))}
+                </BC>
             </ResponsiveContainer>
-        </>
-    );
+        );
+    }
+
+    private createEmptyDataPoints(): Array<{ [key: string]: string | number }> {
+        // todo generalize these mthods and have them become passed in as defaults per company package
+        const { chartDataRef } = this.props;
+        const defaultPoints = Array(BarChart.DEFAULT_STACKED_BAR_CHART_POINTS).fill(0).map((_, i) => i + 1);
+
+        return defaultPoints.map(point => {
+            const dataPoint: { [key: string]: string | number } = {
+                [chartDataRef.xAxis]: `Point ${point}`
+            };
+
+            chartDataRef.yAxis.forEach(metric => {
+                dataPoint[String(metric)] = 0;
+            });
+
+            return dataPoint;
+        });
+    }
 }
 
-export default BarChartPlot;
+export default BarChart;
