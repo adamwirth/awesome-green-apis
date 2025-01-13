@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { Card, Grid, View, useTheme } from '@aws-amplify/ui-react';
 import { GridComponents } from './types';
 
@@ -33,15 +33,9 @@ const GridLayout = ({ children }: { children: GridComponents }) => {
         marginBottom={tokens.space.medium}
       >
         {gridComponents.map((item, index: number) => (
-          <View
-            // Need a key in this wrapping element, but didn't want to make a truly new one
-            key={((item.component as any).key as string) + index}
-            {...item.gridProps}
-          >
-            <Card height="100%" borderRadius={tokens.radii.medium}>
-              {item.component}
-            </Card>
-          </View>
+          <Card key={index} {...item.gridProps}>
+            {item.component}
+          </Card>
         ))}
       </Grid>
     </View>

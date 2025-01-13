@@ -8,12 +8,12 @@
  */
 
 interface MarkdumbElementCommon {
-    type: string;
+    type: 'code' | 'h1' | 'p' | 'badge'; // Union of all possible types
 }
 
 export type MarkdumbTextElement = MarkdumbElementCommon & {
     content: string;
-    size: 'xxl' | 'xl' | 'l' | 'm'
+    size: 'xxl' | 'xl' | 'l' | 'm';
     type: 'code' | 'h1' | 'p';
 }
 

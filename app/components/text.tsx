@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { MarkdumbData } from '@/app/types/markdumb';
+import { MarkdumbData, MarkdumbElement } from '@/app/types/markdumb';
 import { Badge, Heading, ScrollView, Text, useTheme } from '@aws-amplify/ui-react';
 
 import { ExtraReactProps } from '../types/common';
@@ -31,7 +31,7 @@ const TextPlot = ({ data, options }: TextPlotProps) => {
         padding: `${tokens.space.small} 0`,
     }), [tokens.fontSizes, tokens.space.small]);
 
-    const builders = React.useMemo(() => ({
+    const builders = Object.freeze({
         h1: (element: { type: 'h1', content: string, size: string }, index: number) => (
             <Heading
                 key={index}
@@ -72,25 +72,23 @@ const TextPlot = ({ data, options }: TextPlotProps) => {
                 </Badge>
             );
         }
-    }), [tokens, options.height, getTextProps]);
+    });
 
-    const renderElement = React.useCallback(
-        (element: MarkdumbData[number], index: number) => {
-            const builder = builders[element.type];
-            if (builder) {
-                return builder(element as any, index);
-            }
-            if ('content' in element) {
-                return (
-                    <Text key={index} {...getTextProps(element)}>
-                        {element.content}
-                    </Text>
-                );
-            }
-            return null;
-        },
-        [builders, getTextProps]
-    );
+    const renderElement = (element: MarkdumbData[number], index: number) => {
+        const builder = builders[element.type];
+        if (builder) {
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            return builder(element as any, index);
+        }
+        if ('content' in element) {
+            return (
+                <Text key={index} {...getTextProps(element)}>
+                    {element.content}
+                </Text>
+            );
+        }
+        return null;
+    }
 
     if (!data.length) return <div>No data available to render text.</div>;
 

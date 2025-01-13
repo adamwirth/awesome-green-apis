@@ -10,9 +10,9 @@ import {
   YAxis
 } from 'recharts';
 import { getMetricColor, CHART_COLORS } from '@/app/utils/constants/colors';
+import { aggregateDataByYear } from '@/app/utils/transformers';
 
 import { BaseChart, BaseChartProps } from './baseChart';
-import { aggregateDataByYear } from '@/app/utils/transformers';
 
 type AreaChartProps = BaseChartProps & { YAxisScale?: ScaleOrdinal<number, string>; };
 

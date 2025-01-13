@@ -13,7 +13,7 @@ interface ChartsProps {
 const Charts = ({ activeView = 'cscale' }: ChartsProps) => {
   const GridComponents = activeView === 'firststreet' ? FirstStreetGrid : CScaleGrid;
   // todo idk about the method calling stuff, im being cute
-  const children = React.useMemo(() => GridComponents(), [activeView]);
+  const children = React.useMemo(() => GridComponents(), [activeView, GridComponents]);
 
   return (
     <GridLayout children={children} />
