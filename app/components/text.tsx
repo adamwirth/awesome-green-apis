@@ -1,6 +1,6 @@
-import * as React from 'react';
+import { useCallback } from 'react';
 
-import { MarkdumbData, MarkdumbElement } from '@/app/types/markdumb';
+import { MarkdumbData } from '@/app/types/markdumb';
 import { Badge, Heading, ScrollView, Text, useTheme } from '@aws-amplify/ui-react';
 
 import { ExtraReactProps } from '../types/common';
@@ -26,7 +26,7 @@ interface TextPlotProps extends ExtraReactProps {
 const TextPlot = ({ data, options }: TextPlotProps) => {
     const { tokens } = useTheme();
 
-    const getTextProps = React.useCallback((element: { size: string }) => ({
+    const getTextProps = useCallback((element: { size: string }) => ({
         fontSize: tokens.fontSizes[element.size],
         padding: `${tokens.space.small} 0`,
     }), [tokens.fontSizes, tokens.space.small]);

@@ -1,4 +1,4 @@
-import * as React from "react";
+import { useState } from "react";
 import {
   ColorMode,
   defaultDarkModeOverride,
@@ -16,7 +16,7 @@ export const DefaultDarkMode = ({ children, ...props }:
   React.PropsWithChildren<React.HTMLAttributes<HTMLDivElement>>
 ) => {
   // Set default to dark mode, rather than "system"
-  const [colorMode, setColorMode] = React.useState<ColorMode>("dark");
+  const [colorMode, setColorMode] = useState<ColorMode>("dark");
 
   const theme = {
     name: "default-theme",

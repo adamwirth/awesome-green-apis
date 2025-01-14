@@ -59,7 +59,6 @@ export abstract class BaseChart<P extends BaseChartProps> extends React.Componen
   render() {
     // todo extract title/desc to the same, higher place
     const { options, chartDataRef } = this.props;
-    console.log(chartDataRef);
     const { error } = this.state;
     const description = chartDataRef?.chartDescription;
 
