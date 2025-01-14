@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { createContext, useState } from "react";
 import {
   ColorMode,
   defaultDarkModeOverride,
@@ -6,7 +6,7 @@ import {
 } from "@aws-amplify/ui-react";
 
 // Create a context to share the color mode state
-export const ColorModeContext = React.createContext({
+export const ColorModeContext = createContext({
   colorMode: 'system' as ColorMode,
   setColorMode: (_: ColorMode) => { }
 });
