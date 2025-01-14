@@ -1,4 +1,4 @@
-import React from 'react';
+import { ReactNode } from 'react';
 import { Card, Grid, View, useTheme } from '@aws-amplify/ui-react';
 import { GridComponents } from './types';
 
@@ -23,7 +23,7 @@ const GridLayout = ({ children }: { children: GridComponents }) => {
     { component: tertiaryChart, gridProps: { columnStart: 1, columnEnd: 2, rowStart: 3, rowEnd: 4 } }
   ];
 
-  const gridWrap = (children: React.ReactNode) => (<View padding={tokens.space.medium}>
+  const gridWrap = (children: ReactNode) => (<View padding={tokens.space.medium}>
     <Grid
       templateColumns={{ base: '5fr 4fr' }}
       templateRows={{
