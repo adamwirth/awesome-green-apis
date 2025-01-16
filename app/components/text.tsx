@@ -81,8 +81,9 @@ const TextPlot = ({ data, options }: TextPlotProps) => {
             return builder(element as any, index);
         }
         if ('content' in element) {
-            return (
-                <Text key={index} {...getTextProps(element)}>
+            return (           
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                <Text key={index} {...getTextProps(element as any)}>
                     {element.content}
                 </Text>
             );

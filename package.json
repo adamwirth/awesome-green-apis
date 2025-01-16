@@ -1,9 +1,9 @@
 {
   "name": "awesome_green_apis",
   "description": "Showing off cool green APIs of different companies",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
@@ -31,19 +31,16 @@
     "tsx": "^4.19.0",
     "typescript": "^5.6.3"
   },
-  "repository": {
-    "url": "github:adamwirth/awesome-green-apis",
-    "type": "GitHub"
-  },
   "homepage": "https://github.com/adamwirth/awesome-green-apis#readme",
   "bugs": {
     "url": "https://github.com/adamwirth/awesome-green-apis/issues"
   },
+  "license": "MIT",
+  "repository": "github:adamwirth/awesome-green-apis",
   "author": {
     "name": "Adam Wirth",
     "url": "https://adamowirth.com",
     "email": "aow991@proton.me"
   },
-  "private": true,
-  "license": "MIT"
+  "private": true
 }
