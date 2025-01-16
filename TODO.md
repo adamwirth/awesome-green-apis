@@ -2,6 +2,7 @@
 # TODO List
 
 * Have new company header buttons not shuffle around on load briefly
+* Fix children rendering/passing as props override for React grid
 * Experiment with generating data for some charts rather than go loading it from some json; might be faster.
 * Make charts generic
   [x] Add metadata like "xaxis", "yaxis" to datasets to have them be able to slot in without editing chart code
