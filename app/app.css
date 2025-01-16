@@ -7,7 +7,7 @@ pre.amplify-text {
   font-family: 'Courier New', Courier, monospace;
   white-space: pre-wrap;
   text-overflow: ellipsis;
-  padding: 1em;
+  padding: 1rem;
 }
 
 .info-message {
@@ -53,4 +53,8 @@ pre.amplify-text {
   padding: 1rem;
   height: 100%;
   width: 100%;
+}
+
+.amplify-grid > .amplify-card {
+  border-radius: 0.75rem;
 }
