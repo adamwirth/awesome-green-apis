@@ -1,5 +1,15 @@
-import { Card, ColorMode, Flex, Grid, Heading, Message, ToggleButton, ToggleButtonGroup, useTheme, View } from '@aws-amplify/ui-react';
-import { useContext, useState } from 'react';
+import { Card } from '@aws-amplify/ui-react';
+import { ColorMode } from '@aws-amplify/ui-react';
+import { Flex } from '@aws-amplify/ui-react';
+import { Grid } from '@aws-amplify/ui-react';
+import { Heading } from '@aws-amplify/ui-react';
+import { Message } from '@aws-amplify/ui-react';
+import { ToggleButton } from '@aws-amplify/ui-react';
+import { ToggleButtonGroup } from '@aws-amplify/ui-react';
+import { useTheme } from '@aws-amplify/ui-react';
+import { View } from '@aws-amplify/ui-react';
+import { useContext } from 'react';
+import { useState } from 'react';
 
 import { ColorModeContext } from '../dark_mode';
 import { AlphaBadge } from '../utils/constants/badges';
