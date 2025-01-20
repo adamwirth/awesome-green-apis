@@ -9,7 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@aws-amplify/ui-react": ">=6.5.5",
+    "@aws-amplify/ui-react": "^6.5.5",
     "aws-amplify": ">=6.6.6",
     "next": ">=14.2.15",
     "react": "^18",
@@ -28,7 +28,7 @@
     "typescript": "^5.6.3"
   },
   "engines": {
-    "node": ">=18.19.0"
+    "node": "^18.19.0"
   },
   "homepage": "https://github.com/adamwirth/awesome-green-apis#readme",
   "bugs": {
